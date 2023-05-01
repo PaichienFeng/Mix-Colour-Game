@@ -1,5 +1,6 @@
 body {
     font-family: "Roboto","Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
 }
 
 .section1{
@@ -11,11 +12,16 @@ body {
 }
 
 .imgContainer img{
-    width: 500px;
+    width: 600px;
+    height: 400px;
+    border-style: hidden;
+    border-radius: 10px;
 }
 .target{
-    width: 300px;
-    height: 300px;
+    width: 50%;
+    height: 200px;
+    border-style: hidden;
+    border-radius: 10px;
 }
 
 .target p {
@@ -23,15 +29,21 @@ body {
 }
 
 .yourMix{
-    width: 300px;
-    height: 300px;
+    width: 50%;
+    height: 200px;
+    border-style: hidden;
+    border-radius: 10px;
 }
 
 .yourMix p{
     display: inline-block;
-    background-color: rgb(10,10,10);
-    background-color: rgb(100,100,100);
-    background-color: rgb(55,55,55);
+}
 
+.userChoice{
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border-style: hidden;
+    border-radius: 100px;
 }
 
