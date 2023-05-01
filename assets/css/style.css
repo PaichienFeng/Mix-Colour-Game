@@ -1,0 +1,33 @@
+body {
+    font-family: "Roboto","Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.section1{
+    display: none;
+}
+
+.section2 {
+    display: none;
+}
+
+.imgContainer img{
+    width: 500px;
+}
+.target{
+    width: 500px;
+    height: 500px;
+}
+
+.target p {
+    display: inline-block;
+}
+
+.yourMix{
+    width: 500px;
+    height: 500px;
+}
+
+.yourMix p{
+    display: inline-block;
+}
+
