@@ -32,6 +32,7 @@ function generatePhoto(){
       const imageEL = document.createElement('img');
       imageEL.setAttribute('src', photoUrl);
       imgContainer.append(imageEL);
+      creditLineEl.textContent= 'Photo by '+ photo.photographer + ' on Pexels';
 
       createDominantColor(photoUrl);})
     .catch(error => console.error(error));
@@ -114,18 +115,19 @@ function generateRandomChoice(r,g,b){
     userChoiceEl[i].style.backgroundColor = randomColors[i];
    }
 
-   userChoiceContainer.addEventListener('click', renderUserChoice(e, ))
+   userChoiceContainer.addEventListener('click', function(e){
+    
+    if(!e.target.classList.contains('userChoiceEl')){
+        return;
+    }else if(e.target.style.backgroundColor===randomColors[index1]||randomColors[index2]){
+        e.target.textContent='v'
+    }
+   })
 
    console.log(randomColors[index1], randomColors[index2], r,g,b);
 
 }
 
-function renderUserChoice(e){
-    if (e.target!==userChoiceEl){
-        return
-    }else if (e.target===)
-
-}
 
 function getRandomColor(){
 
