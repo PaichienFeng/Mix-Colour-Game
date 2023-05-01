@@ -67,33 +67,44 @@ function playGame(){
 
         targetColourEl.style.backgroundColor = dominantRGB;
 
+        let randomColors = [
+            getRandomColor(),
+            getRandomColor(),
+            getRandomColor(),
+            getRandomColor(),
+          ];
+        
+          
+          for (let i = 0; i < userChoiceEl.length; i++) {
+          userChoiceEl[i].style.backgroundColor = randomColors[i];
+         }
+        
+         
+         const index1= Math.floor(Math.random()*4);
+         let index2 = math.floor(Math.random()*4);
+        
+         while (index1===index2) {
+            index2 = math.floor(Math.random()*4);    
+         }
+        
+         const r2 = r*2;
+         const g2 = g*2;
+         const b2 = b*2;
+
+         const randomColorsR = r2-getRandomInt(r2.length);
+         const randomColorsG = g2-getRandomInt(g2.length);
+         const randomColorsB = b2-getRandomInt(b2.length);
+
+         randomColors[index1] = 'rgb('+randomColorsR+','+randomColorsG+','+randomColorsB+')';
+         randomColors[index2] = 'rgb('+ r2-randomColorsR+g2-randomColorsG+b2-randomColorsB+')';
+         
+
     })
     .catch(error => console.error(error));
 })
 .catch(error => console.error(error));
 
-let colors = [
-    getRandomColor(),
-    getRandomColor(),
-    getRandomColor(),
-    getRandomColor(),
-  ];
 
-  
-  for (let i = 0; i < userChoiceEl.length; i++) {
-  userChoiceEl[i].style.backgroundColor = colors[i];
- }
-
- 
- const index1= Math.floor(Math.random()*4);
- let index2 = math.floor(Math.random()*4);
-
- while (index1===index2) {
-    index2 = math.floor(Math.random()*4);    
- }
-
- colors[index1] = `rgb(${r}*2-${getRandomInt(256)})`
- console.log(colors[index1]);
 
 
 
