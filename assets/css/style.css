@@ -14,8 +14,8 @@ body {
     width: 500px;
 }
 .target{
-    width: 500px;
-    height: 500px;
+    width: 300px;
+    height: 300px;
 }
 
 .target p {
@@ -23,11 +23,15 @@ body {
 }
 
 .yourMix{
-    width: 500px;
-    height: 500px;
+    width: 300px;
+    height: 300px;
 }
 
 .yourMix p{
     display: inline-block;
+    background-color: rgb(10,10,10);
+    background-color: rgb(100,100,100);
+    background-color: rgb(55,55,55);
+
 }
 

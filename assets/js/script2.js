@@ -66,14 +66,44 @@ function playGame(){
         const dominantRGB= `rgb(${r},${g},${b})`
 
         targetColourEl.style.backgroundColor = dominantRGB;
-        
 
     })
     .catch(error => console.error(error));
 })
 .catch(error => console.error(error));
 
+let colors = [
+    getRandomColor(),
+    getRandomColor(),
+    getRandomColor(),
+    getRandomColor(),
+  ];
+
+  
+  for (let i = 0; i < userChoiceEl.length; i++) {
+  userChoiceEl[i].style.backgroundColor = colors[i];
+ }
+
+ 
+ const index1= Math.floor(Math.random()*4);
+ let index2 = math.floor(Math.random()*4);
+
+ while (index1===index2) {
+    index2 = math.floor(Math.random()*4);    
+ }
+
+ colors[index1] = `rgb(${r}*2-${getRandomInt(256)})`
+ console.log(colors[index1]);
+
+
+
 }
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * (max + 1));
+}
+
+
 
 
 
