@@ -19,7 +19,7 @@
         <button class="startBtn">Start</button>
     </div>
 
-    <div class="section1">
+    <div class="section1">  
         <div class="imgContainer">
            
         </div>
@@ -34,6 +34,11 @@
             <div class="target col l6">
                 <p>Target</p>
             </div>
+            <!-- adding score div -->
+            <div>
+                <p> <span id="current-score"></span> </p>
+            </div>
+
         </div>
 
         <div>
@@ -42,6 +47,28 @@
             <div class="userChoice"></div>
             <div class="userChoice"></div>
         </div>
+    </div>
+
+    <!-- game over section -->
+    <div id="game-over">
+        <h1>All Done!</h1> <!-- need more js from another section to complete -->
+        <h2>Your Score:    <span id="final-score"></span></h2>
+        <!-- form will take user initials input an match it with their high score in the script -->
+        <form id="high-score-form">
+          <label for="initials">Enter your initials here:</label>
+          <input type="text" id="initials" name="initials" required minlength="2" maxlength="3">
+          <button type="submit" id="submit-button">Submit</button>
+        </form>
+      </div>
+
+    <!-- high score section -->
+    <div id="high-score">
+      <h2>High Scores</h2>
+      <ol id="high-scores-list"></ol>
+      <div>
+        <button type="click" id="play-again-button">Play Again</button>
+        <button type="click" id="clear-scores">Clear Scores</button>
+      </div>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

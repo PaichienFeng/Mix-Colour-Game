@@ -9,14 +9,24 @@ const startBtn = document.querySelector('.startBtn');
 const section1El = document.querySelector('.section1');
 const section2El = document.querySelector('.section2');
 
+//my global
+const highScoresListEl = document.getElementById('high-score-list');
+
 const randomPage = Math.floor(Math.random() * 100) + 1;
 const pexelsURL = `https://api.pexels.com/v1/search?query=landscape&orientation=landscape&per_page=1&page=${randomPage}`;
 
+let score = 0;
+
+
 
 function playGame(){
+    
     startBtn.style.display='none';
     section1El.style.display='block';
     section2El.style.display='block';
+
+    
+
     
     fetch(pexelsURL, {
       headers: {
@@ -72,6 +82,82 @@ function playGame(){
 })
 .catch(error => console.error(error));
 
+// me
+
+//need a target event to make the score++ and a for loop
+//creating score related functions which will apply later on in the code
+
+let scoreEl = document.getElementById('current-score')
+
+function setScore(score) {
+  scoreEl.textContent = `Score: ${score}`;
+}
+
+highScoreForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+
+  showHighScores();
+  
+
+  const initialsInput = document.getElementById("initials");
+  
+  //sets initials to uppercase
+  const initials = initialsInput.value.toUpperCase();
+  //will only proceed if the rule is followed
+  if (initials.length < 2 || initials.length > 3) {
+  //alerts the user how to advance
+  alert("Please enter 2 or 3 characters for your initials.");
+  //checks if criteria is correct
+  return;
+  }
+  const highScore = { initials: initials, score: score };
+  addHighScore(highScore);
+  //sets value to blank
+  initialsInput.value = "";
+});
+
+function addHighScore(highScore) {
+let highScores = getHighScores();
+//allow highest highScores to display
+highScores.push(highScore);
+highScores.sort(function(a, b) {
+return b.score - a.score;
+});
+//allows only 3 highScores to display
+highScores = highScores.slice(0, 3);
+localStorage.setItem("highScores", JSON.stringify(highScores));
+showHighScores(highScores);
+}
+//getting high scores value from local storage
+function getHighScores() {
+let highScores = localStorage.getItem("highScores");
+if (highScores) {
+return JSON.parse(highScores);
+} else {
+return [];
+}
+}
+
+function showHighScores(highScores) {
+  highScoresListEl.innerHTML = "";
+  for (let i = 0; i < highScores.length; i++) {
+    const li = document.createElement("li");
+  //creating span element to textContent both initials and highScore
+    const initialsSpan = document.createElement("span");
+    initialsSpan.classList.add("initials");
+    initialsSpan.textContent = highScores[i].initials;
+    const scoreSpan = document.createElement("span");
+    scoreSpan.classList.add("score");
+    scoreSpan.textContent = highScores[i].score;
+    li.appendChild(initialsSpan); 
+    li.appendChild(scoreSpan);
+    highScoresList.appendChild(li);
+  }
+}
+
+//
+
 let colors = [
     getRandomColor(),
     getRandomColor(),
@@ -108,3 +194,4 @@ function getRandomInt(max) {
 
 
 startBtn.addEventListener('click', playGame)
+
