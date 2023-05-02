@@ -1,7 +1,8 @@
 body {
     font-family: "Roboto","Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-align: center;
-    background-color: rgb(255,255,255,0.25)
+    background-color: rgb(68, 70, 84);
+    color: white;
 }
 
 .section1{
@@ -27,7 +28,7 @@ body {
     border-radius: 10px;
 }
 .target{
-    width: 50%;
+    width: 400px;
     height: 300px;
     border-style: hidden;
     border-radius: 10px;
@@ -38,11 +39,11 @@ body {
 }
 
 .yourMix{
-    width: 50%;
+    width: 400px;
     height: 300px;
     border-style: hidden;
     border-radius: 10px;
-    background-color: rgba(255, 238, 238, 0.25);
+    background-color: rgb(255, 123, 123);
     
 }
 
@@ -57,7 +58,18 @@ body {
     border-style: hidden;
     border-radius: 100px;
     cursor: pointer;
-   
+}
+
+.greatMix{
+    display: none;
+    width: 800px;
+    height: 300px;
+    border-style: hidden;
+    border-radius: 10px;
 
 }
 
+.colorContainer{
+    display: flex;
+    justify-content: center;
+}

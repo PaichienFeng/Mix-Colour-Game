@@ -3,7 +3,7 @@ const apiKeyPexels = 'eQmcoa0bs5xZRI97pNTcEXQPqckk3bqAMcYkgIHiULTWD7GeBJz1O15f';
 const imgContainer = document.querySelector('.imgContainer');
 const creditLineEl = document.querySelector('.creditLine');
 const homeEL = document.querySelector('.home');
-const highScore = document.querySelector('.highScore')
+const highScoreEL = document.querySelector('.highScore')
 const yourMixEl = document.querySelector('.yourMix');
 const targetColourEl = document.querySelector('.target');
 const userChoiceEl = document.querySelectorAll('.userChoice');
@@ -12,6 +12,10 @@ const startBtn = document.querySelector('.startBtn');
 const section1El = document.querySelector('.section1');
 const section2El = document.querySelector('.section2');
 const colorContainer = document.querySelector('.colorContainer');
+const greatMix =document.querySelector('.greatMix');
+const photoImg = document.querySelector('.photoImg');
+const yesno = document.querySelector('.yesno');
+
 
 const randomPage = Math.floor(Math.random() * 100) + 1;
 const pexelsURL = `https://api.pexels.com/v1/search?query=landscape&orientation=landscape&per_page=1&page=${randomPage}`;
@@ -22,7 +26,7 @@ function generatePhoto(){
     section1El.style.display='block';
     section2El.style.display='block';
     homeEL.style.display='inline-block';
-    highScore.style.display='inline-block';
+    highScoreEL.style.display='inline-block';
     
     fetch(pexelsURL, {
       headers: {
@@ -36,6 +40,7 @@ function generatePhoto(){
       
       const imageEL = document.createElement('img');
       imageEL.setAttribute('src', photoUrl);
+      imageEL.classList.add('photoImg');
       imgContainer.append(imageEL);
       creditLineEl.textContent= 'Photo by '+ photo.photographer + ' on Pexels';
 
@@ -149,19 +154,21 @@ function generateRandomChoice(r,g,b){
         selectedCount++
         console.log(selectedCount)
     }
-    
+    const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(selectedCount===2){
         yourMixEl.style.display='none';
         targetColourEl.style.display='none';
-        const greatMix =document.createElement('div');
+        imgContainer.children[0].style.display='none';
+        greatMix.style.display='block';
         greatMix.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
-        greatMix.style.width = '800px';
-        greatMix.style.height='300px';
-        greatMix.style.borderStyle='hidden';
-        greatMix.style.borderRadius='10px';
-        colorContainer.append(greatMix);
-        colorContainer.style.display='text-align: center';
-        
+        fetch(gifyesUrl)
+            .then(response => response.json())
+            .then(data => {
+                const img = document.createElement('img');
+                img.setAttribute('class', 'yesno');
+                img.src = data.image;
+                imgContainer.append(img);
+              }).catch(error => console.error(error))    
     }
    })
 
