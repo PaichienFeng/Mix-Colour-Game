@@ -1,32 +1,31 @@
- const apiKeyGoogle = 'AIzaSyCJQFU6dWV2tmO-TLWfMaMllqWrovdakNI';
- const apiKeyPexels = 'eQmcoa0bs5xZRI97pNTcEXQPqckk3bqAMcYkgIHiULTWD7GeBJz1O15f';
- const imageEL = document.querySelector('.image');
- const creditLineEl = document.querySelector('.creditLine');
- const yourMixEl = document.querySelector('.yourMix');
- const targetColourEl = document.querySelector('.target');
- const userChoiceEl = document.querySelector('.userChoice');
- const startBtn = document.querySelector('.startBtn');
- const section1El = document.querySelector('.section1');
- const section2El = document.querySelector('.section2');
+function renderUserChoice(e, randomColors, index1, index2){
+  if (e.target!==userChoiceEl){
+      return
+  }else if (e.target===randomColors[index1]||randomColors[index2]){
+      
+  }
 
- import { createClient } from 'pexels';
+}
 
- const client = createClient(apiKeyPexels);
- 
- function playGame(){
-   startBtn.style.display='none';
-   section1El.style.display='block';
-   section2El.style.display='block';
- 
-   client.photos.curated({ per_page: 1, orientation: 'landscape' })
-     .then(function(data){
-       console.log(data);
-     })
-     .catch(function (error) {
-       alert('Unable to connect to Pexels');
-     });
+
+while (randomColorsR1>255) {
+  randomColorsR1 = r2-getRandomInt(r2);
+ }
+ while (randomColorsG1>255) {
+  randomColorsG1 = g2-getRandomInt(g2);
+ }
+ while (randomColorsB1>255) {
+  randomColorsB1 = b2-getRandomInt(b2); 
  }
 
-
-
-startBtn.addEventListener('click', playGame)
+// make sure 
+ while (r>127 && getRandomInt(r2)<(r-(255-r))) {
+  randomColorsR1 = r2-getRandomInt(r2);
+  
+ }
+ while (g>127 && getRandomInt(g2)<(g-(255-g))) {
+  randomColorsG1 = g2-getRandomInt(g2);
+ }
+ while (b>127 && getRandomInt(b2)<(b-(255-b))) {
+  randomColorsB1 = b2-getRandomInt(b2); 
+ }
