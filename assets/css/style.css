@@ -1,8 +1,17 @@
 body {
-    font-family: "Roboto","Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Ubuntu', sans-serif,'Roboto';
     text-align: center;
     background-color: rgb(68, 70, 84);
     color: white;
+}
+
+header h3{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+header h5{
+    margin-top: 5px;
 }
 
 .section1{
@@ -15,10 +24,20 @@ body {
 
 .home{
     display: none;
+    background-color: rgb(255,123,123);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .highScore{
     display: none;
+    background-color: rgb(255,123,123);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .imgContainer{
@@ -32,6 +51,14 @@ body {
     border-radius: 10px;
 }
 
+.imgContainer a{
+    background-color: aliceblue;
+    padding: 2px;
+    border-radius: 10px;
+    height: 25px;
+    font-weight: 450;
+}
+
 .creditLine{
     position: absolute;
     bottom: 10px;
@@ -39,6 +66,9 @@ body {
 }
 
 .target{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 400px;
     height: 300px;
     border-style: hidden;
@@ -46,10 +76,13 @@ body {
 }
 
 .target p {
-    display: inline-block;
+    font-size: 30px;
 }
 
 .yourMix{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 400px;
     height: 300px;
     border-style: hidden;
@@ -59,12 +92,13 @@ body {
 }
 
 .yourMix p{
-    display: inline-block;
+    font-size: 30px;
+
 }
 
 .userChoice{
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     border-style: hidden;
     border-radius: 50%;
     cursor: pointer;
@@ -83,6 +117,10 @@ body {
     height: 300px;
     border-style: hidden;
     border-radius: 10px;
+}
+
+.greatMix p{
+    font-size: 30px;
 }
 
 .colorContainer{
@@ -109,3 +147,4 @@ body {
     background-color: rgb(51, 123, 123);
     box-shadow: 0 0 50px;
 }
+

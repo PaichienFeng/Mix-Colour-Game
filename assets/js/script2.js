@@ -146,8 +146,9 @@ function generateRandomChoice(r,g,b){
    }
 
    let selectedCount= 0
+   const gifnoUrl='https://yesno.wtf/api?force=no';
    userChoiceContainer.addEventListener('click', function(e){
-    
+
     if(!e.target.classList.contains('userChoice')){
         return;
     }else if(getComputedStyle(e.target).backgroundColor===randomColors[index1]||getComputedStyle(e.target).backgroundColor===randomColors[index2]){
@@ -155,24 +156,46 @@ function generateRandomChoice(r,g,b){
         yourMixEl.style.backgroundColor=getComputedStyle(e.target).backgroundColor;
         selectedCount++
         console.log(selectedCount)
-    }
+    }else if(!(getComputedStyle(e.target).backgroundColor===randomColors[index1])||!(getComputedStyle(e.target).backgroundColor===randomColors[index2])){
+        e.target.textContent='X';
+        yourMixEl.style.backgroundColor=getComputedStyle(e.target).backgroundColor;
+        imgContainer.children[1].style.display='none';
+        creditLineEl.style.display='none';
+        fetch(gifnoUrl)
+        .then(response => response.json())
+        .then(data => {
+            const img = document.createElement('img');
+            img.setAttribute('class', 'yesno');
+            img.src = data.image;
+            imgContainer.append(img);
+          })
+        .catch(error => console.error(error));
 
+        nextRound();
+    };
+
+    
     const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(selectedCount===2){
         yourMixEl.style.display='none';
         targetColourEl.style.display='none';
         imgContainer.children[1].style.display='none';
         creditLineEl.style.display='none';
-        greatMix.style.display='block';
+        greatMix.style.display='flex';
+        greatMix.style.justifyContent = 'center';
+        greatMix.style.alignItems = 'center';
         greatMix.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
+
         fetch(gifyesUrl)
-            .then(response => response.json())
-            .then(data => {
-                const img = document.createElement('img');
-                img.setAttribute('class', 'yesno');
-                img.src = data.image;
-                imgContainer.append(img);
-              }).catch(error => console.error(error))    
+        .then(response => response.json())
+        .then(data => {
+            const img = document.createElement('img');
+            img.setAttribute('class', 'yesno');
+            img.src = data.image;
+            imgContainer.append(img);
+          })
+        .catch(error => console.error(error));
+        
     }
    })
 
@@ -198,4 +221,6 @@ function getRandomInt(max) {
 homeEL.addEventListener('click', function(){
     location.reload();
 })
+
+
 startBtn.addEventListener('click', generatePhoto)
