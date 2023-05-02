@@ -154,6 +154,7 @@ function generateRandomChoice(r,g,b){
         selectedCount++
         console.log(selectedCount)
     }
+
     const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(selectedCount===2){
         yourMixEl.style.display='none';
@@ -191,5 +192,7 @@ function getRandomInt(max) {
 
 
 
-
+homeEL.addEventListener('click', function(){
+    location.reload();
+})
 startBtn.addEventListener('click', generatePhoto)
