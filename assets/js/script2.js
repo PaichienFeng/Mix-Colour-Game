@@ -2,6 +2,8 @@ const apiKeyGoogle = 'AIzaSyCJQFU6dWV2tmO-TLWfMaMllqWrovdakNI';
 const apiKeyPexels = 'eQmcoa0bs5xZRI97pNTcEXQPqckk3bqAMcYkgIHiULTWD7GeBJz1O15f';
 const imgContainer = document.querySelector('.imgContainer');
 const creditLineEl = document.querySelector('.creditLine');
+const homeEL = document.querySelector('.home');
+const highScore = document.querySelector('.highScore')
 const yourMixEl = document.querySelector('.yourMix');
 const targetColourEl = document.querySelector('.target');
 const userChoiceEl = document.querySelectorAll('.userChoice');
@@ -9,6 +11,7 @@ const userChoiceContainer = document.querySelector('.userChoiceContainer')
 const startBtn = document.querySelector('.startBtn');
 const section1El = document.querySelector('.section1');
 const section2El = document.querySelector('.section2');
+const colorContainer = document.querySelector('.colorContainer');
 
 const randomPage = Math.floor(Math.random() * 100) + 1;
 const pexelsURL = `https://api.pexels.com/v1/search?query=landscape&orientation=landscape&per_page=1&page=${randomPage}`;
@@ -18,6 +21,8 @@ function generatePhoto(){
     startBtn.style.display='none';
     section1El.style.display='block';
     section2El.style.display='block';
+    homeEL.style.display='inline-block';
+    highScore.style.display='inline-block';
     
     fetch(pexelsURL, {
       headers: {
@@ -95,32 +100,68 @@ function generateRandomChoice(r,g,b){
    while (index1===index2) {
       index2 = Math.floor(Math.random()*4);    
    }
-  
+   
    const r2 = r*2;
    const g2 = g*2;
    const b2 = b*2;
 
-   const randomColorsR1 = r2-getRandomInt(r2);
-   const randomColorsG1 = g2-getRandomInt(g2);
-   const randomColorsB1 = b2-getRandomInt(b2);
 
-   const randomColorsR2 = r2-randomColorsR1;
-   const randomColorsG2 = g2-randomColorsG1;
-   const randomColorsB2 = b2-randomColorsB1;
+   let randomColorsR1 = r2-getRandomInt(r2);
+   let randomColorsG1 = g2-getRandomInt(g2);
+   let randomColorsB1 = b2-getRandomInt(b2);
 
-   randomColors[index1] = `rgb(${randomColorsR1},${randomColorsG1},${randomColorsB1})`;
-   randomColors[index2] = `rgb(${randomColorsR2},${randomColorsG2},${randomColorsB2})`;
+  
+   let randomColorsR2 = r2-randomColorsR1;
+   let randomColorsG2 = g2-randomColorsG1;
+   let randomColorsB2 = b2-randomColorsB1;
+
+//make sure randomColors rgb values are less then 255 
+   while (randomColorsR1>255 || randomColorsR2>255){
+    randomColorsR1 = r2-getRandomInt(r2);
+    randomColorsR2 = r2-randomColorsR1;
+   }
+
+   while (randomColorsG1>255 || randomColorsG2>255){
+    randomColorsG1 = g2-getRandomInt(g2);
+    randomColorsG2 = g2-randomColorsG1;
+   }
+
+   while (randomColorsB1>255 || randomColorsB2>255){
+    randomColorsB1 = b2-getRandomInt(b2);
+    randomColorsB2 = b2-randomColorsB1;
+   }
+
+   randomColors[index1] = `rgb(${randomColorsR1}, ${randomColorsG1}, ${randomColorsB1})`;
+   randomColors[index2] = `rgb(${randomColorsR2}, ${randomColorsG2}, ${randomColorsB2})`;
 
    for (let i = 0; i < 4; i++) {
     userChoiceEl[i].style.backgroundColor = randomColors[i];
    }
 
+   let selectedCount= 0
    userChoiceContainer.addEventListener('click', function(e){
     
-    if(!e.target.classList.contains('userChoiceEl')){
+    if(!e.target.classList.contains('userChoice')){
         return;
-    }else if(e.target.style.backgroundColor===randomColors[index1]||randomColors[index2]){
-        e.target.textContent='v'
+    }else if(getComputedStyle(e.target).backgroundColor===randomColors[index1]||getComputedStyle(e.target).backgroundColor===randomColors[index2]){
+        e.target.textContent='v';
+        yourMixEl.style.backgroundColor=getComputedStyle(e.target).backgroundColor;
+        selectedCount++
+        console.log(selectedCount)
+    }
+    
+    if(selectedCount===2){
+        yourMixEl.style.display='none';
+        targetColourEl.style.display='none';
+        const greatMix =document.createElement('div');
+        greatMix.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
+        greatMix.style.width = '800px';
+        greatMix.style.height='300px';
+        greatMix.style.borderStyle='hidden';
+        greatMix.style.borderRadius='10px';
+        colorContainer.append(greatMix);
+        colorContainer.style.display='text-align: center';
+        
     }
    })
 
