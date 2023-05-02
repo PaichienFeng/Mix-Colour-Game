@@ -9,6 +9,7 @@ const targetColourEl = document.querySelector('.target');
 const userChoiceEl = document.querySelectorAll('.userChoice');
 const userChoiceContainer = document.querySelector('.userChoiceContainer')
 const startBtn = document.querySelector('.startBtn');
+const startContainer = document.querySelector('.startContainer');
 const section1El = document.querySelector('.section1');
 const section2El = document.querySelector('.section2');
 const colorContainer = document.querySelector('.colorContainer');
@@ -23,6 +24,7 @@ const pexelsURL = `https://api.pexels.com/v1/search?query=landscape&orientation=
 
 function generatePhoto(){
     startBtn.style.display='none';
+    startContainer.style.display='none';
     section1El.style.display='block';
     section2El.style.display='block';
     homeEL.style.display='inline-block';
@@ -149,7 +151,7 @@ function generateRandomChoice(r,g,b){
     if(!e.target.classList.contains('userChoice')){
         return;
     }else if(getComputedStyle(e.target).backgroundColor===randomColors[index1]||getComputedStyle(e.target).backgroundColor===randomColors[index2]){
-        e.target.textContent='v';
+        e.target.textContent='\u2713';
         yourMixEl.style.backgroundColor=getComputedStyle(e.target).backgroundColor;
         selectedCount++
         console.log(selectedCount)
@@ -159,7 +161,8 @@ function generateRandomChoice(r,g,b){
     if(selectedCount===2){
         yourMixEl.style.display='none';
         targetColourEl.style.display='none';
-        imgContainer.children[0].style.display='none';
+        imgContainer.children[1].style.display='none';
+        creditLineEl.style.display='none';
         greatMix.style.display='block';
         greatMix.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
         fetch(gifyesUrl)

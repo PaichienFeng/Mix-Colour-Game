@@ -7,7 +7,6 @@ body {
 
 .section1{
     display: none;
-    position: relative;
 }
 
 .section2 {
@@ -22,6 +21,10 @@ body {
     display: none;
 }
 
+.imgContainer{
+    position: relative;
+}
+
 .imgContainer img{
     width: 800px;
     height: 350px;
@@ -31,9 +34,8 @@ body {
 
 .creditLine{
     position: absolute;
-    bottom: 15px;
-    right: 240px;
-
+    bottom: 10px;
+    
 }
 
 .target{
@@ -67,6 +69,7 @@ body {
     border-radius: 50%;
     cursor: pointer;
     margin: 5px;
+    font-size: x-large;
 }
 
 .userChoiceContainer{
@@ -80,11 +83,29 @@ body {
     height: 300px;
     border-style: hidden;
     border-radius: 10px;
-    
-
 }
 
 .colorContainer{
     display: flex;
     justify-content: center;
+}
+
+.startContainer{
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.startBtn{
+    width: 10%;
+    height: 25%;
+    border-style: hidden;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    font-size: large;
+    font-weight: 100px;
+    background-color: rgb(51, 123, 123);
+    box-shadow: 0 0 50px;
 }
