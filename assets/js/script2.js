@@ -96,6 +96,7 @@ function createDominantColor(photoUrl){
 }).catch(error => console.error(error));
 };
 
+let eventListenerToRemove;
 
 function generateRandomChoice(r,g,b){
   let randomColors = [
@@ -153,16 +154,18 @@ function generateRandomChoice(r,g,b){
 
  renderUserChoice(correctColor1, correctColor2, r, g, b);
 
+//  eventListenerToRemove = renderUserChoice(correctColor1, correctColor2, r, g, b);
+
  console.log(correctColor1, correctColor2, r,g,b);
 };
 
 
 function renderUserChoice(correctColor1, correctColor2, r, g, b){
+  userChoiceContainer.addEventListener('click',eventListener);
   let selectedCount= 0;
-  const gifnoUrl='https://yesno.wtf/api?force=no';
-
-  userChoiceContainer.addEventListener('click', function(e){
-
+  function eventListener(e){
+    
+    const gifnoUrl='https://yesno.wtf/api?force=no';
     const eTargetColor=getComputedStyle(e.target).backgroundColor;
 
     if(!e.target.classList.contains('userChoice')){
@@ -202,6 +205,7 @@ function renderUserChoice(correctColor1, correctColor2, r, g, b){
         greatMix.style.justifyContent = 'center';
         greatMix.style.alignItems = 'center';
         greatMix.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
+        userChoiceContainer.removeEventListener('click', eventListener);
    
         fetch(gifyesUrl)
         .then(function(response){return response.json()})
@@ -215,8 +219,9 @@ function renderUserChoice(correctColor1, correctColor2, r, g, b){
         
         return createNextBtn();
        }
+  }
   
-  })
+  return eventListener;
 }
 
 
@@ -228,6 +233,7 @@ function createNextBtn(){
 
   nextBtn.addEventListener('click', function (){resetGame(nextBtn)});
 }
+
 
 function resetGame(nextBtn) {
   while (imgContainer.firstChild) {
@@ -245,11 +251,11 @@ function resetGame(nextBtn) {
     userChoiceEl[i].textContent = '';
   }
 
-  userChoiceContainer.removeEventListener('click', renderUserChoice);
+  // userChoiceContainer.removeEventListener('click', eventListenerToRemove);
   
-  
+  if(nextBtn){
   nextBtn.remove();
-  
+  }
 
   generatePhoto();
 }
