@@ -59,12 +59,6 @@ header h5{
     font-weight: 450;
 }
 
-.creditLine{
-    position: absolute;
-    bottom: 10px;
-    
-}
-
 .target{
     display: flex;
     align-items: center;
@@ -124,6 +118,7 @@ header h5{
 }
 
 .colorContainer{
+    position:relative;
     display: flex;
     justify-content: center;
 }
