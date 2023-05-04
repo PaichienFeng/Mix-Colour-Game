@@ -8,7 +8,10 @@ const yourMixEl = document.querySelector('.yourMix');
 const targetColourEl = document.querySelector('.target');
 const userChoiceEl = document.querySelectorAll('.userChoice');
 const userChoiceContainer = document.querySelector('.userChoiceContainer')
+
 const startBtn = document.querySelector('.startBtn');
+const playAgainBtn = document.getElementById('play-again-button');
+
 const startContainer = document.querySelector('.startContainer');
 const section1El = document.querySelector('.section1');
 const section2El = document.querySelector('.section2');
@@ -225,7 +228,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * (max + 1));
 }
 
-// not working
+
 function setScore(score) {
   scoreSpan.textContent = 'Your score is: ' + score;
 }
@@ -242,5 +245,8 @@ homeEL.addEventListener('click', function(){
 
 
 startBtn.addEventListener('click', generatePhoto);  
-highScoreEL.addEventListener('click', showHighScores);
 
+highScoreEL.addEventListener('click', showHighScores);
+playAgainBtn.addEventListener('click', function(){
+  location.reload();
+});
