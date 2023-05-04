@@ -17,27 +17,36 @@ const greatMix =document.querySelector('.greatMix');
 const photoImg = document.querySelector('.photoImg');
 const yesno = document.querySelector('.yesno');
 
+const scoreSpan = document.querySelector('.current-score')
+
+const gameOver = document.getElementById('game-over');
+const highScores = document.getElementById('high-scores')
+
+const randomPage = Math.floor(Math.random() * 100) + 1;
+const pexelsURL = `https://api.pexels.com/v1/search?query=landscape&orientation=landscape&per_page=1&page=${randomPage}`;
+
+let score = 0;
+
 
 function generatePhoto(){
-  const randomPage = Math.floor(Math.random() * 100) + 1;
-  const pexelsURL = `https://api.pexels.com/v1/search?query=landscape&orientation=landscape&per_page=1&page=${randomPage}`;
-  
-  startBtn.style.display='none';
-  startContainer.style.display='none';
-  section1El.style.display='block';
-  section2El.style.display='block';
-  homeEL.style.display='inline-block';
-  highScoreEL.style.display='inline-block';
-  
-  fetch(pexelsURL, {
-    headers: {
-      Authorization: apiKeyPexels
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    const photo = data.photos[0];
-    const photoUrl = photo.src.large;
+    
+    setScore(0);
+    startBtn.style.display='none';
+    startContainer.style.display='none';
+    section1El.style.display='block';
+    section2El.style.display='block';
+    homeEL.style.display='inline-block';
+    highScoreEL.style.display='inline-block';
+
+    fetch(pexelsURL, {
+      headers: {
+        Authorization: apiKeyPexels
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const photo = data.photos[0];
+      const photoUrl = photo.src.large;
     
     const imageEL = document.createElement('img');
     imageEL.setAttribute('src', photoUrl);
@@ -202,8 +211,12 @@ function renderUserChoice(e){
       return createNextBtn();
     };
     
-    const gifyesUrl='https://yesno.wtf/api?force=yes';
+   
+ const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(correctCount===2){
+
+      setScore(score + 10);
+      console.log ("this is your score ", score);
       yourMixEl.style.display='none';
       targetColourEl.style.display='none';
       imgContainer.children[0].style.display='none';
@@ -226,9 +239,6 @@ function renderUserChoice(e){
 
       return createNextBtn();
      };
-    
-  
-  
 
   
 
@@ -280,19 +290,26 @@ function getRandomColor(){
     return color;
 }
 
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * (max + 1));
 }
 
+// not working
+function setScore(score) {
+  scoreSpan.textContent = 'Your score is: ' + score;
+}
 
-
+function showHighScores() {
+  highScores.style.display = 'block';
+  section1El.style.display = 'none';
+  section2El.style.display = 'none';
+}
 
 homeEL.addEventListener('click', function(){
     location.reload();
 })
 
 
-
 userChoiceContainer.addEventListener('click', renderUserChoice);
 startBtn.addEventListener('click', generatePhoto);
+highScoreEL.addEventListener('click', showHighScores);

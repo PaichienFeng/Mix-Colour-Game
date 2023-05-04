@@ -143,3 +143,10 @@ header h5{
     box-shadow: 0 0 50px;
 }
 
+#game-over {
+    display: none;
+}
+
+#high-scores {
+    display: none;
+}
