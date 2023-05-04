@@ -230,9 +230,17 @@ function setScore(score) {
   scoreSpan.textContent = 'Your score is: ' + score;
 }
 
+function showHighScores() {
+  highScores.style.display = 'block';
+  section1El.style.display = 'none';
+  section2El.style.display = 'none';
+}
+
 homeEL.addEventListener('click', function(){
     location.reload();
 })
 
 
-startBtn.addEventListener('click', generatePhoto)
+startBtn.addEventListener('click', generatePhoto);  
+highScoreEL.addEventListener('click', showHighScores);
+
