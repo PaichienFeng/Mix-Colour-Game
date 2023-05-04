@@ -42,10 +42,15 @@ header h5{
 
 .imgContainer{
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 250px;
+    max-width: 800px;
+
 }
 
 .imgContainer img{
-    width: 800px;
+    width: 100%;
     height: 350px;
     border-style: hidden;
     border-radius: 10px;
