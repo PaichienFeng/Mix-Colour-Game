@@ -56,6 +56,13 @@ function generatePhoto(){
   .catch(error => console.error(error));
 }
 
+let targetR;
+let targetG;
+let targetB;
+let correctColor1;
+let correctColor2;
+
+
 function createDominantColor(photoUrl){
     const googleVisionAPIUrl = `https://vision.googleapis.com/v1/images:annotate?key=${apiKeyGoogle}`;
     const requestData = {
@@ -85,20 +92,20 @@ function createDominantColor(photoUrl){
     .then(data => {
       const colors = data.responses[0].imagePropertiesAnnotation.dominantColors.colors;
       const rgb = colors[0].color;
-      const r = rgb.red;
-      const g = rgb.green;
-      const b = rgb.blue;
-      const dominantRGB= `rgb(${r},${g},${b})`
+      targetR = rgb.red;
+      targetG = rgb.green;
+      targetB = rgb.blue;
+      const dominantRGB= `rgb(${targetR},${targetG},${targetB})`
     
       targetColourEl.style.backgroundColor = dominantRGB;
 
-      generateRandomChoice(r,g,b);
+      generateRandomChoice(targetR, targetG, targetB);
 }).catch(error => console.error(error));
 };
 
-let eventListenerToRemove;
 
-function generateRandomChoice(r,g,b){
+
+function generateRandomChoice(){
   let randomColors = [
     getRandomColor(),
     getRandomColor(),
@@ -113,9 +120,9 @@ function generateRandomChoice(r,g,b){
     index2 = Math.floor(Math.random()*4);    
  }
  
- const r2 = r*2;
- const g2 = g*2;
- const b2 = b*2;
+ const r2 = targetR*2;
+ const g2 = targetG*2;
+ const b2 = targetB*2;
 
 
  let randomColorsR1 = r2-getRandomInt(r2);
@@ -145,101 +152,104 @@ function generateRandomChoice(r,g,b){
 
  randomColors[index1] = `rgb(${randomColorsR1}, ${randomColorsG1}, ${randomColorsB1})`;
  randomColors[index2] = `rgb(${randomColorsR2}, ${randomColorsG2}, ${randomColorsB2})`;
- const correctColor1 = randomColors[index1];
- const correctColor2 = randomColors[index2];
+ correctColor1 = randomColors[index1];
+ correctColor2 = randomColors[index2];
 
  for (let i = 0; i < 4; i++) {
   userChoiceEl[i].style.backgroundColor = randomColors[i];
  }
 
- renderUserChoice(correctColor1, correctColor2, r, g, b);
+ console.log(correctColor1, correctColor2, targetR,targetG,targetB);
 
-//  eventListenerToRemove = renderUserChoice(correctColor1, correctColor2, r, g, b);
-
- console.log(correctColor1, correctColor2, r,g,b);
+ return;
 };
 
 
-function renderUserChoice(correctColor1, correctColor2, r, g, b){
-  userChoiceContainer.addEventListener('click',eventListener);
-  let selectedCount= 0;
-  function eventListener(e){
-    
-    const gifnoUrl='https://yesno.wtf/api?force=no';
-    const eTargetColor=getComputedStyle(e.target).backgroundColor;
 
-    if(!e.target.classList.contains('userChoice')){
-        return;
-    }else if(eTargetColor===correctColor1||eTargetColor===correctColor2){
-        e.target.textContent='\u2713';
-        yourMixEl.style.backgroundColor=eTargetColor;
-        selectedCount++
-        console.log(selectedCount)
-    }else if(eTargetColor!==correctColor1||eTargetColor!==correctColor2){
-        e.target.textContent='X';
-        yourMixEl.style.backgroundColor=eTargetColor;
-        imgContainer.children[0].style.display='none';
-        imgContainer.children[1].style.display='none';
-        fetch(gifnoUrl)
-        .then(function(response){return response.json()})
-        .then(function(data) {
-            const img = document.createElement('img');
-            img.setAttribute('class', 'yesno');
-            img.src = data.image;
-            imgContainer.append(img);
-          })
-        .catch(error => console.error(error));
-   
-        return createNextBtn();
+let selectedCount= 0;
 
-      };
-      
-       
-      const gifyesUrl='https://yesno.wtf/api?force=yes';
-      if(selectedCount===2){
-        yourMixEl.style.display='none';
-        targetColourEl.style.display='none';
-        imgContainer.children[0].style.display='none';
-        imgContainer.children[1].style.display='none';
-        greatMix.style.display='flex';
-        greatMix.style.justifyContent = 'center';
-        greatMix.style.alignItems = 'center';
-        greatMix.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
-        userChoiceContainer.removeEventListener('click', eventListener);
-   
-        fetch(gifyesUrl)
-        .then(function(response){return response.json()})
-        .then(function(data) {
-            const img = document.createElement('img');
-            img.setAttribute('class', 'yesno');
-            img.src = data.image;
-            imgContainer.append(img);
-          })
-        .catch(error => console.error(error));
-        
-        return createNextBtn();
-       }
-  }
+
+function renderUserChoice(e){
+  const gifnoUrl='https://yesno.wtf/api?force=no';
+  const eTargetColor=getComputedStyle(e.target).backgroundColor;
   
-  return eventListener;
+  if(!e.target.classList.contains('userChoice')){
+      return;
+  }else if(eTargetColor===correctColor1||eTargetColor===correctColor2){
+      e.target.textContent='\u2713';
+      yourMixEl.style.backgroundColor=eTargetColor;
+      selectedCount++
+      console.log(selectedCount)
+  }else if(eTargetColor!==correctColor1||eTargetColor!==correctColor2){
+      e.target.textContent='X';
+      yourMixEl.style.backgroundColor=eTargetColor;
+      imgContainer.children[0].style.display='none';
+      imgContainer.children[1].style.display='none';
+      fetch(gifnoUrl)
+      .then(function(response){return response.json()})
+      .then(function(data) {
+          const img = document.createElement('img');
+          img.setAttribute('class', 'yesno');
+          img.src = data.image;
+          imgContainer.append(img);
+        })
+      .catch(error => console.error(error));
+  
+      return createNextBtn();
+  
+    };
+    
+     
+    const gifyesUrl='https://yesno.wtf/api?force=yes';
+    if(selectedCount===2){
+      yourMixEl.style.display='none';
+      targetColourEl.style.display='none';
+      imgContainer.children[0].style.display='none';
+      imgContainer.children[1].style.display='none';
+      greatMix.style.display='flex';
+      greatMix.style.justifyContent = 'center';
+      greatMix.style.alignItems = 'center';
+      greatMix.style.backgroundColor = `rgb(${targetR}, ${targetG}, ${targetB})`
+      userChoiceContainer.removeEventListener('click', renderUserChoice);
+  
+      fetch(gifyesUrl)
+      .then(function(response){return response.json()})
+      .then(function(data) {
+          const img = document.createElement('img');
+          img.setAttribute('class', 'yesno');
+          img.src = data.image;
+          imgContainer.append(img);
+        })
+      .catch(error => console.error(error));
+
+      return createNextBtn();
+     }
 }
-
-
+  
+ 
+  
 function createNextBtn(){
   const nextBtn= document.createElement('button');
   nextBtn.textContent='Next';
   colorContainer.append(nextBtn);
   nextBtn.style.position = "absolute";
 
-  nextBtn.addEventListener('click', function (){resetGame(nextBtn)});
+  nextBtn.addEventListener('click', resetGame);
 }
 
 
-function resetGame(nextBtn) {
+function resetGame(e) {
   while (imgContainer.firstChild) {
     imgContainer.removeChild(imgContainer.firstChild);
   };
 
+  e.target.remove();
+  targetR = '';
+  targetG = '';
+  targetB = '';
+  correctColor1 = '';
+  correctColor2 = '';
+  selectedCount = 0
   targetColourEl.style.display= 'block';
   targetColourEl.style.backgroundColor = '';
   greatMix.style.display='none';
@@ -251,12 +261,8 @@ function resetGame(nextBtn) {
     userChoiceEl[i].textContent = '';
   }
 
-  // userChoiceContainer.removeEventListener('click', eventListenerToRemove);
+  userChoiceContainer.addEventListener('click', renderUserChoice);
   
-  if(nextBtn){
-  nextBtn.remove();
-  }
-
   generatePhoto();
 }
 
@@ -279,4 +285,6 @@ homeEL.addEventListener('click', function(){
 })
 
 
-startBtn.addEventListener('click', generatePhoto)
+
+userChoiceContainer.addEventListener('click', renderUserChoice);
+startBtn.addEventListener('click', generatePhoto);
