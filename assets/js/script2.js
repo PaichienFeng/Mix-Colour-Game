@@ -19,6 +19,7 @@ const yesno = document.querySelector('.yesno');
 
 const scoreSpan = document.querySelector('.current-score');
 const roundSpan = document.querySelector('.current-round');
+const finalScoreSpan = document.querySelector('#final-score');
 
 const gameOver = document.getElementById('game-over');
 const highScores = document.getElementById('high-scores');
@@ -69,7 +70,6 @@ function generatePhoto(){
   .catch(error => console.error(error));
 
   if (roundCounter > 3) {
-    alert('you are a loser anyway');
     console.log('loser');
     gameOver.style.display = 'block'
     section1El.style.display='none';
@@ -289,12 +289,12 @@ function resetGame(e) {
   correctColor1 = '';
   correctColor2 = '';
   correctCount = 0
-  roundCount++
+  roundCounter++
 
-  if (roundCount===2){
+  if (roundCounter===2){
     return showHighScores();
   }
-  console.log(roundCount);
+  console.log(roundCounter);
   targetColourEl.style.display= 'flex';
   targetColourEl.style.backgroundColor = '';
   greatMix.style.display='none';
@@ -325,6 +325,10 @@ function getRandomInt(max) {
 
 function setScore(score) {
   scoreSpan.textContent = 'Your score is: ' + score;
+}
+
+function setFinalScore() {
+  finalScoreSpan.textContent = 'Your final score is ' + score + ' Youre so good!';
 }
 
 function showRound(roundCounter) {
