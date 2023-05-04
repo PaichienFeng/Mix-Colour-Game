@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mix Colour Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <h3>Mix Colour Game</h3>
+        <h5>Play & Learn</h5>
+        <button class="home">Home</button>
+        <button class="highScore">Highscore</button>
+    </header>
+
+    <div class="startContainer">
+        <button class="startBtn">Start</button>
+    </div>
+
+    <div class="section1">  
+        <div class="imgContainer">
+            
+        </div>
+     
+        
+    </div>
+
+    <div class="section2">
+        <div class="row center-align colorContainer">
+            <div>
+                
+            </div>
+            <div class="yourMix">
+                <p>Your Mix</p>
+            </div>
+            <div class="target">
+                <p>Target</p>
+            </div>
+            <div class="greatMix">
+                <p>Great Mix!</p>
+            </div>
+            <!-- adding score div -->
+            <div>
+                <p>  <span class="current-score"></span> </p>
+            </div>
+
+        </div>
+
+        <div class="userChoiceContainer">
+            <div class="userChoice"></div>
+            <div class="userChoice"></div>
+            <div class="userChoice"></div>
+            <div class="userChoice"></div>
+        </div>
+    </div>
+
+    <!-- game over section -->
+    <div id="game-over">
+        <h1>All Done!</h1> <!-- need more js from another section to complete -->
+        <h2>Your Score:    <span id="final-score"></span></h2>
+        <!-- form will take user initials input an match it with their high score in the script -->
+        <form id="high-score-form">
+          <label for="initials">Enter your initials here:</label>
+          <input type="text" id="initials" name="initials" required minlength="2" maxlength="3">
+          <button type="submit" id="submit-button">Submit</button>
+        </form>
+      </div>
+
+    <!-- high score section -->
+    <div id="high-scores">
+      <h2>High Scores</h2>
+      <ol id="high-scores-list"></ol>
+      <div>
+        <button type="click" id="play-again-button">Play Again</button>
+        <button type="click" id="clear-scores">Clear Scores</button>
+      </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="module" src="assets/js/script2.js"></script>
+</body>
+</html>
