@@ -25,12 +25,12 @@ const highScores = document.getElementById('high-scores')
 const randomPage = Math.floor(Math.random() * 100) + 1;
 
 let score = 0;
-
+let roundCount=0;
 
 function generatePhoto(){
+    setScore(score);
     const randomPage = Math.floor(Math.random() * 100) + 1;
     const pexelsURL = `https://api.pexels.com/v1/search?query=landscape&orientation=landscape&per_page=1&page=${randomPage}`;
-    setScore(0);
     startBtn.style.display='none';
     startContainer.style.display='none';
     section1El.style.display='block';
@@ -58,7 +58,7 @@ function generatePhoto(){
     pexelsLink.textContent= 'Photo by '+ photo.photographer + ' on Pexels';
     pexelsLink.style.position= 'absolute';
     pexelsLink.style.bottom= '10px';
-    pexelsLink.style.right='440px'
+    pexelsLink.style.right='10px'
     imgContainer.append(pexelsLink);
   
     createDominantColor(photoUrl);})
@@ -215,7 +215,8 @@ function renderUserChoice(e){
  const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(correctCount===2){
 
-      setScore(score + 10);
+      score = (score+10)
+      setScore(score)
       console.log ("this is your score ", score);
       yourMixEl.style.display='none';
       targetColourEl.style.display='none';
@@ -268,10 +269,16 @@ function resetGame(e) {
   correctColor1 = '';
   correctColor2 = '';
   correctCount = 0
-  targetColourEl.style.display= 'block';
+  roundCount++
+
+  if (roundCount===2){
+    return showHighScores();
+  }
+  console.log(roundCount);
+  targetColourEl.style.display= 'flex';
   targetColourEl.style.backgroundColor = '';
   greatMix.style.display='none';
-  yourMixEl.style.display='block';
+  yourMixEl.style.display='flex';
   yourMixEl.style.backgroundColor = 'rgb(255, 123, 123)';
 
   for (let i = 0; i < userChoiceEl.length; i++) {
@@ -283,6 +290,7 @@ function resetGame(e) {
   
   generatePhoto();
 }
+
 
 function getRandomColor(){
 
