@@ -28,4 +28,16 @@ while (randomColorsR1>255) {
  }
  while (b>127 && getRandomInt(b2)<(b-(255-b))) {
   randomColorsB1 = b2-getRandomInt(b2); 
- }
+ 
+}
+
+
+
+ let selectedCount= 0;
+ let prevTarget;
+
+
+ const prevTargetColor=getComputedStyle(prevTarget).backgroundColor;
+
+
+ selectedCount++
