@@ -167,11 +167,12 @@ function generateRandomChoice(){
 
 
 let correctCount= 0;
-let selectedCount= 0;
+
 
 function renderUserChoice(e){
   const gifnoUrl='https://yesno.wtf/api?force=no';
   const eTargetColor=getComputedStyle(e.target).backgroundColor;
+ 
   
   if(!e.target.classList.contains('userChoice')){
       return;
@@ -179,11 +180,11 @@ function renderUserChoice(e){
       e.target.textContent='\u2713';
       yourMixEl.style.backgroundColor=eTargetColor;
       correctCount++
-      selectedCount++
+    
       console.log(correctCount)
     }else if(eTargetColor!==correctColor1||eTargetColor!==correctColor2){
       e.target.textContent='X';
-      selectedCount++;
+      
       yourMixEl.style.backgroundColor=eTargetColor;
       imgContainer.children[0].style.display='none';
       imgContainer.children[1].style.display='none';
@@ -225,6 +226,11 @@ function renderUserChoice(e){
 
       return createNextBtn();
      };
+    
+  
+  
+
+  
 
 }
   
