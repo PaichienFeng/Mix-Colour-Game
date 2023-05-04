@@ -61,3 +61,10 @@ body {
 
 }
 
+#game-over {
+    display: none;
+}
+
+#high-scores {
+    display: none;
+}
