@@ -17,20 +17,23 @@ const greatMix =document.querySelector('.greatMix');
 const photoImg = document.querySelector('.photoImg');
 const yesno = document.querySelector('.yesno');
 
-const scoreSpan = document.querySelector('.current-score')
+const scoreSpan = document.querySelector('.current-score');
+const roundSpan = document.querySelector('.current-round');
 
 const gameOver = document.getElementById('game-over');
-const highScores = document.getElementById('high-scores')
+const highScores = document.getElementById('high-scores');
 
 const randomPage = Math.floor(Math.random() * 100) + 1;
 
 let score = 0;
+let roundCounter = 1;
 
 
 function generatePhoto(){
     const randomPage = Math.floor(Math.random() * 100) + 1;
     const pexelsURL = `https://api.pexels.com/v1/search?query=landscape&orientation=landscape&per_page=1&page=${randomPage}`;
-    setScore(0);
+    setScore(score);
+    showRound(roundCounter);
     startBtn.style.display='none';
     startContainer.style.display='none';
     section1El.style.display='block';
@@ -63,6 +66,15 @@ function generatePhoto(){
   
     createDominantColor(photoUrl);})
   .catch(error => console.error(error));
+
+  if (roundCounter > 3) {
+    alert('you are a loser anyway');
+    console.log('loser');
+    gameOver.style.display = 'block'
+    section1El.style.display='none';
+    section2El.style.display='none';
+    return;
+  }
 }
 
 let targetR;
@@ -194,6 +206,8 @@ function renderUserChoice(e){
     }else if(eTargetColor!==correctColor1||eTargetColor!==correctColor2){
       e.target.textContent='X';
       
+      roundCounter = roundCounter + 1;
+      showRound(roundCounter);
       yourMixEl.style.backgroundColor=eTargetColor;
       imgContainer.children[0].style.display='none';
       imgContainer.children[1].style.display='none';
@@ -215,7 +229,11 @@ function renderUserChoice(e){
  const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(correctCount===2){
 
-      setScore(score + 10);
+      score = score + 10;
+      roundCounter = roundCounter + 1;
+      showRound(roundCounter);
+      console.log(roundCounter);
+      setScore(score);
       console.log ("this is your score ", score);
       yourMixEl.style.display='none';
       targetColourEl.style.display='none';
@@ -243,9 +261,11 @@ function renderUserChoice(e){
   
 
 }
-  
- 
-  
+
+if (roundCounter === 10) {
+  console.log(Hello);
+};
+
 function createNextBtn(){
   const nextBtn= document.createElement('button');
   nextBtn.textContent='Next';
@@ -294,9 +314,13 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * (max + 1));
 }
 
-// not working
+
 function setScore(score) {
   scoreSpan.textContent = 'Your score is: ' + score;
+}
+
+function showRound(roundCounter) {
+  roundSpan.textContent = 'Round: ' + roundCounter;
 }
 
 function showHighScores() {
