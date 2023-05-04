@@ -3,15 +3,20 @@ const apiKeyPexels = 'eQmcoa0bs5xZRI97pNTcEXQPqckk3bqAMcYkgIHiULTWD7GeBJz1O15f';
 const imgContainer = document.querySelector('.imgContainer');
 const creditLineEl = document.querySelector('.creditLine');
 const homeEL = document.querySelector('.home');
-const highScore = document.querySelector('.highScore')
+const highScoreEL = document.querySelector('.highScore')
 const yourMixEl = document.querySelector('.yourMix');
 const targetColourEl = document.querySelector('.target');
 const userChoiceEl = document.querySelectorAll('.userChoice');
 const userChoiceContainer = document.querySelector('.userChoiceContainer')
 const startBtn = document.querySelector('.startBtn');
+const startContainer = document.querySelector('.startContainer');
 const section1El = document.querySelector('.section1');
 const section2El = document.querySelector('.section2');
 const colorContainer = document.querySelector('.colorContainer');
+const greatMix =document.querySelector('.greatMix');
+const photoImg = document.querySelector('.photoImg');
+const yesno = document.querySelector('.yesno');
+
 const scoreSpan = document.querySelector('.current-score')
 
 const gameOver = document.getElementById('game-over');
@@ -27,10 +32,11 @@ function generatePhoto(){
     
     setScore(0);
     startBtn.style.display='none';
+    startContainer.style.display='none';
     section1El.style.display='block';
     section2El.style.display='block';
     homeEL.style.display='inline-block';
-    
+    highScoreEL.style.display='inline-block';
     
     fetch(pexelsURL, {
       headers: {
@@ -44,6 +50,7 @@ function generatePhoto(){
       
       const imageEL = document.createElement('img');
       imageEL.setAttribute('src', photoUrl);
+      imageEL.classList.add('photoImg');
       imgContainer.append(imageEL);
       creditLineEl.textContent= 'Photo by '+ photo.photographer + ' on Pexels';
 
@@ -147,31 +154,58 @@ function generateRandomChoice(r,g,b){
    }
 
    let selectedCount= 0
+   const gifnoUrl='https://yesno.wtf/api?force=no';
    userChoiceContainer.addEventListener('click', function(e){
-    
+
     if(!e.target.classList.contains('userChoice')){
         return;
     }else if(getComputedStyle(e.target).backgroundColor===randomColors[index1]||getComputedStyle(e.target).backgroundColor===randomColors[index2]){
-        e.target.textContent='v';
+        e.target.textContent='\u2713';
         yourMixEl.style.backgroundColor=getComputedStyle(e.target).backgroundColor;
         selectedCount++
         console.log(selectedCount)
-    }
+    }else if(!(getComputedStyle(e.target).backgroundColor===randomColors[index1])||!(getComputedStyle(e.target).backgroundColor===randomColors[index2])){
+        e.target.textContent='X';
+        yourMixEl.style.backgroundColor=getComputedStyle(e.target).backgroundColor;
+        imgContainer.children[1].style.display='none';
+        creditLineEl.style.display='none';
+        fetch(gifnoUrl)
+        .then(response => response.json())
+        .then(data => {
+            const img = document.createElement('img');
+            img.setAttribute('class', 'yesno');
+            img.src = data.image;
+            imgContainer.append(img);
+          })
+        .catch(error => console.error(error));
+
+        nextRound();
+    };
+
       
+    const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(selectedCount===2){
         
         setScore(score + 10);
         console.log ("this is your score ", score);
         yourMixEl.style.display='none';
         targetColourEl.style.display='none';
-        const greatMix =document.createElement('div');
+        imgContainer.children[1].style.display='none';
+        creditLineEl.style.display='none';
+        greatMix.style.display='flex';
+        greatMix.style.justifyContent = 'center';
+        greatMix.style.alignItems = 'center';
         greatMix.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
-        greatMix.style.width = '800px';
-        greatMix.style.height='300px';
-        greatMix.style.borderStyle='hidden';
-        greatMix.style.borderRadius='10px';
-        colorContainer.append(greatMix);
-        colorContainer.style.display='text-align: center';
+
+        fetch(gifyesUrl)
+        .then(response => response.json())
+        .then(data => {
+            const img = document.createElement('img');
+            img.setAttribute('class', 'yesno');
+            img.src = data.image;
+            imgContainer.append(img);
+          })
+        .catch(error => console.error(error));
         
     }
    })
@@ -195,6 +229,10 @@ function getRandomInt(max) {
 function setScore(score) {
   scoreSpan.textContent = 'Your score is: ' + score;
 }
+
+homeEL.addEventListener('click', function(){
+    location.reload();
+})
 
 
 startBtn.addEventListener('click', generatePhoto)
