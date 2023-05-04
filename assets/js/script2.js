@@ -166,8 +166,8 @@ function generateRandomChoice(){
 
 
 
+let correctCount= 0;
 let selectedCount= 0;
-
 
 function renderUserChoice(e){
   const gifnoUrl='https://yesno.wtf/api?force=no';
@@ -175,16 +175,19 @@ function renderUserChoice(e){
   
   if(!e.target.classList.contains('userChoice')){
       return;
-  }else if(eTargetColor===correctColor1||eTargetColor===correctColor2){
+    }else if(eTargetColor===correctColor1||eTargetColor===correctColor2){
       e.target.textContent='\u2713';
       yourMixEl.style.backgroundColor=eTargetColor;
+      correctCount++
       selectedCount++
-      console.log(selectedCount)
-  }else if(eTargetColor!==correctColor1||eTargetColor!==correctColor2){
+      console.log(correctCount)
+    }else if(eTargetColor!==correctColor1||eTargetColor!==correctColor2){
       e.target.textContent='X';
+      selectedCount++;
       yourMixEl.style.backgroundColor=eTargetColor;
       imgContainer.children[0].style.display='none';
       imgContainer.children[1].style.display='none';
+      userChoiceContainer.removeEventListener('click', renderUserChoice);
       fetch(gifnoUrl)
       .then(function(response){return response.json()})
       .then(function(data) {
@@ -196,12 +199,10 @@ function renderUserChoice(e){
       .catch(error => console.error(error));
   
       return createNextBtn();
-  
     };
     
-     
     const gifyesUrl='https://yesno.wtf/api?force=yes';
-    if(selectedCount===2){
+    if(correctCount===2){
       yourMixEl.style.display='none';
       targetColourEl.style.display='none';
       imgContainer.children[0].style.display='none';
@@ -223,7 +224,8 @@ function renderUserChoice(e){
       .catch(error => console.error(error));
 
       return createNextBtn();
-     }
+     };
+
 }
   
  
@@ -249,7 +251,7 @@ function resetGame(e) {
   targetB = '';
   correctColor1 = '';
   correctColor2 = '';
-  selectedCount = 0
+  correctCount = 0
   targetColourEl.style.display= 'block';
   targetColourEl.style.backgroundColor = '';
   greatMix.style.display='none';
