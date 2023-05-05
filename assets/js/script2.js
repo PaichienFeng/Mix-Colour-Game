@@ -355,8 +355,6 @@ function resetGame(e) {
     showHighScores();
     scoreSpan.style.display='none';
     roundSpan.style.display='none';
-    titleEl.style.color= rgb(73, 82, 87);;
-    subtitleEl.style.color= rgb(73, 82, 87);
     return
   }
   console.log(roundCounter);
@@ -431,7 +429,8 @@ function showHighScores() {
   highScores.style.display = 'block';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
- 
+  titleEl.style.color= 'rgb(73, 82, 87)';
+  subtitleEl.style.color= 'rgb(73, 82, 87)';
 }
 
 homeEL.addEventListener('click', function(){
