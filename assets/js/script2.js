@@ -4,6 +4,7 @@ const imgContainer = document.querySelector('.imgContainer');
 const creditLineEl = document.querySelector('.creditLine');
 const homeEL = document.querySelector('.home');
 const highScoreEL = document.querySelector('.highScore')
+const header = document.querySelector('.header');
 const yourMixEl = document.querySelector('.yourMix');
 const targetColourEl = document.querySelector('.target');
 const userChoiceEl = document.querySelectorAll('.userChoice');
@@ -69,13 +70,13 @@ function generatePhoto(){
     createDominantColor(photoUrl);})
   .catch(error => console.error(error));
 
-  if (roundCounter > 3) {
-    console.log('loser');
-    gameOver.style.display = 'block'
-    section1El.style.display='none';
-    section2El.style.display='none';
-    return;
-  }
+  // if (roundCounter > 3) {
+  //   console.log('loser');
+  //   gameOver.style.display = 'block'
+  //   section1El.style.display='none';
+  //   section2El.style.display='none';
+  //   return;
+  // }
 }
 
 let targetR;
@@ -189,50 +190,77 @@ function generateRandomChoice(){
 
 
 let correctCount= 0;
+let prevTarget = null;
+let clickCount =0;
 
 
 function renderUserChoice(e){
   const gifnoUrl='https://yesno.wtf/api?force=no';
   const eTargetColor=getComputedStyle(e.target).backgroundColor;
+  clickCount++;
  
+  if (prevTarget !== null){
+    
+    const prevTargetColor=getComputedStyle(prevTarget).backgroundColor;
+    mixdColor(eTargetColor, prevTargetColor);
+  };    
+  
+  prevTarget = e.target;
   
   if(!e.target.classList.contains('userChoice')){
-      return;
-    }else if(eTargetColor===correctColor1||eTargetColor===correctColor2){
-      e.target.textContent='\u2713';
-      yourMixEl.style.backgroundColor=eTargetColor;
-      correctCount++
-    
-      console.log(correctCount)
-    }else if(eTargetColor!==correctColor1||eTargetColor!==correctColor2){
-      e.target.textContent='X';
-      
-      roundCounter = roundCounter + 1;
-      showRound(roundCounter);
-      yourMixEl.style.backgroundColor=eTargetColor;
-      imgContainer.children[0].style.display='none';
-      imgContainer.children[1].style.display='none';
-      userChoiceContainer.removeEventListener('click', renderUserChoice);
-      fetch(gifnoUrl)
-      .then(function(response){return response.json()})
-      .then(function(data) {
-          const img = document.createElement('img');
-          img.setAttribute('class', 'yesno');
-          img.src = data.image;
-          imgContainer.append(img);
-        })
-      .catch(error => console.error(error));
+    return;
+  }else if(eTargetColor===correctColor1||eTargetColor===correctColor2){
+    e.target.textContent='\u2713';
+    yourMixEl.style.backgroundColor=eTargetColor;
+    correctCount++
   
-      return createNextBtn();
-    };
+    console.log(correctCount)
+  }else if(clickCount===2 && correctCount===1){
+    e.target.textContent='X';
+    yourMixEl.style.backgroundColor=mixdColorRGB;
+    imgContainer.children[0].style.display='none';
+    imgContainer.children[1].style.display='none';
+    userChoiceContainer.removeEventListener('click', renderUserChoice);
+    fetch(gifnoUrl)
+    .then(function(response){return response.json()})
+    .then(function(data) {
+        const img = document.createElement('img');
+        img.setAttribute('class', 'yesno');
+        img.src = data.image;
+        imgContainer.append(img);
+      })
+    .catch(error => console.error(error));
+
+    return createNextBtn();
+  } else if(eTargetColor!==correctColor1&&eTargetColor!==correctColor2&&clickCount===1){
+    e.target.textContent='X';
+    
+    
+    // showRound(roundCounter);
+    yourMixEl.style.backgroundColor=eTargetColor;
+    imgContainer.children[0].style.display='none';
+    imgContainer.children[1].style.display='none';
+    userChoiceContainer.removeEventListener('click', renderUserChoice);
+    fetch(gifnoUrl)
+    .then(function(response){return response.json()})
+    .then(function(data) {
+        const img = document.createElement('img');
+        img.setAttribute('class', 'yesno');
+        img.src = data.image;
+        imgContainer.append(img);
+      })
+    .catch(error => console.error(error));
+
+    return createNextBtn();
+  };
     
    
  const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(correctCount===2){
 
       score = score + 10;
-      roundCounter = roundCounter + 1;
-      showRound(roundCounter);
+      
+      // showRound(roundCounter);
       console.log(roundCounter);
       setScore(score);
       console.log ("this is your score ", score);
@@ -269,6 +297,7 @@ if (roundCounter === 10) {
 
 function createNextBtn(){
   const nextBtn= document.createElement('button');
+  nextBtn.setAttribute('class','nextBtn')
   nextBtn.textContent='Next';
   colorContainer.append(nextBtn);
   nextBtn.style.position = "absolute";
@@ -288,11 +317,15 @@ function resetGame(e) {
   targetB = '';
   correctColor1 = '';
   correctColor2 = '';
-  correctCount = 0
+  correctCount = 0;
+  clickCount=0;
   roundCounter++
 
-  if (roundCounter===2){
-    return showHighScores();
+  if (roundCounter===5){
+    showHighScores();
+    scoreSpan.style.display='none';
+    roundSpan.style.display='none';
+    return
   }
   console.log(roundCounter);
   targetColourEl.style.display= 'flex';
@@ -312,6 +345,33 @@ function resetGame(e) {
 }
 
 
+let mixdColorRGB;
+
+function mixdColor(eTargetColor, prevTargetColor){
+  const numberStrings1 = prevTargetColor.slice(4, -1).split(", ");
+  const numberStrings2 = eTargetColor.slice(4, -1).split(", ");
+  
+  const numbers1 = numberStrings1.map(Number);
+  const numbers2 = numberStrings2.map(Number);
+  
+  const r1 = numbers1[0];
+  const g1 = numbers1[1];
+  const b1 = numbers1[2];
+
+  const r2 = numbers2[0];
+  const g2 = numbers2[1];
+  const b2 = numbers2[2];
+
+  const mixedR = (r1+r2)/2;
+  const mixedG = (g1+g2)/2;
+  const mixedB = (b1+b2)/2;
+
+  mixdColorRGB = `rgb(${mixedR}, ${mixedG}, ${mixedB})`;
+  
+  console.log(mixdColorRGB, r1,g1,b1, r2,g2,b2);
+}
+
+
 function getRandomColor(){
 
     const color = `rgb(${getRandomInt(256)}, ${getRandomInt(256)}, ${getRandomInt(256)})`;
@@ -324,7 +384,7 @@ function getRandomInt(max) {
 
 
 function setScore(score) {
-  scoreSpan.textContent = 'Your score is: ' + score;
+  scoreSpan.textContent = 'Score: ' + score;
 }
 
 function setFinalScore() {
