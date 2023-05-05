@@ -107,6 +107,9 @@ header h5{
 }
 
 .userChoice{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 80px;
     height: 80px;
     border-style: hidden;

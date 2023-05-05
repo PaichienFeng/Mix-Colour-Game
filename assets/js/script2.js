@@ -198,12 +198,21 @@ function renderUserChoice(e){
   const gifnoUrl='https://yesno.wtf/api?force=no';
   const eTargetColor=getComputedStyle(e.target).backgroundColor;
   clickCount++;
- 
+
+  if(!e.target.classList.contains('userChoice')){
+    return
+  }else if(e.target.classList.contains('userChoice')){
+    e.target.style.pointerEvents='none';
+  }
+  
   if (prevTarget !== null){
     
     const prevTargetColor=getComputedStyle(prevTarget).backgroundColor;
     mixdColor(eTargetColor, prevTargetColor);
-  };    
+
+    // console.log(e.target.classList)
+  };  
+    
   
   prevTarget = e.target;
   
@@ -232,10 +241,10 @@ function renderUserChoice(e){
     .catch(error => console.error(error));
 
     return createNextBtn();
+    
   } else if(eTargetColor!==correctColor1&&eTargetColor!==correctColor2&&clickCount===1){
     e.target.textContent='X';
-    
-    
+
     // showRound(roundCounter);
     yourMixEl.style.backgroundColor=eTargetColor;
     imgContainer.children[0].style.display='none';
@@ -287,8 +296,7 @@ function renderUserChoice(e){
       return createNextBtn();
      };
 
-  
-
+ 
 }
 
 if (roundCounter === 10) {
@@ -320,6 +328,11 @@ function resetGame(e) {
   correctCount = 0;
   clickCount=0;
   roundCounter++
+
+  for (let i = 0; i < userChoiceEl.length; i++) {
+    
+    userChoiceEl[i].style.pointerEvents='auto';
+  }
 
   if (roundCounter===5){
     showHighScores();
