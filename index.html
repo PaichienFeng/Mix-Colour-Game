@@ -13,13 +13,17 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <h3>Mix Colour Game</h3>
-        <h5>Play & Learn</h5>
-        <button class="home">Home</button>
-        <button class="highScore">Highscore</button>
-        <span class="current-score"></span>
-        <span class="current-round"></span>
+    <header class="header row ">
+        <h3 class="title">Mix Colour Game</h3>
+        <h5 class="subtitle">Play & Learn</h5>
+        <div>
+            <div class="home">Home</div>
+            <div class="highScore">Highscore</div>
+        </div>
+        <div class="scoreContainer">
+            <span class="current-score"></span>
+            <span class="current-round"></span>
+        </div>
     </header>
 
     <div class="startContainer">
@@ -28,7 +32,7 @@
 
     <div class="section1">  
         <div class="imgContainer">
-            
+            <div class="loading"></div>
         </div>
      
         
@@ -36,21 +40,17 @@
 
     <div class="section2">
         <div class="row center-align colorContainer">
-            <div>
-                
-            </div>
+
             <div class="yourMix">
                 <p>Your Mix</p>
             </div>
+
             <div class="target">
                 <p>Target</p>
             </div>
+            
             <div class="greatMix">
                 <p>Great Mix!</p>
-            </div>
-            <!-- adding score div -->
-            <div>
-           
             </div>
 
         </div>

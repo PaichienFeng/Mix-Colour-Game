@@ -5,6 +5,8 @@ const creditLineEl = document.querySelector('.creditLine');
 const homeEL = document.querySelector('.home');
 const highScoreEL = document.querySelector('.highScore')
 const header = document.querySelector('.header');
+const titleEl = document.querySelector('.title');
+const subtitleEl = document.querySelector('.subtitle');
 const yourMixEl = document.querySelector('.yourMix');
 const targetColourEl = document.querySelector('.target');
 const userChoiceEl = document.querySelectorAll('.userChoice');
@@ -17,7 +19,7 @@ const colorContainer = document.querySelector('.colorContainer');
 const greatMix =document.querySelector('.greatMix');
 const photoImg = document.querySelector('.photoImg');
 const yesno = document.querySelector('.yesno');
-
+const loadingEl = document.querySelector('.loading');
 const scoreSpan = document.querySelector('.current-score');
 const roundSpan = document.querySelector('.current-round');
 const finalScoreSpan = document.querySelector('#final-score');
@@ -121,6 +123,8 @@ function createDominantColor(photoUrl){
       const dominantRGB= `rgb(${targetR},${targetG},${targetB})`
     
       targetColourEl.style.backgroundColor = dominantRGB;
+      titleEl.style.color = dominantRGB;
+      subtitleEl.style.color = dominantRGB;
 
       generateRandomChoice(targetR, targetG, targetB);
 }).catch(error => console.error(error));
@@ -339,6 +343,8 @@ function resetGame(e) {
     showHighScores();
     scoreSpan.style.display='none';
     roundSpan.style.display='none';
+    titleEl.style.color = 'white';
+    subtitleEl.style.color = 'white';
     return
   }
   console.log(roundCounter);

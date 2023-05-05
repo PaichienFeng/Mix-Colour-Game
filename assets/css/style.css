@@ -9,20 +9,34 @@ body {
     position: relative;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 5px;
+    margin-top: 0;
     max-width: 800px;
     min-width: 250px;
+    height: 140px;
+    background-color: rgb(108, 110, 124);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     
 }
 
 header h3{
-   
+    font-size: 40px;
     margin-bottom: 5px;
-    margin-top: 5px;
+    margin-top: 10px;
+    font-weight: 400;
+    width: 100%;
 
 }
 
 header h5{
     margin-top: 5px;
+    font-size: x-large;
+    font-weight: 300;
+    width: 100%;
 }
 
 .section1{
@@ -35,23 +49,34 @@ header h5{
 
 .home{
     display: none;
-    background-color: rgb(255,123,123);
     color: white;
     border-radius: 5px;
-    margin-bottom: 10px;
-    margin-right: 10px;
+    margin: 10px;
     border-style: none;
     cursor: pointer;
+    font-weight: 300;
+    height: 25px;
+    font-size: 17px;
+}
+
+.home:hover{
+    background-color: rgb(255,123,123);;
 }
 
 .highScore{
     display: none;
-    background-color: rgb(255,123,123);
     color: white;
     border-radius: 5px;
-    margin-bottom: 10px;
     border-style: none;
     cursor: pointer;
+    font-weight: 300;
+    height: 25px;
+    font-size: 17px;
+
+}
+
+.highScore:hover{
+    background-color: rgb(255,123,123);
 }
 
 .imgContainer{
@@ -74,7 +99,11 @@ header h5{
     color: aliceblue;
     padding: 2px;
     height: 25px;
-    font-weight: 400;
+    font-weight: 300;
+}
+
+.imgContainer a:hover{
+    color: rgb(255,123,123);
 }
 
 .target{
@@ -89,6 +118,7 @@ header h5{
 
 .target p {
     font-size: 30px;
+    font-weight: 300;
 }
 
 .yourMix{
@@ -105,6 +135,7 @@ header h5{
 
 .yourMix p{
     font-size: 30px;
+    font-weight: 300;
 
 }
 
@@ -136,6 +167,7 @@ header h5{
 
 .greatMix p{
     font-size: 30px;
+    font-weight: 300;
 }
 
 .colorContainer{
@@ -163,6 +195,10 @@ header h5{
     background-color: rgb(51, 123, 123);
     box-shadow: 0 0 50px;
 
+}
+
+.startBtn:hover{
+    background-color: rgb(255,123,123);
 }
 
 #game-over {
@@ -193,15 +229,46 @@ header h5{
     background-color:rgb(255, 123, 123);
 }
 
-.current-score{
-    position: absolute;
+.scoreContainer{
+    position:absolute;
     right: 10px;
-    font-size: larger;
+    bottom: 10px;
+}
+
+.current-score{
+    
+    font-size: 17px;
+    font-weight: 300;
 }
 
 
 .current-round{
-    position: absolute;
-    left: 10px;
-    font-size: larger;
+
+    font-size: 17px;
+    font-weight: 300;
+    margin-left: 10px;
 }
+
+.loading{
+    display: none; /* Hide the loading element initially */
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-top-color: #3498db;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .imgContainer-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
