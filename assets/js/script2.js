@@ -197,12 +197,13 @@ let clickCount =0;
 function renderUserChoice(e){
   const gifnoUrl='https://yesno.wtf/api?force=no';
   const eTargetColor=getComputedStyle(e.target).backgroundColor;
-  clickCount++;
+  
 
   if(!e.target.classList.contains('userChoice')){
-    return
+   return;
   }else if(e.target.classList.contains('userChoice')){
     e.target.style.pointerEvents='none';
+    clickCount++;
   }
   
   if (prevTarget !== null){
