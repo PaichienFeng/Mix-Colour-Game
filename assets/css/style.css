@@ -14,7 +14,14 @@ body {
     max-width: 800px;
     min-width: 250px;
     height: 140px;
-    background-color: rgb(108, 110, 124);
+    background-image: linear-gradient(
+        to right,
+       
+        rgb(190, 179, 197),
+        rgb(204, 205, 144),
+        rgb(242, 217, 147),
+        rgb(180, 172, 181)
+      );
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -29,7 +36,7 @@ header h3{
     margin-top: 10px;
     font-weight: 400;
     width: 100%;
-
+    color: rgb(73, 82, 87);
 }
 
 header h5{
@@ -55,7 +62,8 @@ header h5{
     border-style: none;
     cursor: pointer;
     font-weight: 300;
-    height: 25px;
+    width: 100px;
+    height: 28px;
     font-size: 17px;
 }
 
@@ -70,7 +78,8 @@ header h5{
     border-style: none;
     cursor: pointer;
     font-weight: 300;
-    height: 25px;
+    width: 100px;
+    height: 28px;
     font-size: 17px;
 
 }
