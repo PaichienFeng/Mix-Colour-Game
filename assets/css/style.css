@@ -17,10 +17,10 @@ body {
     background-image: linear-gradient(
         to right,
        
-        rgb(190, 179, 197),
-        rgb(204, 205, 144),
-        rgb(242, 217, 147),
-        rgb(180, 172, 181)
+        rgb(213, 195, 224),
+        rgb(238, 238, 199),
+        rgb(239, 255, 186),
+        rgb(248, 215, 252)
       );
     border-radius: 10px;
     display: flex;
@@ -44,6 +44,7 @@ header h5{
     font-size: x-large;
     font-weight: 300;
     width: 100%;
+    color: rgb(73, 82, 87);
 }
 
 .section1{
@@ -56,7 +57,7 @@ header h5{
 
 .home{
     display: none;
-    color: white;
+    color:rgb(73, 82, 87);
     border-radius: 5px;
     margin: 10px;
     border-style: none;
@@ -68,12 +69,12 @@ header h5{
 }
 
 .home:hover{
-    background-color: rgb(255,123,123);;
+    background-color: rgb(247, 159, 159);
 }
 
 .highScore{
     display: none;
-    color: white;
+    color:rgb(73, 82, 87);
     border-radius: 5px;
     border-style: none;
     cursor: pointer;
@@ -85,7 +86,7 @@ header h5{
 }
 
 .highScore:hover{
-    background-color: rgb(255,123,123);
+    background-color: rgb(247, 159, 159);
 }
 
 .imgContainer{
@@ -248,6 +249,7 @@ header h5{
     
     font-size: 17px;
     font-weight: 300;
+    color:rgb(73, 82, 87);
 }
 
 
@@ -256,6 +258,7 @@ header h5{
     font-size: 17px;
     font-weight: 300;
     margin-left: 10px;
+    color:rgb(73, 82, 87);
 }
 
 .loading{

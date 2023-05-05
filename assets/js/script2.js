@@ -86,6 +86,7 @@ let targetG;
 let targetB;
 let correctColor1;
 let correctColor2;
+let dominantRGB;
 
 
 function createDominantColor(photoUrl){
@@ -120,7 +121,7 @@ function createDominantColor(photoUrl){
       targetR = rgb.red;
       targetG = rgb.green;
       targetB = rgb.blue;
-      const dominantRGB= `rgb(${targetR},${targetG},${targetB})`
+      dominantRGB= `rgb(${targetR},${targetG},${targetB})`
     
       targetColourEl.style.backgroundColor = dominantRGB;
       titleEl.style.color = dominantRGB;
@@ -315,7 +316,18 @@ function createNextBtn(){
   colorContainer.append(nextBtn);
   nextBtn.style.position = "absolute";
 
+
+  nextBtn.addEventListener('mouseover',mouseoverColor);
+  nextBtn.addEventListener('mouseout',mouseoutColor)
   nextBtn.addEventListener('click', resetGame);
+}
+
+function mouseoverColor(e){
+  e.target.style.backgroundColor=dominantRGB;
+}
+
+function mouseoutColor(e){
+  e.target.style.backgroundColor='rgba(226, 226, 226, 0.6)';
 }
 
 
@@ -343,8 +355,8 @@ function resetGame(e) {
     showHighScores();
     scoreSpan.style.display='none';
     roundSpan.style.display='none';
-    titleEl.style.color = 'white';
-    subtitleEl.style.color = 'white';
+    titleEl.style.color= rgb(73, 82, 87);;
+    subtitleEl.style.color= rgb(73, 82, 87);
     return
   }
   console.log(roundCounter);
@@ -419,6 +431,7 @@ function showHighScores() {
   highScores.style.display = 'block';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
+ 
 }
 
 homeEL.addEventListener('click', function(){
