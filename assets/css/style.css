@@ -71,11 +71,10 @@ header h5{
 }
 
 .imgContainer a{
-    background-color: aliceblue;
+    color: aliceblue;
     padding: 2px;
-    border-radius: 10px;
     height: 25px;
-    font-weight: 450;
+    font-weight: 400;
 }
 
 .target{
