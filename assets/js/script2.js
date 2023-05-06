@@ -37,9 +37,10 @@ let pexelsLink;
 
 function generatePhoto(){
     console.log(searchInput);
+    input.value="";
     
     setScore(score);
-    const randomPage = Math.floor(Math.random() * 500) + 1;
+    const randomPage = Math.floor(Math.random() * 200) + 1;
     const pexelsURL = `https://api.pexels.com/v1/search?query=${searchInput}&orientation=landscape&per_page=1&page=${randomPage}`;
     setScore(score);
     showRound(roundCounter);
@@ -249,6 +250,9 @@ function renderUserChoice(e){
     yourMixEl.style.backgroundColor=mixdColorRGB;
     imgContainer.children[0].style.display='none';
     imgContainer.children[1].style.display='none';
+    if (imgContainer.children[2]) {
+      imgContainer.children[2].style.display='none';
+    }
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -269,6 +273,9 @@ function renderUserChoice(e){
     yourMixEl.style.backgroundColor=eTargetColor;
     imgContainer.children[0].style.display='none';
     imgContainer.children[1].style.display='none';
+    if (imgContainer.children[2]) {
+      imgContainer.children[2].style.display='none';
+    }
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -297,6 +304,10 @@ function renderUserChoice(e){
       targetColourEl.style.display='none';
       imgContainer.children[0].style.display='none';
       imgContainer.children[1].style.display='none';
+      if (imgContainer.children[2]) {
+        imgContainer.children[2].style.display='none';
+      }
+      
       greatMix.style.display='flex';
       greatMix.style.justifyContent = 'center';
       greatMix.style.alignItems = 'center';

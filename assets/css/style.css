@@ -138,6 +138,8 @@ header span{
     height: 300px;
     border-style: hidden;
     border-radius: 10px;
+    background-color: rgb(51, 123, 123);
+
 }
 
 .target p {
