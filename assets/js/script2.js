@@ -23,22 +23,25 @@ const loadingEl = document.querySelector('.loading');
 const scoreSpan = document.querySelector('.current-score');
 const roundSpan = document.querySelector('.current-round');
 const finalScoreSpan = document.querySelector('#final-score');
-
+const searchForm= document.querySelector('.searchForm')
 const gameOver = document.getElementById('game-over');
 const highScores = document.getElementById('high-scores');
-
+const detectedLabel= document.querySelector('.detectedLabel')
 const randomPage = Math.floor(Math.random() * 100) + 1;
 
+let searchInput= 'nature';
 let score = 0;
 let roundCounter = 1;
 
-
 function generatePhoto(){
+    console.log(searchInput);
+    // searchInput=input.value;
     setScore(score);
-    const randomPage = Math.floor(Math.random() * 100) + 1;
-    const pexelsURL = `https://api.pexels.com/v1/search?query=landscape&orientation=landscape&per_page=1&page=${randomPage}`;
+    const randomPage = Math.floor(Math.random() * 500) + 1;
+    const pexelsURL = `https://api.pexels.com/v1/search?query=${searchInput}&orientation=landscape&per_page=1&page=${randomPage}`;
     setScore(score);
     showRound(roundCounter);
+    searchForm.style.display= 'none';
     startBtn.style.display='none';
     startContainer.style.display='none';
     section1El.style.display='block';
@@ -62,7 +65,7 @@ function generatePhoto(){
     imgContainer.append(imageEL);
   
     const pexelsLink = document.createElement('a');
-    pexelsLink.href ="https://www.pexels.com";
+    pexelsLink.href =photo.photographer_url;
     pexelsLink.textContent= 'Photo by '+ photo.photographer + ' on Pexels';
     pexelsLink.style.position= 'absolute';
     pexelsLink.style.bottom= '10px';
@@ -102,6 +105,9 @@ function createDominantColor(photoUrl){
           "features": [
             {
               "type": "IMAGE_PROPERTIES"
+            },
+            {
+              "type": "LABEL_DETECTION"
             }
           ]
         }
@@ -126,6 +132,12 @@ function createDominantColor(photoUrl){
       targetColourEl.style.backgroundColor = dominantRGB;
       titleEl.style.color = dominantRGB;
       subtitleEl.style.color = dominantRGB;
+
+      const labels = data.responses[0].labelAnnotations;
+      labels.sort((a, b) => b.score - a.score);
+      const bestLabel = labels[0].description;
+      detectedLabel.textContent='Theme:   '+bestLabel;
+      header.append(detectedLabel);
 
       generateRandomChoice(targetR, targetG, targetB);
 }).catch(error => console.error(error));
@@ -340,6 +352,7 @@ function resetGame(e) {
   targetR = '';
   targetG = '';
   targetB = '';
+  detectedLabel.textContent='Theme:   ';
   correctColor1 = '';
   correctColor2 = '';
   correctCount = 0;
@@ -435,9 +448,50 @@ function showHighScores() {
 
 homeEL.addEventListener('click', function(){
     location.reload();
+    input.value="";
 })
 
+const input = document.getElementById('autocomplete-input');
 
+document.addEventListener('DOMContentLoaded', function() {
+  
+  const options = {
+    data: {
+      "animals": null,
+      "beach": null,
+      "beautiful Girl": null,
+      "city": null,
+      "design": null,
+      "elephant": null,
+      "forest": null,
+      "girl": null,
+      "happy": null,
+      "interior design": null,
+      "japan": null,
+      "kids": null,
+      "landscape": null,
+      "mountain": null,
+      "nature": null,
+      "ocean": null,
+      "paris": null,
+      "queen": null,
+      "river": null,
+      "sunset": null,
+      "temple": null,
+      "universe": null,
+      "vegetables": null,
+      "winter": null,
+      "xmas": null,
+      "yoga": null,
+      "zoo": null
+    }
+  };
+  M.Autocomplete.init(input, options);
+});
+
+
+
+searchForm.addEventListener('submit', generatePhoto)
 userChoiceContainer.addEventListener('click', renderUserChoice);
 startBtn.addEventListener('click', generatePhoto);
 highScoreEL.addEventListener('click', showHighScores);

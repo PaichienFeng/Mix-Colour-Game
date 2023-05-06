@@ -16,10 +16,19 @@
     <header class="header row ">
         <h3 class="title">Mix Colour Game</h3>
         <h5 class="subtitle">Play & Learn</h5>
-        <div>
+        <div class="navbarContainer">
             <div class="home">Home</div>
             <div class="highScore">Highscore</div>
         </div>
+        <span class="detectedLabel"></span>
+        <form class="searchForm col s12">
+            <div class="input-field searchBar ">
+              <i class="material-icons prefix">textsms</i>
+              <input type="text" id="autocomplete-input" class="autocomplete">
+              <label id='label' for="autocomplete-input">Search e.g., landscape </label>
+            </div>
+        </form>
+        
         <div class="scoreContainer">
             <span class="current-score"></span>
             <span class="current-round"></span>

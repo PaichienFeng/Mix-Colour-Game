@@ -47,6 +47,12 @@ header h5{
     color: rgb(73, 82, 87);
 }
 
+header span{
+    color:rgb(73, 82, 87);
+    position: relative;
+
+}
+
 .section1{
     display: none;
 }
@@ -59,13 +65,18 @@ header h5{
     display: none;
     color:rgb(73, 82, 87);
     border-radius: 5px;
-    margin: 10px;
+    margin-left: 10px;
     border-style: none;
     cursor: pointer;
     font-weight: 300;
     width: 100px;
     height: 28px;
     font-size: 17px;
+}
+
+.searchBar{
+    margin: 0%;
+    height: 48px;
 }
 
 .home:hover{
@@ -242,7 +253,8 @@ header h5{
 .scoreContainer{
     position:absolute;
     right: 10px;
-    bottom: 10px;
+    bottom: 5px;
+        
 }
 
 .current-score{
@@ -250,6 +262,7 @@ header h5{
     font-size: 17px;
     font-weight: 300;
     color:rgb(73, 82, 87);
+    
 }
 
 
