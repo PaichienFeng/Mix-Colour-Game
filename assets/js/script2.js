@@ -288,7 +288,7 @@ function resetGame(e) {
   roundCounter++;
 
 
-  if (roundCounter===2){
+  if (roundCounter===11){
     showGameOver();
     setFinalScore(score);
     return
@@ -387,7 +387,7 @@ function printHighScores(highScores) {
     const li = document.createElement("li");
     const initialsSpan = document.createElement("span");
     initialsSpan.classList.add("initials");
-    initialsSpan.textContent = highScores[i].initials;
+    initialsSpan.textContent = highScores[i].initials + " - ";
     const scoreSpan = document.createElement("span");
     scoreSpan.classList.add("score");
     scoreSpan.textContent = highScores[i].score;

@@ -161,7 +161,7 @@ header h5{
     display: block;
 }
 
-#high-score ol {
+#high-scores-list {
     text-align: center;
     background-color: rgba(158, 30, 167, 0.3);
     height: fit-content;
