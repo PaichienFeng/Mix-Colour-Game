@@ -34,6 +34,7 @@ let score = 0;
 let roundCounter = 1;
 
 
+
 function generatePhoto(){
     setScore(score);
     const randomPage = Math.floor(Math.random() * 100) + 1;
@@ -354,24 +355,27 @@ highScoreForm.addEventListener("submit", function(event) {
   initialsInput.value = "";
   });
 
+
 function addHighScore(highScore) {
   let highScores = getHighScores();
   highScores.push(highScore);
   highScores.sort(function(a, b) {
+  console.log(highScores);
   return b.score - a.score;
   });
   highScores = highScores.slice(0, 3);
   localStorage.setItem("highScores", JSON.stringify(highScores));
   printHighScores(highScores);
   }
+  
   function getHighScores() {
-  let highScores = localStorage.getItem("highScores");
-  if (highScores) {
-  return JSON.parse(highScores);
-  } else {
-  return [];
-  }
-  }
+    let highScores = localStorage.getItem("highScores");
+    if (highScores) {
+    return JSON.parse(highScores);
+    } else {
+    return [];
+    }
+    }
 
 
 
@@ -396,13 +400,15 @@ function showRound(roundCounter) {
 }
 
 function showHighScores() {
+
+  highScoresDiv.style.display = 'inline-block';
   highScoresList.style.display = 'inline-block';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
 }
 
 function showGameOver(){
-  highScoresDiv.style.display = 'inline-block';
+  
   gameOverDiv.style.display = 'inline-block';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
@@ -415,4 +421,27 @@ homeEL.addEventListener('click', function(){
 
 userChoiceContainer.addEventListener('click', renderUserChoice);
 startBtn.addEventListener('click', generatePhoto);
-highScoreBtn.addEventListener('click', showHighScores);
+
+
+// add this code after you define the highScoreBtn constant
+
+highScoreBtn.addEventListener('click', function() {
+
+  showHighScores();
+  // get the high scores from local storage
+  const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+  
+  // clear the current high scores list
+  highScoresList.innerHTML = '';
+
+  // create a new list item for each high score and append it to the highScoresList
+  highScores.forEach(function(highScore) {
+    const li = document.createElement('li');
+    li.textContent = highScore.initials + " - " + highScore.score;
+    highScoresList.appendChild(li);
+  });
+
+  // show the highScoresDiv and hide the gameOverDiv
+  highScoresDiv.style.display = 'block';
+  gameOverDiv.style.display = 'none';
+});
