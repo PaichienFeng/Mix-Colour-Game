@@ -18,6 +18,8 @@ const yesno = document.querySelector('.yesno');
 
 const startBtn = document.querySelector('.startBtn');
 const highScoreBtn = document.querySelector('.highScore')
+const playAgainBtn = document.querySelector('#play-again-button');
+const clearScoresBtn = document.querySelector('#clear-scores');
 
 const scoreSpan = document.querySelector('.current-score');
 const roundSpan = document.querySelector('.current-round');
@@ -330,7 +332,7 @@ function setFinalScore() {
 }
 
 function showHighScore() {
-  highScoresList.style.display = "inline-block";
+  highScoresDiv.style.display = "inline-block";
 }
 
 // highscore
@@ -368,14 +370,14 @@ function addHighScore(highScore) {
   printHighScores(highScores);
   }
   
-  function getHighScores() {
-    let highScores = localStorage.getItem("highScores");
-    if (highScores) {
-    return JSON.parse(highScores);
-    } else {
-    return [];
-    }
-    }
+function getHighScores() {
+  let highScores = localStorage.getItem("highScores");
+  if (highScores) {
+  return JSON.parse(highScores);
+  } else {
+  return [];
+  }
+  }
 
 
 
@@ -418,30 +420,37 @@ homeEL.addEventListener('click', function(){
     location.reload();
 })
 
+playAgainBtn.addEventListener('click', function(){
+  location.reload();
+})
+
 
 userChoiceContainer.addEventListener('click', renderUserChoice);
 startBtn.addEventListener('click', generatePhoto);
-
-
-// add this code after you define the highScoreBtn constant
+clearScoresBtn.addEventListener("click", clearHighScores);
 
 highScoreBtn.addEventListener('click', function() {
 
   showHighScores();
-  // get the high scores from local storage
+
+  playAgainBtn.style.display = 'none';
   const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
   
-  // clear the current high scores list
   highScoresList.innerHTML = '';
 
-  // create a new list item for each high score and append it to the highScoresList
   highScores.forEach(function(highScore) {
     const li = document.createElement('li');
     li.textContent = highScore.initials + " - " + highScore.score;
     highScoresList.appendChild(li);
   });
 
-  // show the highScoresDiv and hide the gameOverDiv
   highScoresDiv.style.display = 'block';
   gameOverDiv.style.display = 'none';
 });
+
+
+
+function clearHighScores() {
+	localStorage.removeItem("highScores");
+	highScoresList.innerHTML = "";
+}
