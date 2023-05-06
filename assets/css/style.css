@@ -1,4 +1,5 @@
 body {
+    height: auto;
     font-family: 'Ubuntu', sans-serif,'Roboto';
     text-align: center;
     background-color: rgb(68, 70, 84);
@@ -23,7 +24,7 @@ body {
         rgb(248, 215, 252)
       );
     border-radius: 10px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -250,15 +251,14 @@ header span{
     background-color:rgb(255, 123, 123);
 }
 
-.scoreContainer{
+/* .scoreContainer{
     position:absolute;
     right: 10px;
     bottom: 5px;
         
-}
+} */
 
 .current-score{
-    
     font-size: 17px;
     font-weight: 300;
     color:rgb(73, 82, 87);
@@ -267,7 +267,6 @@ header span{
 
 
 .current-round{
-
     font-size: 17px;
     font-weight: 300;
     margin-left: 10px;

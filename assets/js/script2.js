@@ -5,6 +5,7 @@ const creditLineEl = document.querySelector('.creditLine');
 const homeEL = document.querySelector('.home');
 const highScoreEL = document.querySelector('.highScore')
 const header = document.querySelector('.header');
+const navBarEl = document.querySelector('.navbar');
 const titleEl = document.querySelector('.title');
 const subtitleEl = document.querySelector('.subtitle');
 const yourMixEl = document.querySelector('.yourMix');
@@ -41,9 +42,9 @@ function generatePhoto(){
     const pexelsURL = `https://api.pexels.com/v1/search?query=${searchInput}&orientation=landscape&per_page=1&page=${randomPage}`;
     setScore(score);
     showRound(roundCounter);
-    searchForm.style.display= 'none';
     startBtn.style.display='none';
     startContainer.style.display='none';
+    header.style.display='flex';
     section1El.style.display='block';
     section2El.style.display='block';
     homeEL.style.display='inline-block';
@@ -137,7 +138,7 @@ function createDominantColor(photoUrl){
       labels.sort((a, b) => b.score - a.score);
       const bestLabel = labels[0].description;
       detectedLabel.textContent='Theme:   '+bestLabel;
-      header.append(detectedLabel);
+      navBarEl.append(detectedLabel);
 
       generateRandomChoice(targetR, targetG, targetB);
 }).catch(error => console.error(error));
@@ -440,6 +441,7 @@ function showRound(roundCounter) {
 
 function showHighScores() {
   highScores.style.display = 'block';
+  header.style.display='none';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
   titleEl.style.color= 'rgb(73, 82, 87)';
