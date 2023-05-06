@@ -287,7 +287,7 @@ function resetGame(e) {
   correctCount = 0;
   roundCounter++;
 
-
+// change number of rounds
   if (roundCounter===2){
     showGameOver();
     setFinalScore(score);
@@ -328,7 +328,23 @@ function setScore(score) {
 }
 
 function setFinalScore() {
-  finalScoreSpan.textContent = 'Your final score is ' + score + ' Youre so good!';
+
+  if (score == 0) {
+  finalScoreSpan.textContent = 'Your final score is ' + score + ' Aww better luck next time champ!';
+  highScoreForm.style.display = 'none';
+} else if (score >= 10 && score <= 30) {
+  console.log('the score is between 0 and 4');
+  finalScoreSpan.textContent = 'Your final score is ' + score + ' Keep practising!';
+} else if (score >= 40 && score <= 60) {
+  finalScoreSpan.textContent = "Your final score is " + score + " Youre good at this!";
+} else if (score >= 70 && score <= 90) {
+  finalScoreSpan.textContent = "Your final score is " + score + " Wow! You are talented!"
+} else {
+  finalScoreSpan.textContent = "Your final score is " + score + " You must feel so proud!"
+}
+
+
+
 }
 
 function showHighScore() {
@@ -340,7 +356,7 @@ highScoreForm.addEventListener("submit", function(event) {
   event.preventDefault();
 
   gameOverDiv.style.display = "none";
-  
+
   showHighScore();
   
   
