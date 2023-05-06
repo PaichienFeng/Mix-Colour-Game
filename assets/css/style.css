@@ -70,7 +70,7 @@ header span{
     border-style: none;
     cursor: pointer;
     font-weight: 300;
-    width: 100px;
+    /* width: 100px; */
     height: 28px;
     font-size: 17px;
 }
@@ -78,6 +78,8 @@ header span{
 .searchBar{
     margin: 0%;
     height: 48px;
+    position: absolute;
+    bottom: 0%;
 }
 
 .home:hover{
@@ -91,7 +93,7 @@ header span{
     border-style: none;
     cursor: pointer;
     font-weight: 300;
-    width: 100px;
+    /* width: 100px; */
     height: 28px;
     font-size: 17px;
 
@@ -251,12 +253,6 @@ header span{
     background-color:rgb(255, 123, 123);
 }
 
-/* .scoreContainer{
-    position:absolute;
-    right: 10px;
-    bottom: 5px;
-        
-} */
 
 .current-score{
     font-size: 17px;
@@ -295,4 +291,12 @@ header span{
   .imgContainer-hidden {
     visibility: hidden;
     opacity: 0;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
   }
