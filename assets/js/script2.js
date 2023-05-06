@@ -288,7 +288,7 @@ function resetGame(e) {
   roundCounter++;
 
 
-  if (roundCounter===11){
+  if (roundCounter===2){
     showGameOver();
     setFinalScore(score);
     return
@@ -340,7 +340,7 @@ highScoreForm.addEventListener("submit", function(event) {
   event.preventDefault();
 
   gameOverDiv.style.display = "none";
-
+  
   showHighScore();
   
   
@@ -365,7 +365,7 @@ function addHighScore(highScore) {
   console.log(highScores);
   return b.score - a.score;
   });
-  highScores = highScores.slice(0, 3);
+  highScores = highScores.slice(0, 5);
   localStorage.setItem("highScores", JSON.stringify(highScores));
   printHighScores(highScores);
   }

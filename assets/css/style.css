@@ -157,16 +157,13 @@ header h5{
 }
 
 #high-scores-list {
-    height: 100px;
-    display: block;
-}
-
-#high-scores-list {
     text-align: center;
     background-color: rgba(158, 30, 167, 0.3);
     height: fit-content;
     width: 220px;
-    }
+    height: 100px;
+    display: inline-block;
+}
 
 #initials {
     background-color: #f7f4f4;
