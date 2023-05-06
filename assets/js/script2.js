@@ -8,7 +8,6 @@ const yourMixEl = document.querySelector('.yourMix');
 const targetColourEl = document.querySelector('.target');
 const userChoiceEl = document.querySelectorAll('.userChoice');
 const userChoiceContainer = document.querySelector('.userChoiceContainer')
-const startBtn = document.querySelector('.startBtn');
 const startContainer = document.querySelector('.startContainer');
 const section1El = document.querySelector('.section1');
 const section2El = document.querySelector('.section2');
@@ -17,12 +16,17 @@ const greatMix =document.querySelector('.greatMix');
 const photoImg = document.querySelector('.photoImg');
 const yesno = document.querySelector('.yesno');
 
+const startBtn = document.querySelector('.startBtn');
+const highScoreBtn = document.querySelector('.highScore')
+
 const scoreSpan = document.querySelector('.current-score');
 const roundSpan = document.querySelector('.current-round');
 const finalScoreSpan = document.querySelector('#final-score');
 
-const gameOver = document.getElementById('game-over');
-const highScores = document.getElementById('high-scores');
+const gameOverDiv = document.getElementById('game-over');
+const highScoresDiv = document.getElementById('high-scores');
+const highScoresList = document.getElementById("high-scores-list");
+const highScoreForm = document.getElementById("high-score-form");
 
 const randomPage = Math.floor(Math.random() * 100) + 1;
 
@@ -69,13 +73,7 @@ function generatePhoto(){
     createDominantColor(photoUrl);})
   .catch(error => console.error(error));
 
-  if (roundCounter > 3) {
-    console.log('loser');
-    gameOver.style.display = 'block'
-    section1El.style.display='none';
-    section2El.style.display='none';
-    return;
-  }
+  
 }
 
 let targetR;
@@ -207,7 +205,6 @@ function renderUserChoice(e){
     }else if(eTargetColor!==correctColor1||eTargetColor!==correctColor2){
       e.target.textContent='X';
       
-      roundCounter = roundCounter + 1;
       showRound(roundCounter);
       yourMixEl.style.backgroundColor=eTargetColor;
       imgContainer.children[0].style.display='none';
@@ -231,7 +228,6 @@ function renderUserChoice(e){
     if(correctCount===2){
 
       score = score + 10;
-      roundCounter = roundCounter + 1;
       showRound(roundCounter);
       console.log(roundCounter);
       setScore(score);
@@ -263,9 +259,6 @@ function renderUserChoice(e){
 
 }
 
-if (roundCounter === 10) {
-  console.log(Hello);
-};
 
 function createNextBtn(){
   const nextBtn= document.createElement('button');
@@ -288,12 +281,16 @@ function resetGame(e) {
   targetB = '';
   correctColor1 = '';
   correctColor2 = '';
-  correctCount = 0
-  roundCounter++
+  correctCount = 0;
+  roundCounter++;
+
 
   if (roundCounter===2){
-    return showHighScores();
-  }
+    showGameOver();
+    setFinalScore(score);
+    return
+    }
+  
   console.log(roundCounter);
   targetColourEl.style.display= 'flex';
   targetColourEl.style.backgroundColor = '';
@@ -331,12 +328,82 @@ function setFinalScore() {
   finalScoreSpan.textContent = 'Your final score is ' + score + ' Youre so good!';
 }
 
+function showHighScore() {
+  highScoresList.style.display = "inline-block";
+}
+
+// highscore
+highScoreForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  gameOverDiv.style.display = "none";
+
+  showHighScore();
+  
+  
+
+  const initialsInput = document.getElementById("initials");
+  
+  const initials = initialsInput.value.toUpperCase();
+  if (initials.length < 2 || initials.length > 3) {
+  alert("Please enter 2 or 3 characters for your initials.");
+  return;
+  }
+  const highScore = { initials: initials, score: score };
+  addHighScore(highScore);
+  initialsInput.value = "";
+  });
+
+function addHighScore(highScore) {
+  let highScores = getHighScores();
+  highScores.push(highScore);
+  highScores.sort(function(a, b) {
+  return b.score - a.score;
+  });
+  highScores = highScores.slice(0, 3);
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+  printHighScores(highScores);
+  }
+  function getHighScores() {
+  let highScores = localStorage.getItem("highScores");
+  if (highScores) {
+  return JSON.parse(highScores);
+  } else {
+  return [];
+  }
+  }
+
+
+
+function printHighScores(highScores) {
+  highScoresList.innerHTML = "";
+  for (let i = 0; i < highScores.length; i++) {
+    const li = document.createElement("li");
+    const initialsSpan = document.createElement("span");
+    initialsSpan.classList.add("initials");
+    initialsSpan.textContent = highScores[i].initials;
+    const scoreSpan = document.createElement("span");
+    scoreSpan.classList.add("score");
+    scoreSpan.textContent = highScores[i].score;
+    li.appendChild(initialsSpan); 
+    li.appendChild(scoreSpan);
+    highScoresList.appendChild(li);
+  }
+}
+
 function showRound(roundCounter) {
   roundSpan.textContent = 'Round: ' + roundCounter;
 }
 
 function showHighScores() {
-  highScores.style.display = 'block';
+  highScoresList.style.display = 'inline-block';
+  section1El.style.display = 'none';
+  section2El.style.display = 'none';
+}
+
+function showGameOver(){
+  highScoresDiv.style.display = 'inline-block';
+  gameOverDiv.style.display = 'inline-block';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
 }
@@ -348,4 +415,4 @@ homeEL.addEventListener('click', function(){
 
 userChoiceContainer.addEventListener('click', renderUserChoice);
 startBtn.addEventListener('click', generatePhoto);
-highScoreEL.addEventListener('click', showHighScores);
+highScoreBtn.addEventListener('click', showHighScores);
