@@ -33,10 +33,11 @@ const randomPage = Math.floor(Math.random() * 100) + 1;
 let searchInput= 'nature';
 let score = 0;
 let roundCounter = 1;
+let pexelsLink;
 
 function generatePhoto(){
     console.log(searchInput);
-    // searchInput=input.value;
+    
     setScore(score);
     const randomPage = Math.floor(Math.random() * 500) + 1;
     const pexelsURL = `https://api.pexels.com/v1/search?query=${searchInput}&orientation=landscape&per_page=1&page=${randomPage}`;
@@ -65,7 +66,7 @@ function generatePhoto(){
     imageEL.classList.add('photoImg');
     imgContainer.append(imageEL);
   
-    const pexelsLink = document.createElement('a');
+    pexelsLink = document.createElement('a');
     pexelsLink.href =photo.photographer_url;
     pexelsLink.textContent= 'Photo by '+ photo.photographer + ' on Pexels';
     pexelsLink.style.position= 'absolute';
@@ -491,9 +492,18 @@ document.addEventListener('DOMContentLoaded', function() {
   M.Autocomplete.init(input, options);
 });
 
+function formsubmitHandler(e){
+  e.preventDefault();
+  searchInput=input.value;
+  imgContainer.children[0].style.display='none';
+  imgContainer.children[1].style.display='none';
+  pexelsLink.remove();
+  generatePhoto();
+}
 
 
-searchForm.addEventListener('submit', generatePhoto)
+
+searchForm.addEventListener('submit', formsubmitHandler)
 userChoiceContainer.addEventListener('click', renderUserChoice);
 startBtn.addEventListener('click', generatePhoto);
 highScoreEL.addEventListener('click', showHighScores);
