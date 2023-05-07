@@ -26,7 +26,7 @@ const finalScoreSpan = document.querySelector('#final-score');
 const searchForm= document.querySelector('.searchForm')
 const gameOver = document.getElementById('game-over');
 const highScores = document.getElementById('high-scores');
-const detectedLabel= document.querySelector('.detectedLabel')
+const detectedLabel= document.querySelector('.detectedLabelContainer')
 const startBtn = document.querySelector('.startBtn');
 const highScoreBtn = document.querySelector('.highScore')
 const playAgainBtn = document.querySelector('#play-again-button');
@@ -35,6 +35,7 @@ const gameOverDiv = document.getElementById('game-over');
 const highScoresDiv = document.getElementById('high-scores');
 const highScoresList = document.getElementById("high-scores-list");
 const highScoreForm = document.getElementById("high-score-form");
+const searchlabelEl = document.getElementById('label');
 
 const randomPage = Math.floor(Math.random() * 100) + 1;
 
@@ -94,6 +95,7 @@ let targetB;
 let correctColor1;
 let correctColor2;
 let dominantRGB;
+let luminance;
 
 
 function createDominantColor(photoUrl){
@@ -136,12 +138,25 @@ function createDominantColor(photoUrl){
       targetColourEl.style.backgroundColor = dominantRGB;
       titleEl.style.color = dominantRGB;
       subtitleEl.style.color = dominantRGB;
+      scoreSpan.style.color=dominantRGB;
+      roundSpan.style.color=dominantRGB;
+      searchlabelEl.style.color=dominantRGB;
+      homeEL.style.color=dominantRGB;
+      highScoreEL.style.color=dominantRGB;
+
+      luminance = 0.2126 *(targetR/255) + 0.7152*(targetG/255) + 0.0722*(targetB/255);
+      console.log(luminance);
+      if (luminance>=0.65){
+        header.style.background = 'linear-gradient(to right, rgb(61, 28, 81), rgb(70, 54, 189), rgb(164, 31, 198), rgb(118, 23, 88))';
+      }else{
+        header.style.background = 'linear-gradient(to right, rgb(213, 195, 224), rgb(238, 238, 199), rgb(239, 255, 186), rgb(248, 215, 252))';
+      }
 
       const labels = data.responses[0].labelAnnotations;
       labels.sort((a, b) => b.score - a.score);
       const bestLabel = labels[0].description;
-      detectedLabel.textContent='Theme:   '+bestLabel;
-      navBarEl.append(detectedLabel);
+      detectedLabel.children[0].textContent=bestLabel;
+      imgContainer.append(detectedLabel);
 
       generateRandomChoice(targetR, targetG, targetB);
 }).catch(error => console.error(error));
@@ -251,9 +266,9 @@ function renderUserChoice(e){
     yourMixEl.style.backgroundColor=mixdColorRGB;
     imgContainer.children[0].style.display='none';
     imgContainer.children[1].style.display='none';
-    if (imgContainer.children[2]) {
-      imgContainer.children[2].style.display='none';
-    }
+    // if (imgContainer.children[2]) {
+    //   imgContainer.children[2].style.display='none';
+    // }
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -274,9 +289,9 @@ function renderUserChoice(e){
     yourMixEl.style.backgroundColor=eTargetColor;
     imgContainer.children[0].style.display='none';
     imgContainer.children[1].style.display='none';
-    if (imgContainer.children[2]) {
-      imgContainer.children[2].style.display='none';
-    }
+    // if (imgContainer.children[2]) {
+    //   imgContainer.children[2].style.display='none';
+    // }
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -304,9 +319,9 @@ function renderUserChoice(e){
       targetColourEl.style.display='none';
       imgContainer.children[0].style.display='none';
       imgContainer.children[1].style.display='none';
-      if (imgContainer.children[2]) {
-        imgContainer.children[2].style.display='none';
-      }
+      // if (imgContainer.children[2]) {
+      //   imgContainer.children[2].style.display='none';
+      // }
       
       greatMix.style.display='flex';
       greatMix.style.justifyContent = 'center';
@@ -362,7 +377,8 @@ function resetGame(e) {
   targetR = '';
   targetG = '';
   targetB = '';
-  detectedLabel.textContent='Theme:   ';
+  detectedLabel.children[0].textContent='';
+  luminance='';
   correctColor1 = '';
   correctColor2 = '';
   correctCount = 0;
@@ -439,7 +455,7 @@ function getRandomInt(max) {
 
 
 function setScore(score) {
-  scoreSpan.textContent = 'Score: ' + score;
+  scoreSpan.textContent = 'Score:  ' + score;
 }
 
 function setFinalScore() {
@@ -529,7 +545,7 @@ function printHighScores(highScores) {
 }
 
 function showRound(roundCounter) {
-  roundSpan.textContent = 'Round: ' + roundCounter;
+  roundSpan.textContent = 'Round:  ' + roundCounter;
 }
 
 function showHighScores() {
@@ -543,6 +559,7 @@ function showHighScores() {
 function showGameOver(){
   
   gameOverDiv.style.display = 'inline-block';
+  header.style.display='none';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
 }
@@ -573,6 +590,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "landscape": null,
       "mountain": null,
       "nature": null,
+      "northern lights": null,
       "ocean": null,
       "paris": null,
       "queen": null,
@@ -595,6 +613,7 @@ function formsubmitHandler(e){
   searchInput=input.value;
   imgContainer.children[0].style.display='none';
   imgContainer.children[1].style.display='none';
+  imgContainer.children[2].style.display='none';
   pexelsLink.remove();
   generatePhoto();
 }
