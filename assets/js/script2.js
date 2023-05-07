@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const options = {
     data: {
-      "animals": null,
+      "astronaut": null,
       "beach": null,
       "beautiful Girl": null,
       "city": null,
