@@ -13,11 +13,28 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header>
-        <h3>Mix Colour Game</h3>
-        <h5>Play & Learn</h5>
-        <button class="home">Home</button>
-        <button class="highScore">Highscore</button>
+    <header class="header row ">
+        <h3 class="title col s12">Mix Colour Game</h3>
+        <h5 class="subtitle col s12">Play & Learn</h5>
+        <div class="navbar row col s12">
+            <div class="col s3">
+                <div class="home">Home</div>
+                <div class="highScore">Highscore</div>
+            </div>
+            <form class="searchForm col s4">
+                <div class="input-field searchBar ">
+                  <i class="material-icons prefix">textsms</i>
+                  <input type="text" id="autocomplete-input" class="autocomplete">
+                  <label id='label' for="autocomplete-input">e.g., landscape</label>
+                  <i class="material-icons search-icon">search</i>
+                </div>
+            </form>
+            <span class="detectedLabel col s2"></span>
+            <div class="scoreContainer col s3">
+                <span class="current-score"></span>
+                <span class="current-round"></span>
+            </div>
+        </div>
     </header>
 
     <div class="startContainer">
@@ -26,7 +43,7 @@
 
     <div class="section1">  
         <div class="imgContainer">
-            
+            <div class="loading"></div>
         </div>
      
         
@@ -34,22 +51,17 @@
 
     <div class="section2">
         <div class="row center-align colorContainer">
-            <div>
-                
-            </div>
+
             <div class="yourMix">
                 <p>Your Mix</p>
             </div>
+
             <div class="target">
                 <p>Target</p>
             </div>
+            
             <div class="greatMix">
                 <p>Great Mix!</p>
-            </div>
-            <!-- adding score div -->
-            <div>
-                <p>  <span class="current-score"></span> </p>
-                <p> <span class="current-round"></span></p>
             </div>
 
         </div>
