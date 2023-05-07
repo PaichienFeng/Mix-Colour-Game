@@ -12,7 +12,6 @@ const yourMixEl = document.querySelector('.yourMix');
 const targetColourEl = document.querySelector('.target');
 const userChoiceEl = document.querySelectorAll('.userChoice');
 const userChoiceContainer = document.querySelector('.userChoiceContainer')
-const startBtn = document.querySelector('.startBtn');
 const startContainer = document.querySelector('.startContainer');
 const section1El = document.querySelector('.section1');
 const section2El = document.querySelector('.section2');
@@ -20,6 +19,7 @@ const colorContainer = document.querySelector('.colorContainer');
 const greatMix =document.querySelector('.greatMix');
 const photoImg = document.querySelector('.photoImg');
 const yesno = document.querySelector('.yesno');
+
 const loadingEl = document.querySelector('.loading');
 const scoreSpan = document.querySelector('.current-score');
 const roundSpan = document.querySelector('.current-round');
@@ -28,12 +28,25 @@ const searchForm= document.querySelector('.searchForm')
 const gameOver = document.getElementById('game-over');
 const highScores = document.getElementById('high-scores');
 const detectedLabel= document.querySelector('.detectedLabel')
+const startBtn = document.querySelector('.startBtn');
+const highScoreBtn = document.querySelector('.highScore')
+const playAgainBtn = document.querySelector('#play-again-button');
+const clearScoresBtn = document.querySelector('#clear-scores');
+const scoreSpan = document.querySelector('.current-score');
+const roundSpan = document.querySelector('.current-round');
+const finalScoreSpan = document.querySelector('#final-score');
+const gameOverDiv = document.getElementById('game-over');
+const highScoresDiv = document.getElementById('high-scores');
+const highScoresList = document.getElementById("high-scores-list");
+const highScoreForm = document.getElementById("high-score-form");
+
 const randomPage = Math.floor(Math.random() * 100) + 1;
 
 let searchInput= 'nature';
 let score = 0;
 let roundCounter = 1;
 let pexelsLink;
+
 
 function generatePhoto(){
     console.log(searchInput);
@@ -78,14 +91,6 @@ function generatePhoto(){
     createDominantColor(photoUrl);})
   .catch(error => console.error(error));
 
-  // if (roundCounter > 3) {
-  //   console.log('loser');
-  //   gameOver.style.display = 'block'
-  //   section1El.style.display='none';
-  //   section2El.style.display='none';
-  //   return;
-  // }
-}
 
 let targetR;
 let targetG;
@@ -233,7 +238,7 @@ function renderUserChoice(e){
 
     // console.log(e.target.classList)
   };  
-    
+   
   
   prevTarget = e.target;
   
@@ -295,8 +300,7 @@ function renderUserChoice(e){
     if(correctCount===2){
 
       score = score + 10;
-      
-      // showRound(roundCounter);
+
       console.log(roundCounter);
       setScore(score);
       console.log ("this is your score ", score);
@@ -330,9 +334,6 @@ function renderUserChoice(e){
  
 }
 
-if (roundCounter === 10) {
-  console.log(Hello);
-};
 
 function createNextBtn(){
   const nextBtn= document.createElement('button');
@@ -377,12 +378,14 @@ function resetGame(e) {
     userChoiceEl[i].style.pointerEvents='auto';
   }
 
-  if (roundCounter===5){
-    showHighScores();
-    scoreSpan.style.display='none';
-    roundSpan.style.display='none';
+// change number of rounds
+  if (roundCounter===2){
+    showGameOver();
+    setFinalScore(score);
     return
-  }
+    }
+  
+
   console.log(roundCounter);
   targetColourEl.style.display= 'flex';
   targetColourEl.style.backgroundColor = '';
@@ -444,7 +447,89 @@ function setScore(score) {
 }
 
 function setFinalScore() {
-  finalScoreSpan.textContent = 'Your final score is ' + score + ' Youre so good!';
+
+  if (score == 0) {
+  finalScoreSpan.textContent = 'Your final score is ' + score + ' Aww better luck next time champ!';
+  highScoreForm.style.display = 'none';
+} else if (score >= 10 && score <= 30) {
+  console.log('the score is between 0 and 4');
+  finalScoreSpan.textContent = 'Your final score is ' + score + ' Keep practising!';
+} else if (score >= 40 && score <= 60) {
+  finalScoreSpan.textContent = "Your final score is " + score + " Youre good at this!";
+} else if (score >= 70 && score <= 90) {
+  finalScoreSpan.textContent = "Your final score is " + score + " Wow! You are talented!"
+} else {
+  finalScoreSpan.textContent = "Your final score is " + score + " You must feel so proud!"
+}
+
+
+
+}
+
+function showHighScore() {
+  highScoresDiv.style.display = "inline-block";
+}
+
+// highscore
+highScoreForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  gameOverDiv.style.display = "none";
+
+  showHighScore();
+  
+  
+
+  const initialsInput = document.getElementById("initials");
+  
+  const initials = initialsInput.value.toUpperCase();
+  if (initials.length < 2 || initials.length > 3) {
+  alert("Please enter 2 or 3 characters for your initials.");
+  return;
+  }
+  const highScore = { initials: initials, score: score };
+  addHighScore(highScore);
+  initialsInput.value = "";
+  });
+
+
+function addHighScore(highScore) {
+  let highScores = getHighScores();
+  highScores.push(highScore);
+  highScores.sort(function(a, b) {
+  console.log(highScores);
+  return b.score - a.score;
+  });
+  highScores = highScores.slice(0, 5);
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+  printHighScores(highScores);
+  }
+  
+function getHighScores() {
+  let highScores = localStorage.getItem("highScores");
+  if (highScores) {
+  return JSON.parse(highScores);
+  } else {
+  return [];
+  }
+  }
+
+
+
+function printHighScores(highScores) {
+  highScoresList.innerHTML = "";
+  for (let i = 0; i < highScores.length; i++) {
+    const li = document.createElement("li");
+    const initialsSpan = document.createElement("span");
+    initialsSpan.classList.add("initials");
+    initialsSpan.textContent = highScores[i].initials + " - ";
+    const scoreSpan = document.createElement("span");
+    scoreSpan.classList.add("score");
+    scoreSpan.textContent = highScores[i].score;
+    li.appendChild(initialsSpan); 
+    li.appendChild(scoreSpan);
+    highScoresList.appendChild(li);
+  }
 }
 
 function showRound(roundCounter) {
@@ -452,12 +537,18 @@ function showRound(roundCounter) {
 }
 
 function showHighScores() {
-  highScores.style.display = 'block';
   header.style.display='none';
+  highScoresDiv.style.display = 'inline-block';
+  highScoresList.style.display = 'inline-block';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
-  titleEl.style.color= 'rgb(73, 82, 87)';
-  subtitleEl.style.color= 'rgb(73, 82, 87)';
+}
+
+function showGameOver(){
+  
+  gameOverDiv.style.display = 'inline-block';
+  section1El.style.display = 'none';
+  section2El.style.display = 'none';
 }
 
 homeEL.addEventListener('click', function(){
@@ -512,9 +603,39 @@ function formsubmitHandler(e){
   generatePhoto();
 }
 
+playAgainBtn.addEventListener('click', function(){
+  location.reload();
+})
+
 
 
 searchForm.addEventListener('submit', formsubmitHandler)
 userChoiceContainer.addEventListener('click', renderUserChoice);
 startBtn.addEventListener('click', generatePhoto);
-highScoreEL.addEventListener('click', showHighScores);
+clearScoresBtn.addEventListener("click", clearHighScores);
+
+highScoreBtn.addEventListener('click', function() {
+
+  showHighScores();
+
+  playAgainBtn.style.display = 'none';
+  const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+  
+  highScoresList.innerHTML = '';
+
+  highScores.forEach(function(highScore) {
+    const li = document.createElement('li');
+    li.textContent = highScore.initials + " - " + highScore.score;
+    highScoresList.appendChild(li);
+  });
+
+  highScoresDiv.style.display = 'block';
+  gameOverDiv.style.display = 'none';
+});
+
+
+
+function clearHighScores() {
+	localStorage.removeItem("highScores");
+	highScoresList.innerHTML = "";
+}

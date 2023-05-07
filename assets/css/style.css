@@ -302,3 +302,18 @@ header span{
     transform: translateY(-50%);
     cursor: pointer;
   }
+
+#high-scores-list {
+    text-align: center;
+    background-color: rgba(158, 30, 167, 0.3);
+    height: fit-content;
+    width: 220px;
+    display: inline-block;
+}
+
+#initials {
+    background-color: #f7f4f4;
+    border-radius: 5px;
+    border-color: black;
+    }
+
