@@ -19,7 +19,6 @@ const colorContainer = document.querySelector('.colorContainer');
 const greatMix =document.querySelector('.greatMix');
 const photoImg = document.querySelector('.photoImg');
 const yesno = document.querySelector('.yesno');
-
 const loadingEl = document.querySelector('.loading');
 const scoreSpan = document.querySelector('.current-score');
 const roundSpan = document.querySelector('.current-round');
@@ -32,9 +31,6 @@ const startBtn = document.querySelector('.startBtn');
 const highScoreBtn = document.querySelector('.highScore')
 const playAgainBtn = document.querySelector('#play-again-button');
 const clearScoresBtn = document.querySelector('#clear-scores');
-const scoreSpan = document.querySelector('.current-score');
-const roundSpan = document.querySelector('.current-round');
-const finalScoreSpan = document.querySelector('#final-score');
 const gameOverDiv = document.getElementById('game-over');
 const highScoresDiv = document.getElementById('high-scores');
 const highScoresList = document.getElementById("high-scores-list");
@@ -90,7 +86,7 @@ function generatePhoto(){
   
     createDominantColor(photoUrl);})
   .catch(error => console.error(error));
-
+    };
 
 let targetR;
 let targetG;
@@ -379,7 +375,7 @@ function resetGame(e) {
   }
 
 // change number of rounds
-  if (roundCounter===2){
+  if (roundCounter===11){
     showGameOver();
     setFinalScore(score);
     return
@@ -634,8 +630,7 @@ highScoreBtn.addEventListener('click', function() {
 });
 
 
-
-function clearHighScores() {
+function clearHighScores(){
 	localStorage.removeItem("highScores");
 	highScoresList.innerHTML = "";
 }
