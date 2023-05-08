@@ -173,10 +173,11 @@ function createDominantColor(photoUrl, photo){
       const pexelsLink = document.createElement('a');
       pexelsLink.classList.add('pexelsLink');
       pexelsLink.href =photo.photographer_url;
-      pexelsLink.innerHTML= bestLabel + '<br>Photo by '+ photo.photographer + ' on Pexels';
+      pexelsLink.textContent = bestLabel + '\nPhoto by ' + photo.photographer + ' on Pexels';
+      pexelsLink.style.whiteSpace = 'pre-wrap';
       pexelsLink.style.position= 'absolute';
-      pexelsLink.style.bottom= '30px';
-      pexelsLink.style.right='10px'
+      pexelsLink.style.bottom= '35px';
+      pexelsLink.style.right='10px';
       imgContainer.append(pexelsLink);
 
       generateRandomChoice(targetR, targetG, targetB);
