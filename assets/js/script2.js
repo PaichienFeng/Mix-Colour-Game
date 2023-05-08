@@ -24,14 +24,16 @@ const loadingEl = document.querySelector('.loading');
 const scoreSpan = document.querySelector('.current-score');
 const roundSpan = document.querySelector('.current-round');
 const finalScoreSpan = document.querySelector('#final-score');
-const searchForm= document.querySelector('.searchForm')
+const scoreMessageSpan = document.getElementById('score-message');
+const ratingMessageSpan = document.getElementById('rating-message');
+const searchForm= document.querySelector('.searchForm');
 const gameOver = document.getElementById('game-over');
 const highScores = document.getElementById('high-scores');
-const detectedLabel= document.querySelector('.detectedLabelContainer')
+const detectedLabel= document.querySelector('.detectedLabelContainer');
 const startBtn = document.querySelector('.startBtn');
-const highScoreBtn = document.querySelector('.highScore')
+const highScoreBtn = document.querySelector('.highScore');
 const playAgainBtn = document.querySelector('#play-again-button');
-const submitBtn = document.getElementById('submit-button')
+const submitBtn = document.getElementById('submit-button');
 const clearScoresBtn = document.querySelector('#clear-scores');
 const gameOverDiv = document.getElementById('game-over');
 const highScoresDiv = document.getElementById('high-scores');
@@ -146,6 +148,9 @@ function createDominantColor(photoUrl){
       homeEL.style.color=dominantRGB;
       highScoreEL.style.color=dominantRGB;
       submitBtn.style.color=dominantRGB;
+
+      highScoresDiv.style.color = highScoreEL.style.color;
+      clearScoresBtn.style.color = highScoreEL.style.color;
 
       luminance = 0.2126 *(targetR/255) + 0.7152*(targetG/255) + 0.0722*(targetB/255);
       console.log(luminance);
@@ -466,17 +471,22 @@ function setScore(score) {
 function setFinalScore() {
 
   if (score == 0) {
-  finalScoreSpan.textContent = 'Your final score is ' + score + ' Aww better luck next time champ!';
+  finalScoreSpan.textContent = 'Your final score is ' + score; 
+  ratingMessageSpan.textContent = 'Aww better luck next time champ!';
   highScoreForm.style.display = 'none';
 } else if (score >= 10 && score <= 30) {
   console.log('the score is between 0 and 4');
-  finalScoreSpan.textContent = 'Your final score is ' + score + ' Keep practising!';
+  finalScoreSpan.textContent = 'Your final score is ' + score; 
+  ratingMessageSpan.textContent = 'Keep practising!';
 } else if (score >= 40 && score <= 60) {
-  finalScoreSpan.textContent = "Your final score is " + score + " Youre good at this!";
+  finalScoreSpan.textContent = "Your final score is " + score; 
+  ratingMessageSpan.textContent = "Youre good at this!";
 } else if (score >= 70 && score <= 90) {
-  finalScoreSpan.textContent = "Your final score is " + score + " Wow! You are talented!"
+  finalScoreSpan.textContent = "Your final score is " + score;
+  ratingMessageSpan.textContent = "Wow! You are talented!";
 } else {
-  finalScoreSpan.textContent = "Your final score is " + score + " You must feel so proud!"
+  finalScoreSpan.textContent = "Your final score is " + score; 
+  ratingMessageSpan.textContent = ' Keep practising!';" You must feel so proud!"
 }
 
 
@@ -520,7 +530,13 @@ function addHighScore(highScore) {
   highScores = highScores.slice(0, 5);
   localStorage.setItem("highScores", JSON.stringify(highScores));
   printHighScores(highScores);
+
+  if (highScores.length < 5 || highScore.score > highScores[highScores.length - 1].score) {
+    scoreMessageSpan.textContent = "Congratulations! You made it to the high score list.";
+  } else {
+    scoreMessageSpan.textContent = "Sorry, your score is not high enough for the high score list.";
   }
+}
   
 function getHighScores() {
   let highScores = localStorage.getItem("highScores");

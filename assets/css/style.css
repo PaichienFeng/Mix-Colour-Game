@@ -11,8 +11,8 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5px;
-    margin-top: 0;
-    max-width: 800px;
+    margin-top: 10px;
+    width: 800px;
     min-width: 250px;
     height: 140px;
     background-image: linear-gradient(
@@ -84,7 +84,7 @@ header span{
     bottom: 10px;
 }
 
-.home:hover{
+.home:hover, #play-again-button:hover, #clear-scores:hover{
     background-color: rgb(247, 159, 159);
 }
 
@@ -101,24 +101,43 @@ header span{
 
 }
 
-#submit-button {
+#submit-button, #play-again-button, #clear-scores {
     
     color:rgb(73, 82, 87);
     border-radius: 5px;
     border-style: none;
     cursor: pointer;
     font-weight: normal;
-    width: 80px;
+    width: fit-content;
     height: 28px;
     font-size: 17px;
-    background-image: linear-gradient(
-        to right,
-       
-        rgb(213, 195, 224),
-        rgb(238, 238, 199),
-        rgb(239, 255, 186),
-        rgb(248, 215, 252)
-      );
+    background-color: transparent;
+}
+
+#game-over {
+    color:rgb(73, 82, 87);
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: normal;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding-top: 10px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+#high-scores{
+    display: none;
+    color:rgb(73, 82, 87);
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: normal;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding-top: 10px;
+    margin-top: 20px;
 }
 
 .buttonContainer{
@@ -258,9 +277,7 @@ header span{
     display: none;
 }
 
-#high-scores {
-    display: none;
-}
+
 
 .nextBtn{
     background-color: rgba(226, 226, 226, 0.6);
@@ -337,7 +354,7 @@ header span{
 
 #high-scores-list {
     text-align: center;
-    background-color: rgba(158, 30, 167, 0.3);
+    background-color: white;
     height: fit-content;
     width: 220px;
     display: inline-block;

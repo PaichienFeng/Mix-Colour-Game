@@ -80,10 +80,11 @@
 
     <!-- game over section -->
     <div id="game-over">
-        <h1>All Done!</h1> <!-- need more js from another section to complete -->
-        <h2> <span id="final-score"></span></h2>
+        <h3>All Done!</h1> <!-- need more js from another section to complete -->
+        <h5> <span id="final-score" class="row col 12"></span></h5>
+        <h5><span id="rating-message" class="row col 12"></span></h5>
         <!-- form will take user initials input an match it with their high score in the script -->
-        <form id="high-score-form">
+        <form id="high-score-form" class="row col 12">
           <label for="initials">Enter your initials here:</label>
           <input type="text" id="initials" name="initials" required minlength="2" maxlength="3">
           <button type="submit" id="submit-button">Submit</button>
@@ -92,11 +93,12 @@
 
     <!-- high score section -->
     <div id="high-scores">
-      <h2>⭐ High Scores ⭐</h2>
-      <ol id="high-scores-list"></ol>
+      <h3 class="row col 12">⭐ High Scores ⭐</h2>
+      <span class="row col 12" id="score-message"></span>
+      <ol id="high-scores-list" class="row col 12"></ol>
       <div>
-        <button type="click" id="play-again-button">Play Again</button>
-        <button type="click" id="clear-scores">Clear Scores</button>
+        <button type="click" id="play-again-button" class="row col 12">Play Again</button>
+        <button type="click" id="clear-scores" class="row col 12">Clear Scores</button>
       </div>
     </div>
     
