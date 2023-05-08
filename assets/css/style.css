@@ -1,17 +1,60 @@
 body {
+    height: auto;
     font-family: 'Ubuntu', sans-serif,'Roboto';
     text-align: center;
     background-color: rgb(68, 70, 84);
     color: white;
 }
 
-header h3{
+.header{
+    position: relative;
+    top: auto;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 5px;
-    margin-top: 5px;
+    margin-top: 10px;
+    width: 800px;
+    min-width: 250px;
+    height: 160px;
+    background-image: linear-gradient(
+        to right,
+       
+        rgb(213, 195, 224),
+        rgb(238, 238, 199),
+        rgb(239, 255, 186),
+        rgb(248, 215, 252)
+      );
+    border-radius: 10px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+}
+
+
+
+header h3{
+    font-size: 40px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    font-weight: 400;
+    width: 100%;
+    color: rgb(73, 82, 87);
 }
 
 header h5{
     margin-top: 5px;
+    font-size: x-large;
+    font-weight: normal;
+    width: 100%;
+    color: rgb(73, 82, 87);
+}
+
+header span{
+    color:rgb(73, 82, 87);
+    position: relative;
+
 }
 
 .section1{
@@ -24,39 +67,125 @@ header h5{
 
 .home{
     display: none;
-    background-color: rgb(255,123,123);
-    color: white;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    color:rgb(73, 82, 87);
+    border-radius: 5px;
+    border-style: none;
     cursor: pointer;
+    font-weight: normal;
+    width: 80px;
+    height: 28px;
+    font-size: 17px;
+}
+
+.searchBar{
+    margin: 0%;
+    height: 48px;
+    width: 100%;
+    position: relative;
+    bottom: 10px;
+}
+
+.home:hover, #play-again-button:hover, #clear-scores:hover{
+    background-color: rgb(247, 159, 159);
 }
 
 .highScore{
     display: none;
-    background-color: rgb(255,123,123);
-    color: white;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    color:rgb(73, 82, 87);
+    border-radius: 5px;
+    border-style: none;
     cursor: pointer;
+    font-weight: normal;
+    width: 80px;
+    height: 28px;
+    font-size: 17px;
+
+}
+
+#submit-button, #play-again-button, #clear-scores {
+    
+    color:rgb(73, 82, 87);
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    font-weight: normal;
+    width: fit-content;
+    height: 28px;
+    font-size: 17px;
+    background-color: transparent;
+}
+
+#game-over {
+    color:rgb(73, 82, 87);
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: normal;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding-top: 10px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+#high-scores{
+    display: none;
+    color:rgb(73, 82, 87);
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: normal;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+
+.buttonContainer{
+    max-width: fit-content;
+    margin-left: 0!important;
+}
+
+.navbar{
+    display: flex;
+    position: relative;
+    bottom: -15px;
+}
+
+.highScore:hover , #submit-button:hover {
+    background-color: rgb(247, 159, 159);
+    
 }
 
 .imgContainer{
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 250px;
+    max-width: 800px;
+
 }
 
 .imgContainer img{
-    width: 800px;
+    width: 100%;
     height: 350px;
     border-style: hidden;
     border-radius: 10px;
 }
 
 .imgContainer a{
-    background-color: aliceblue;
+    color: aliceblue;
     padding: 2px;
-    border-radius: 10px;
     height: 25px;
-    font-weight: 450;
+    font-weight: 300;
+    text-align: end;
+    height: 50px;
+    background-color: rgb(172, 162, 162, 0.5);
+    border-radius: 5px;
+}
+
+.imgContainer a:hover{
+    color: rgb(255,123,123);
 }
 
 .target{
@@ -67,10 +196,13 @@ header h5{
     height: 300px;
     border-style: hidden;
     border-radius: 10px;
+    background-color: rgb(51, 123, 123);
+
 }
 
 .target p {
     font-size: 30px;
+    font-weight: 300;
 }
 
 .yourMix{
@@ -87,10 +219,14 @@ header h5{
 
 .yourMix p{
     font-size: 30px;
+    font-weight: 300;
 
 }
 
 .userChoice{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 80px;
     height: 80px;
     border-style: hidden;
@@ -115,6 +251,7 @@ header h5{
 
 .greatMix p{
     font-size: 30px;
+    font-weight: 300;
 }
 
 .colorContainer{
@@ -124,15 +261,15 @@ header h5{
 }
 
 .startContainer{
-    height: 500px;
+    height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .startBtn{
-    width: 10%;
-    height: 25%;
+    width: 130px;
+    height: 130px;
     border-style: hidden;
     border-radius: 50%;
     cursor: pointer;
@@ -141,12 +278,125 @@ header h5{
     font-weight: 100px;
     background-color: rgb(51, 123, 123);
     box-shadow: 0 0 50px;
+
+}
+
+.startBtn:hover{
+    background-color: rgb(255,123,123);
 }
 
 #game-over {
     display: none;
 }
 
-#high-scores {
+
+
+.nextBtn{
+    background-color: rgba(226, 226, 226, 0.6);
+    color: white;
+    font-size: large;
+    font-weight: 100px;
+    border-radius: 15px;
+    border-style: none;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    position: absolute;
+    top: -52px;
+    
+
+}
+
+.nextBtn:hover{
+    background-color:rgb(255, 123, 123);
+}
+
+.scoreContainer{
+    position:relative;
+    bottom: 10px;
+    max-width: fit-content;
+}
+
+.current-score{
+    font-size: 17px;
+    font-weight: normal;
+    color:rgb(73, 82, 87);
+    
+}
+
+
+.current-round{
+    font-size: 17px;
+    font-weight: normal;
+    color:rgb(73, 82, 87);
+}
+
+
+  .imgContainer-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+#high-scores-list {
+    text-align: center;
+    background-color: white;
+    height: fit-content;
+    width: 220px;
+    display: inline-block;
+}
+
+#initials {
+    background-color: #f7f4f4;
+    border-radius: 5px;
+    border-color: black;
+    width: 100px;
+    text-align: center;
+}
+
+.detectedLabelContainer{
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    max-width: fit-content;
+    font-size: 17px;
+}
+
+#no-results-modal{
     display: none;
+}
+
+#no-results-modal{
+    color: grey;
+}
+
+
+@media screen and (max-width: 768px) {
+    .home{
+        font-size: small;
+    }
+    .highScore{
+        font-size: small;
+    }
+    .buttonContainer{
+        position: relative;
+        bottom: 10px;
+    }
+    .searchBar{
+        flex: 100%;
+    }
+    .current-round{
+        font-size: small;
+    }
+    .current-score{
+        font-size: small;
+    }
+
 }

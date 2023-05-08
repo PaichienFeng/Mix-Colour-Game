@@ -13,11 +13,29 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header>
-        <h3>Mix Colour Game</h3>
-        <h5>Play & Learn</h5>
-        <button class="home">Home</button>
-        <button class="highScore">Highscore</button>
+    <header class="header row ">
+        <h3 class="title col s12">Mix Colour Game</h3>
+        <h5 class="subtitle col s12">Play & Learn</h5>
+        
+        <div class="navbar row col s12">
+            <div class="buttonContainer col s4">
+                <div class="home">Home</div>
+                <div class="highScore">Highscore</div>
+            </div>
+            <form class="searchForm col s6">
+                <div class="input-field searchBar ">
+                  <i class="material-icons prefix">textsms</i>
+                  <input type="text" id="autocomplete-input" class="autocomplete">
+                  <label id='label' for="autocomplete-input">e.g., landscape</label>
+                  <i id=seaarchIcon type='click' class="material-icons search-icon">search</i>
+                </div>
+            </form>
+            
+            <div class="scoreContainer col s2">
+                <span class="current-score"></span>
+                <span class="current-round"></span>
+            </div>
+        </div>
     </header>
 
     <div class="startContainer">
@@ -27,6 +45,7 @@
     <div class="section1">  
         <div class="imgContainer">
             
+            <div class="loading"></div>
         </div>
      
         
@@ -34,21 +53,17 @@
 
     <div class="section2">
         <div class="row center-align colorContainer">
-            <div>
-                
-            </div>
+
             <div class="yourMix">
                 <p>Your Mix</p>
             </div>
+
             <div class="target">
                 <p>Target</p>
             </div>
+            
             <div class="greatMix">
                 <p>Great Mix!</p>
-            </div>
-            <!-- adding score div -->
-            <div>
-                <p>  <span class="current-score"></span> </p>
             </div>
 
         </div>
@@ -63,10 +78,11 @@
 
     <!-- game over section -->
     <div id="game-over">
-        <h1>All Done!</h1> <!-- need more js from another section to complete -->
-        <h2>Your Score:    <span id="final-score"></span></h2>
+        <h3>All Done!</h1> <!-- need more js from another section to complete -->
+        <h5> <span id="final-score" class="row col 12"></span></h5>
+        <h5><span id="rating-message" class="row col 12"></span></h5>
         <!-- form will take user initials input an match it with their high score in the script -->
-        <form id="high-score-form">
+        <form id="high-score-form" class="row col 12">
           <label for="initials">Enter your initials here:</label>
           <input type="text" id="initials" name="initials" required minlength="2" maxlength="3">
           <button type="submit" id="submit-button">Submit</button>
@@ -75,13 +91,24 @@
 
     <!-- high score section -->
     <div id="high-scores">
-      <h2>High Scores</h2>
-      <ol id="high-scores-list"></ol>
+      <h3 class="row col 12">⭐ High Scores ⭐</h2>
+      <span class="row col 12" id="score-message"></span>
+      <ol id="high-scores-list" class="row col 12"></ol>
       <div>
-        <button type="click" id="play-again-button">Play Again</button>
-        <button type="click" id="clear-scores">Clear Scores</button>
+        <button type="click" id="play-again-button" class="row col 12">Play Again</button>
+        <button type="click" id="clear-scores" class="row col 12">Clear Scores</button>
       </div>
     </div>
+
+    <div id="no-results-modal" class="modal">
+        <div class="modal-content">
+          <h4>Error</h4>
+          <p>Please search another topic.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+        </div>
+      </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="module" src="assets/js/script2.js"></script>
