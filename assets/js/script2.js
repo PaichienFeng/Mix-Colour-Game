@@ -80,6 +80,7 @@ function generatePhoto(){
     imageEL.classList.add('photoImg');
     imgContainer.textContent = '';
     imgContainer.append(imageEL);
+    highScoresDiv.style.display='none';
   
   
     createDominantColor(photoUrl, photo);})
@@ -519,7 +520,7 @@ function setFinalScore() {
 }
 
 function showHighScore() {
-  highScoresDiv.style.display = "inline-block";
+  highScoresDiv.style.display = "block";
 }
 
 // highscore
@@ -596,7 +597,7 @@ function showRound(roundCounter) {
 
 function showHighScores() {
   
-  highScoresDiv.style.display = 'inline-block';
+  highScoresDiv.style.display = 'block';
   highScoresList.style.display = 'inline-block';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
