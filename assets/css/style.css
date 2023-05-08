@@ -179,7 +179,9 @@ header span{
     height: 25px;
     font-weight: 300;
     text-align: end;
-    
+    height: 50px;
+    background-color: rgb(172, 162, 162, 0.5);
+    border-radius: 5px;
 }
 
 .imgContainer a:hover{

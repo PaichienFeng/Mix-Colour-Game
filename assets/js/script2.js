@@ -176,7 +176,7 @@ function createDominantColor(photoUrl, photo){
       pexelsLink.textContent = bestLabel + '\nPhoto by ' + photo.photographer + ' on Pexels';
       pexelsLink.style.whiteSpace = 'pre-wrap';
       pexelsLink.style.position= 'absolute';
-      pexelsLink.style.bottom= '35px';
+      pexelsLink.style.bottom= '15px';
       pexelsLink.style.right='10px';
       imgContainer.append(pexelsLink);
 
