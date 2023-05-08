@@ -26,7 +26,6 @@ const finalScoreSpan = document.querySelector('#final-score');
 const searchForm= document.querySelector('.searchForm')
 const gameOver = document.getElementById('game-over');
 const highScores = document.getElementById('high-scores');
-const detectedLabel= document.querySelector('.detectedLabelContainer')
 const startBtn = document.querySelector('.startBtn');
 const highScoreBtn = document.querySelector('.highScore')
 const playAgainBtn = document.querySelector('#play-again-button');
@@ -77,15 +76,8 @@ function generatePhoto(){
     imageEL.classList.add('photoImg');
     imgContainer.append(imageEL);
   
-    pexelsLink = document.createElement('a');
-    pexelsLink.href =photo.photographer_url;
-    pexelsLink.textContent= 'Photo by '+ photo.photographer + ' on Pexels';
-    pexelsLink.style.position= 'absolute';
-    pexelsLink.style.bottom= '10px';
-    pexelsLink.style.right='10px'
-    imgContainer.append(pexelsLink);
   
-    createDominantColor(photoUrl);})
+    createDominantColor(photoUrl, photo);})
   .catch(error => console.error(error));
     };
 
@@ -98,7 +90,7 @@ let dominantRGB;
 let luminance;
 
 
-function createDominantColor(photoUrl){
+function createDominantColor(photoUrl, photo){
     const googleVisionAPIUrl = `https://vision.googleapis.com/v1/images:annotate?key=${apiKeyGoogle}`;
     const requestData = {
       "requests": [
@@ -155,8 +147,15 @@ function createDominantColor(photoUrl){
       const labels = data.responses[0].labelAnnotations;
       labels.sort((a, b) => b.score - a.score);
       const bestLabel = labels[0].description;
-      detectedLabel.children[0].textContent=bestLabel;
-      imgContainer.append(detectedLabel);
+
+
+      pexelsLink = document.createElement('a');
+      pexelsLink.href =photo.photographer_url;
+      pexelsLink.innerHTML= bestLabel+ '<br>Photo by '+ photo.photographer + ' on Pexels';
+      pexelsLink.style.position= 'absolute';
+      pexelsLink.style.bottom= '30px';
+      pexelsLink.style.right='10px'
+      imgContainer.append(pexelsLink);
 
       generateRandomChoice(targetR, targetG, targetB);
 }).catch(error => console.error(error));
@@ -266,9 +265,9 @@ function renderUserChoice(e){
     yourMixEl.style.backgroundColor=mixdColorRGB;
     imgContainer.children[0].style.display='none';
     imgContainer.children[1].style.display='none';
-    // if (imgContainer.children[2]) {
-    //   imgContainer.children[2].style.display='none';
-    // }
+    if (imgContainer.children[2]) {
+      imgContainer.children[2].style.display='none';
+    }
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -289,9 +288,9 @@ function renderUserChoice(e){
     yourMixEl.style.backgroundColor=eTargetColor;
     imgContainer.children[0].style.display='none';
     imgContainer.children[1].style.display='none';
-    // if (imgContainer.children[2]) {
-    //   imgContainer.children[2].style.display='none';
-    // }
+    if (imgContainer.children[2]) {
+      imgContainer.children[2].style.display='none';
+    }
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -319,9 +318,9 @@ function renderUserChoice(e){
       targetColourEl.style.display='none';
       imgContainer.children[0].style.display='none';
       imgContainer.children[1].style.display='none';
-      // if (imgContainer.children[2]) {
-      //   imgContainer.children[2].style.display='none';
-      // }
+      if (imgContainer.children[2]) {
+        imgContainer.children[2].style.display='none';
+      }
       
       greatMix.style.display='flex';
       greatMix.style.justifyContent = 'center';
@@ -377,7 +376,6 @@ function resetGame(e) {
   targetR = '';
   targetG = '';
   targetB = '';
-  detectedLabel.children[0].textContent='';
   luminance='';
   correctColor1 = '';
   correctColor2 = '';
@@ -613,7 +611,9 @@ function formsubmitHandler(e){
   searchInput=input.value;
   imgContainer.children[0].style.display='none';
   imgContainer.children[1].style.display='none';
-  imgContainer.children[2].style.display='none';
+  if (imgContainer.children[2]){
+    imgContainer.children[2].style.display='none';
+  }
   pexelsLink.remove();
   generatePhoto();
 }
