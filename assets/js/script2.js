@@ -1,7 +1,7 @@
 const apiKeyGoogle = 'AIzaSyCJQFU6dWV2tmO-TLWfMaMllqWrovdakNI';
 const apiKeyPexels = 'eQmcoa0bs5xZRI97pNTcEXQPqckk3bqAMcYkgIHiULTWD7GeBJz1O15f';
 const imgContainer = document.querySelector('.imgContainer');
-const creditLineEl = document.querySelector('.creditLine');
+// const creditLineEl = document.querySelector('.creditLine');
 const homeEL = document.querySelector('.home');
 const highScoreEL = document.querySelector('.highScore')
 const header = document.querySelector('.header');
@@ -37,11 +37,11 @@ const highScoreForm = document.getElementById("high-score-form");
 const searchlabelEl = document.getElementById('label');
 
 const randomPage = Math.floor(Math.random() * 100) + 1;
-
+M.AutoInit();
 let searchInput= 'nature';
 let score = 0;
 let roundCounter = 1;
-let pexelsLink;
+
 
 
 function generatePhoto(){
@@ -74,11 +74,17 @@ function generatePhoto(){
     const imageEL = document.createElement('img');
     imageEL.setAttribute('src', photoUrl);
     imageEL.classList.add('photoImg');
+    imgContainer.textContent = '';
     imgContainer.append(imageEL);
   
   
     createDominantColor(photoUrl, photo);})
-  .catch(error => console.error(error));
+  .catch(error => {
+    console.error(error);
+    const modal= document.getElementById('no-results-modal');
+    // modal.style.display='block';
+    M.Modal.getInstance(modal).open();
+  });
     };
 
 let targetR;
@@ -135,6 +141,8 @@ function createDominantColor(photoUrl, photo){
       searchlabelEl.style.color=dominantRGB;
       homeEL.style.color=dominantRGB;
       highScoreEL.style.color=dominantRGB;
+      searchForm.style.color=dominantRGB;
+      seaarchIcon
 
       luminance = 0.2126 *(targetR/255) + 0.7152*(targetG/255) + 0.0722*(targetB/255);
       console.log(luminance);
@@ -149,9 +157,10 @@ function createDominantColor(photoUrl, photo){
       const bestLabel = labels[0].description;
 
 
-      pexelsLink = document.createElement('a');
+      const pexelsLink = document.createElement('a');
+      pexelsLink.classList.add('pexelsLink');
       pexelsLink.href =photo.photographer_url;
-      pexelsLink.innerHTML= bestLabel+ '<br>Photo by '+ photo.photographer + ' on Pexels';
+      pexelsLink.innerHTML= bestLabel + '<br>Photo by '+ photo.photographer + ' on Pexels';
       pexelsLink.style.position= 'absolute';
       pexelsLink.style.bottom= '30px';
       pexelsLink.style.right='10px'
@@ -251,6 +260,10 @@ function renderUserChoice(e){
    
   
   prevTarget = e.target;
+
+  // when to clear pexel
+  // 1. user click on wrong color
+  // 2. user got it right
   
   if(!e.target.classList.contains('userChoice')){
     return;
@@ -261,13 +274,16 @@ function renderUserChoice(e){
   
     console.log(correctCount)
   }else if(clickCount===2 && correctCount===1){
+    // this is first right, second wrong
+    clearPexelsLink();
+
     e.target.textContent='X';
     yourMixEl.style.backgroundColor=mixdColorRGB;
     imgContainer.children[0].style.display='none';
-    imgContainer.children[1].style.display='none';
-    if (imgContainer.children[2]) {
-      imgContainer.children[2].style.display='none';
-    }
+    // imgContainer.children[1].style.display='none';
+    // if (imgContainer.children[2]) {
+    //   imgContainer.children[2].style.display='none';
+    // }
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -282,15 +298,17 @@ function renderUserChoice(e){
     return createNextBtn();
     
   } else if(eTargetColor!==correctColor1&&eTargetColor!==correctColor2&&clickCount===1){
+    // first one wrong
+    clearPexelsLink();
     e.target.textContent='X';
 
     // showRound(roundCounter);
     yourMixEl.style.backgroundColor=eTargetColor;
     imgContainer.children[0].style.display='none';
-    imgContainer.children[1].style.display='none';
-    if (imgContainer.children[2]) {
-      imgContainer.children[2].style.display='none';
-    }
+    // imgContainer.children[1].style.display='none';
+    // if (imgContainer.children[2]) {
+    //   imgContainer.children[2].style.display='none';
+    // }
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -298,6 +316,7 @@ function renderUserChoice(e){
         const img = document.createElement('img');
         img.setAttribute('class', 'yesno');
         img.src = data.image;
+        // TODO: remove pexel img
         imgContainer.append(img);
       })
     .catch(error => console.error(error));
@@ -308,6 +327,8 @@ function renderUserChoice(e){
    
  const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(correctCount===2){
+      // both correct
+      clearPexelsLink();
 
       score = score + 10;
 
@@ -317,10 +338,10 @@ function renderUserChoice(e){
       yourMixEl.style.display='none';
       targetColourEl.style.display='none';
       imgContainer.children[0].style.display='none';
-      imgContainer.children[1].style.display='none';
-      if (imgContainer.children[2]) {
-        imgContainer.children[2].style.display='none';
-      }
+      // imgContainer.children[1].style.display='none';
+      // if (imgContainer.children[2]) {
+      //   imgContainer.children[2].style.display='none';
+      // }
       
       greatMix.style.display='flex';
       greatMix.style.justifyContent = 'center';
@@ -389,7 +410,7 @@ function resetGame(e) {
   }
 
 // change number of rounds
-  if (roundCounter===11){
+  if (roundCounter===5){
     showGameOver();
     setFinalScore(score);
     return
@@ -609,22 +630,40 @@ document.addEventListener('DOMContentLoaded', function() {
 function formsubmitHandler(e){
   e.preventDefault();
   searchInput=input.value;
-  imgContainer.children[0].style.display='none';
-  imgContainer.children[1].style.display='none';
-  if (imgContainer.children[2]){
-    imgContainer.children[2].style.display='none';
-  }
-  pexelsLink.remove();
+  if (searchInput===''){
+    return;
+  };
+  // imgContainer.children[0].style.display='none';  // prev photo
+  // imgContainer.children[1].style.display='none';  // current photo
+  // if (imgContainer.children[2]){
+  //   imgContainer.children[2].style.display='none';
+  // }
+
   generatePhoto();
+}
+
+function clearPexelsLink(){
+  // target pexel link and remove
+  document.querySelectorAll('.pexelsLink').forEach(function(pexelsLink){
+    pexelsLink.remove();
+  });
 }
 
 playAgainBtn.addEventListener('click', function(){
   location.reload();
 })
 
+const seaarchIcon = document.getElementById('seaarchIcon');
+const autocompleteInput = document.getElementById('autocomplete-input');
 
-
-searchForm.addEventListener('submit', formsubmitHandler)
+autocompleteInput.addEventListener('autocompleteselect', function(e){
+  e.preventDefault();
+  searchInput=e.detail;
+  console.log(e.detail);
+  searchForm.submit();
+});
+seaarchIcon.addEventListener('click', formsubmitHandler);
+searchForm.addEventListener('submit', formsubmitHandler);
 userChoiceContainer.addEventListener('click', renderUserChoice);
 startBtn.addEventListener('click', generatePhoto);
 clearScoresBtn.addEventListener("click", clearHighScores);
