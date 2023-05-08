@@ -16,6 +16,7 @@ const startContainer = document.querySelector('.startContainer');
 const section1El = document.querySelector('.section1');
 const section2El = document.querySelector('.section2');
 const colorContainer = document.querySelector('.colorContainer');
+const scoreContainer = document.querySelector('.scoreContainer');
 const greatMix =document.querySelector('.greatMix');
 const photoImg = document.querySelector('.photoImg');
 const yesno = document.querySelector('.yesno');
@@ -30,6 +31,7 @@ const detectedLabel= document.querySelector('.detectedLabelContainer')
 const startBtn = document.querySelector('.startBtn');
 const highScoreBtn = document.querySelector('.highScore')
 const playAgainBtn = document.querySelector('#play-again-button');
+const submitBtn = document.getElementById('submit-button')
 const clearScoresBtn = document.querySelector('#clear-scores');
 const gameOverDiv = document.getElementById('game-over');
 const highScoresDiv = document.getElementById('high-scores');
@@ -143,13 +145,16 @@ function createDominantColor(photoUrl){
       searchlabelEl.style.color=dominantRGB;
       homeEL.style.color=dominantRGB;
       highScoreEL.style.color=dominantRGB;
+      submitBtn.style.color=dominantRGB;
 
       luminance = 0.2126 *(targetR/255) + 0.7152*(targetG/255) + 0.0722*(targetB/255);
       console.log(luminance);
       if (luminance>=0.65){
         header.style.background = 'linear-gradient(to right, rgb(61, 28, 81), rgb(70, 54, 189), rgb(164, 31, 198), rgb(118, 23, 88))';
+        submitBtn.style.background = 'linear-gradient(to right, rgb(61, 28, 81), rgb(70, 54, 189), rgb(164, 31, 198), rgb(118, 23, 88))';
       }else{
         header.style.background = 'linear-gradient(to right, rgb(213, 195, 224), rgb(238, 238, 199), rgb(239, 255, 186), rgb(248, 215, 252))';
+        submitBtn.style.background = 'linear-gradient(to right, rgb(213, 195, 224), rgb(238, 238, 199), rgb(239, 255, 186), rgb(248, 215, 252))';
       }
 
       const labels = data.responses[0].labelAnnotations;
@@ -391,7 +396,7 @@ function resetGame(e) {
   }
 
 // change number of rounds
-  if (roundCounter===11){
+  if (roundCounter===2){
     showGameOver();
     setFinalScore(score);
     return
@@ -549,7 +554,7 @@ function showRound(roundCounter) {
 }
 
 function showHighScores() {
-  header.style.display='none';
+  
   highScoresDiv.style.display = 'inline-block';
   highScoresList.style.display = 'inline-block';
   section1El.style.display = 'none';
@@ -558,8 +563,10 @@ function showHighScores() {
 
 function showGameOver(){
   
-  gameOverDiv.style.display = 'inline-block';
-  header.style.display='none';
+  gameOverDiv.style.display = 'block';
+  scoreContainer.style.display = 'none';
+  searchForm.style.display = 'none';
+  header.style.display='inline-block';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
 }

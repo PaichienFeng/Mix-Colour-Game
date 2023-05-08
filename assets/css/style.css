@@ -101,12 +101,33 @@ header span{
 
 }
 
+#submit-button {
+    
+    color:rgb(73, 82, 87);
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    font-weight: normal;
+    width: 80px;
+    height: 28px;
+    font-size: 17px;
+    background-image: linear-gradient(
+        to right,
+       
+        rgb(213, 195, 224),
+        rgb(238, 238, 199),
+        rgb(239, 255, 186),
+        rgb(248, 215, 252)
+      );
+}
+
 .buttonContainer{
     max-width: fit-content;
 }
 
-.highScore:hover{
+.highScore:hover , #submit-button:hover {
     background-color: rgb(247, 159, 159);
+    
 }
 
 .imgContainer{
@@ -326,6 +347,8 @@ header span{
     background-color: #f7f4f4;
     border-radius: 5px;
     border-color: black;
+    width: 100px;
+    text-align: center;
 }
 
 .detectedLabelContainer{
