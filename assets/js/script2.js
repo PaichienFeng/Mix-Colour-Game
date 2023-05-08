@@ -151,6 +151,8 @@ function createDominantColor(photoUrl){
 
       highScoresDiv.style.color = highScoreEL.style.color;
       clearScoresBtn.style.color = highScoreEL.style.color;
+      gameOverDiv.style.color = highScoreEL.style.color;
+      playAgainBtn.style.color = highScoreEL.style.color;
 
       luminance = 0.2126 *(targetR/255) + 0.7152*(targetG/255) + 0.0722*(targetB/255);
       console.log(luminance);
