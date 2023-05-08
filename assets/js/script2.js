@@ -1,7 +1,7 @@
 const apiKeyGoogle = 'AIzaSyCJQFU6dWV2tmO-TLWfMaMllqWrovdakNI';
 const apiKeyPexels = 'eQmcoa0bs5xZRI97pNTcEXQPqckk3bqAMcYkgIHiULTWD7GeBJz1O15f';
 const imgContainer = document.querySelector('.imgContainer');
-const creditLineEl = document.querySelector('.creditLine');
+// const creditLineEl = document.querySelector('.creditLine');
 const homeEL = document.querySelector('.home');
 const highScoreEL = document.querySelector('.highScore')
 const header = document.querySelector('.header');
@@ -29,7 +29,6 @@ const ratingMessageSpan = document.getElementById('rating-message');
 const searchForm= document.querySelector('.searchForm');
 const gameOver = document.getElementById('game-over');
 const highScores = document.getElementById('high-scores');
-const detectedLabel= document.querySelector('.detectedLabelContainer');
 const startBtn = document.querySelector('.startBtn');
 const highScoreBtn = document.querySelector('.highScore');
 const playAgainBtn = document.querySelector('#play-again-button');
@@ -42,11 +41,11 @@ const highScoreForm = document.getElementById("high-score-form");
 const searchlabelEl = document.getElementById('label');
 
 const randomPage = Math.floor(Math.random() * 100) + 1;
-
+M.AutoInit();
 let searchInput= 'nature';
 let score = 0;
 let roundCounter = 1;
-let pexelsLink;
+
 
 
 function generatePhoto(){
@@ -79,18 +78,17 @@ function generatePhoto(){
     const imageEL = document.createElement('img');
     imageEL.setAttribute('src', photoUrl);
     imageEL.classList.add('photoImg');
+    imgContainer.textContent = '';
     imgContainer.append(imageEL);
   
-    pexelsLink = document.createElement('a');
-    pexelsLink.href =photo.photographer_url;
-    pexelsLink.textContent= 'Photo by '+ photo.photographer + ' on Pexels';
-    pexelsLink.style.position= 'absolute';
-    pexelsLink.style.bottom= '10px';
-    pexelsLink.style.right='10px'
-    imgContainer.append(pexelsLink);
   
-    createDominantColor(photoUrl);})
-  .catch(error => console.error(error));
+    createDominantColor(photoUrl, photo);})
+  .catch(error => {
+    console.error(error);
+    const modal= document.getElementById('no-results-modal');
+    // modal.style.display='block';
+    M.Modal.getInstance(modal).open();
+  });
     };
 
 let targetR;
@@ -102,7 +100,7 @@ let dominantRGB;
 let luminance;
 
 
-function createDominantColor(photoUrl){
+function createDominantColor(photoUrl, photo){
     const googleVisionAPIUrl = `https://vision.googleapis.com/v1/images:annotate?key=${apiKeyGoogle}`;
     const requestData = {
       "requests": [
@@ -147,6 +145,9 @@ function createDominantColor(photoUrl){
       searchlabelEl.style.color=dominantRGB;
       homeEL.style.color=dominantRGB;
       highScoreEL.style.color=dominantRGB;
+
+      searchForm.style.color=dominantRGB;
+
       submitBtn.style.color=dominantRGB;
 
       highScoresDiv.style.color = highScoreEL.style.color;
@@ -167,8 +168,16 @@ function createDominantColor(photoUrl){
       const labels = data.responses[0].labelAnnotations;
       labels.sort((a, b) => b.score - a.score);
       const bestLabel = labels[0].description;
-      detectedLabel.children[0].textContent=bestLabel;
-      imgContainer.append(detectedLabel);
+
+
+      const pexelsLink = document.createElement('a');
+      pexelsLink.classList.add('pexelsLink');
+      pexelsLink.href =photo.photographer_url;
+      pexelsLink.innerHTML= bestLabel + '<br>Photo by '+ photo.photographer + ' on Pexels';
+      pexelsLink.style.position= 'absolute';
+      pexelsLink.style.bottom= '30px';
+      pexelsLink.style.right='10px'
+      imgContainer.append(pexelsLink);
 
       generateRandomChoice(targetR, targetG, targetB);
 }).catch(error => console.error(error));
@@ -264,6 +273,10 @@ function renderUserChoice(e){
    
   
   prevTarget = e.target;
+
+  // when to clear pexel
+  // 1. user click on wrong color
+  // 2. user got it right
   
   if(!e.target.classList.contains('userChoice')){
     return;
@@ -274,10 +287,13 @@ function renderUserChoice(e){
   
     console.log(correctCount)
   }else if(clickCount===2 && correctCount===1){
+    // this is first right, second wrong
+    clearPexelsLink();
+
     e.target.textContent='X';
     yourMixEl.style.backgroundColor=mixdColorRGB;
     imgContainer.children[0].style.display='none';
-    imgContainer.children[1].style.display='none';
+    // imgContainer.children[1].style.display='none';
     // if (imgContainer.children[2]) {
     //   imgContainer.children[2].style.display='none';
     // }
@@ -295,12 +311,14 @@ function renderUserChoice(e){
     return createNextBtn();
     
   } else if(eTargetColor!==correctColor1&&eTargetColor!==correctColor2&&clickCount===1){
+    // first one wrong
+    clearPexelsLink();
     e.target.textContent='X';
 
     // showRound(roundCounter);
     yourMixEl.style.backgroundColor=eTargetColor;
     imgContainer.children[0].style.display='none';
-    imgContainer.children[1].style.display='none';
+    // imgContainer.children[1].style.display='none';
     // if (imgContainer.children[2]) {
     //   imgContainer.children[2].style.display='none';
     // }
@@ -311,6 +329,7 @@ function renderUserChoice(e){
         const img = document.createElement('img');
         img.setAttribute('class', 'yesno');
         img.src = data.image;
+        // TODO: remove pexel img
         imgContainer.append(img);
       })
     .catch(error => console.error(error));
@@ -321,6 +340,8 @@ function renderUserChoice(e){
    
  const gifyesUrl='https://yesno.wtf/api?force=yes';
     if(correctCount===2){
+      // both correct
+      clearPexelsLink();
 
       score = score + 10;
 
@@ -330,7 +351,7 @@ function renderUserChoice(e){
       yourMixEl.style.display='none';
       targetColourEl.style.display='none';
       imgContainer.children[0].style.display='none';
-      imgContainer.children[1].style.display='none';
+      // imgContainer.children[1].style.display='none';
       // if (imgContainer.children[2]) {
       //   imgContainer.children[2].style.display='none';
       // }
@@ -389,7 +410,6 @@ function resetGame(e) {
   targetR = '';
   targetG = '';
   targetB = '';
-  detectedLabel.children[0].textContent='';
   luminance='';
   correctColor1 = '';
   correctColor2 = '';
@@ -403,7 +423,9 @@ function resetGame(e) {
   }
 
 // change number of rounds
-  if (roundCounter===2){
+
+  if (roundCounter===5){
+
     showGameOver();
     setFinalScore(score);
     return
@@ -636,20 +658,40 @@ document.addEventListener('DOMContentLoaded', function() {
 function formsubmitHandler(e){
   e.preventDefault();
   searchInput=input.value;
-  imgContainer.children[0].style.display='none';
-  imgContainer.children[1].style.display='none';
-  imgContainer.children[2].style.display='none';
-  pexelsLink.remove();
+  if (searchInput===''){
+    return;
+  };
+  // imgContainer.children[0].style.display='none';  // prev photo
+  // imgContainer.children[1].style.display='none';  // current photo
+  // if (imgContainer.children[2]){
+  //   imgContainer.children[2].style.display='none';
+  // }
+
   generatePhoto();
+}
+
+function clearPexelsLink(){
+  // target pexel link and remove
+  document.querySelectorAll('.pexelsLink').forEach(function(pexelsLink){
+    pexelsLink.remove();
+  });
 }
 
 playAgainBtn.addEventListener('click', function(){
   location.reload();
 })
 
+const seaarchIcon = document.getElementById('seaarchIcon');
+const autocompleteInput = document.getElementById('autocomplete-input');
 
-
-searchForm.addEventListener('submit', formsubmitHandler)
+autocompleteInput.addEventListener('autocompleteselect', function(e){
+  e.preventDefault();
+  searchInput=e.detail;
+  console.log(e.detail);
+  searchForm.submit();
+});
+seaarchIcon.addEventListener('click', formsubmitHandler);
+searchForm.addEventListener('submit', formsubmitHandler);
 userChoiceContainer.addEventListener('click', renderUserChoice);
 startBtn.addEventListener('click', generatePhoto);
 clearScoresBtn.addEventListener("click", clearHighScores);

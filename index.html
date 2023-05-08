@@ -27,7 +27,7 @@
                   <i class="material-icons prefix">textsms</i>
                   <input type="text" id="autocomplete-input" class="autocomplete">
                   <label id='label' for="autocomplete-input">e.g., landscape</label>
-                  <i class="material-icons search-icon">search</i>
+                  <i id=seaarchIcon type='click' class="material-icons search-icon">search</i>
                 </div>
             </form>
             
@@ -44,9 +44,7 @@
 
     <div class="section1">  
         <div class="imgContainer">
-            <div class="detectedLabelContainer">
-                <div></div>
-            </div>
+            
             <div class="loading"></div>
         </div>
      
@@ -101,6 +99,16 @@
         <button type="click" id="clear-scores" class="row col 12">Clear Scores</button>
       </div>
     </div>
+
+    <div id="no-results-modal" class="modal">
+        <div class="modal-content">
+          <h4>Error</h4>
+          <p>Please search another topic.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+        </div>
+      </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="module" src="assets/js/script2.js"></script>

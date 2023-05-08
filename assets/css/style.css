@@ -142,6 +142,11 @@ header span{
 
 .buttonContainer{
     max-width: fit-content;
+    margin-left: 0!important;
+}
+
+.navbar{
+    display: flex;
 }
 
 .highScore:hover , #submit-button:hover {
@@ -170,6 +175,8 @@ header span{
     padding: 2px;
     height: 25px;
     font-weight: 300;
+    text-align: end;
+    
 }
 
 .imgContainer a:hover{
@@ -249,7 +256,7 @@ header span{
 }
 
 .startContainer{
-    height: 500px;
+    height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -320,24 +327,6 @@ header span{
     color:rgb(73, 82, 87);
 }
 
-.loading{
-    display: none; /* Hide the loading element initially */
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border-top-color: #3498db;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
 
   .imgContainer-hidden {
     visibility: hidden;
@@ -374,4 +363,36 @@ header span{
     left: 15px;
     max-width: fit-content;
     font-size: 17px;
+}
+
+#no-results-modal{
+    display: none;
+}
+
+#no-results-modal{
+    color: grey;
+}
+
+
+@media screen and (max-width: 768px) {
+    .home{
+        font-size: small;
+    }
+    .highScore{
+        font-size: small;
+    }
+    .buttonContainer{
+        position: relative;
+        bottom: 10px;
+    }
+    .searchBar{
+        flex: 100%;
+    }
+    .current-round{
+        font-size: small;
+    }
+    .current-score{
+        font-size: small;
+    }
+
 }
