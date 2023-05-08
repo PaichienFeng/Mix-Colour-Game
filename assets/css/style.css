@@ -8,13 +8,14 @@ body {
 
 .header{
     position: relative;
+    top: auto;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5px;
     margin-top: 10px;
     width: 800px;
     min-width: 250px;
-    height: 140px;
+    height: 160px;
     background-image: linear-gradient(
         to right,
        
@@ -147,6 +148,8 @@ header span{
 
 .navbar{
     display: flex;
+    position: relative;
+    bottom: -15px;
 }
 
 .highScore:hover , #submit-button:hover {
@@ -176,7 +179,9 @@ header span{
     height: 25px;
     font-weight: 300;
     text-align: end;
-    
+    height: 50px;
+    background-color: rgb(172, 162, 162, 0.5);
+    border-radius: 5px;
 }
 
 .imgContainer a:hover{
@@ -323,7 +328,6 @@ header span{
 .current-round{
     font-size: 17px;
     font-weight: normal;
-    margin-left: 10px;
     color:rgb(73, 82, 87);
 }
 

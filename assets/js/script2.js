@@ -80,6 +80,7 @@ function generatePhoto(){
     imageEL.classList.add('photoImg');
     imgContainer.textContent = '';
     imgContainer.append(imageEL);
+    highScoresDiv.style.display='none';
   
   
     createDominantColor(photoUrl, photo);})
@@ -173,10 +174,11 @@ function createDominantColor(photoUrl, photo){
       const pexelsLink = document.createElement('a');
       pexelsLink.classList.add('pexelsLink');
       pexelsLink.href =photo.photographer_url;
-      pexelsLink.innerHTML= bestLabel + '<br>Photo by '+ photo.photographer + ' on Pexels';
+      pexelsLink.textContent = bestLabel + '\nPhoto by ' + photo.photographer + ' on Pexels';
+      pexelsLink.style.whiteSpace = 'pre-wrap';
       pexelsLink.style.position= 'absolute';
-      pexelsLink.style.bottom= '30px';
-      pexelsLink.style.right='10px'
+      pexelsLink.style.bottom= '15px';
+      pexelsLink.style.right='10px';
       imgContainer.append(pexelsLink);
 
       generateRandomChoice(targetR, targetG, targetB);
@@ -518,7 +520,7 @@ function setFinalScore() {
 }
 
 function showHighScore() {
-  highScoresDiv.style.display = "inline-block";
+  highScoresDiv.style.display = "block";
 }
 
 // highscore
@@ -595,7 +597,7 @@ function showRound(roundCounter) {
 
 function showHighScores() {
   
-  highScoresDiv.style.display = 'inline-block';
+  highScoresDiv.style.display = 'block';
   highScoresList.style.display = 'inline-block';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
