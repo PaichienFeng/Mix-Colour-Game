@@ -13,7 +13,7 @@ body {
     margin-right: auto;
     margin-bottom: 5px;
     margin-top: 10px;
-    width: 800px;
+    max-width: 800px;
     min-width: 250px;
     height: 160px;
     background-image: linear-gradient(
@@ -27,7 +27,7 @@ body {
     border-radius: 10px;
     display: none;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     
 }
@@ -71,7 +71,7 @@ header span{
     border-radius: 5px;
     border-style: none;
     cursor: pointer;
-    font-weight: normal;
+    font-weight: 400;
     width: 80px;
     height: 28px;
     font-size: 17px;
@@ -95,7 +95,7 @@ header span{
     border-radius: 5px;
     border-style: none;
     cursor: pointer;
-    font-weight: normal;
+    font-weight: 400;
     width: 80px;
     height: 28px;
     font-size: 17px;
@@ -108,19 +108,21 @@ header span{
     border-radius: 5px;
     border-style: none;
     cursor: pointer;
-    font-weight: normal;
+    font-weight: 500;
     width: fit-content;
     height: 28px;
     font-size: 17px;
+    font-weight: 500;
     background-color: transparent;
 }
 
 #game-over {
     color:rgb(73, 82, 87);
-    width: 800px;
+    max-width: 800px;
+    min-width: 250px;
     margin-left: auto;
     margin-right: auto;
-    font-weight: normal;
+    font-weight: 500;
     background-color: #f9f9f9;
     border-radius: 10px;
     padding-top: 10px;
@@ -131,7 +133,8 @@ header span{
 #high-scores{
     display: none;
     color:rgb(73, 82, 87);
-    width: 800px;
+    max-width: 800px;
+    min-width: 250px;
     margin-left: auto;
     margin-right: auto;
     font-weight: normal;
@@ -197,12 +200,14 @@ header span{
     border-style: hidden;
     border-radius: 10px;
     background-color: rgb(51, 123, 123);
+    /* color: rgb(85, 85, 85); */
 
 }
 
 .target p {
     font-size: 30px;
     font-weight: 300;
+    border-style: none;
 }
 
 .yourMix{
@@ -215,12 +220,12 @@ header span{
     border-radius: 10px;
     background-color: rgb(255, 123, 123);
     
+    
 }
 
 .yourMix p{
     font-size: 30px;
     font-weight: 300;
-
 }
 
 .userChoice{
@@ -275,7 +280,7 @@ header span{
     cursor: pointer;
     color: white;
     font-size: large;
-    font-weight: 100px;
+    font-weight: 400;
     background-color: rgb(51, 123, 123);
     box-shadow: 0 0 50px;
 
@@ -321,7 +326,7 @@ header span{
     font-size: 17px;
     font-weight: normal;
     color:rgb(73, 82, 87);
-    
+    display: block;
 }
 
 
@@ -329,6 +334,7 @@ header span{
     font-size: 17px;
     font-weight: normal;
     color:rgb(73, 82, 87);
+    display: block;
 }
 
 
@@ -350,6 +356,7 @@ header span{
     background-color: white;
     height: fit-content;
     width: 220px;
+    border-radius: 5px;
     display: inline-block;
 }
 
@@ -377,26 +384,112 @@ header span{
     color: grey;
 }
 
+#dropdownMenu{
+    display: none;
+}
+
+#dropdown1{
+    border-radius: 5px;
+}
+
+.searchBar ul{
+    border-radius: 5px;
+}
+
 
 @media screen and (max-width: 768px) {
-    .home{
-        font-size: small;
-    }
-    .highScore{
-        font-size: small;
-    }
-    .buttonContainer{
-        position: relative;
-        bottom: 10px;
-    }
-    .searchBar{
-        flex: 100%;
-    }
-    .current-round{
-        font-size: small;
-    }
-    .current-score{
-        font-size: small;
+
+    .header h3{
+        font-size: 30px;
     }
 
+    .header h5{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .play-learnContainer{
+        display: flex;
+    }
+
+    .buttonContainer{
+        display: none;
+    }
+
+    #dropdownMenu{
+        display: inline-block;
+        position: absolute;
+        left: 20px;
+        background-color: none !important;
+    }
+
+    #dropdownMenu{
+        background-color: none;
+
+    }
+
+    .scoreContainer{
+        width: 30%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .current-score{
+        display: block;
+        font-size: small!important;
+        width: 100%;
+    }
+
+    .current-round{
+        font-size: small!important;
+        width: 100%;
+        display: block;
+    }
+
+    .searchForm{
+        width: 100%;
+        margin-left: 0%!important;
+    }
+    
+    .imgContainer img{
+        height: 250px;
+    }
+
+    .yourMix, .target{
+        height: 200px;
+    }
+
+    .target p{
+        font-size: 20px;
+    }
+
+    .yourMix p{
+        font-size: 20px;
+    }
+
+    .imgContainer a{
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .userChoice{
+        width: 70px;
+        height: 70px;
+    }
+
+    #dropdown1{
+        border-radius: 5px;
+    }
+
+    .searchBar ul{
+        border-radius: 5px;
+    }
+    .sidenav-trigger{
+        color:rgb(73, 82, 87);
+    }
+
+    #game-over{
+        
+    }
 }

@@ -15,14 +15,27 @@
 <body>
     <header class="header row ">
         <h3 class="title col s12">Mix Colour Game</h3>
-        <h5 class="subtitle col s12">Play & Learn</h5>
-        
+        <div class="play-learnContainer">
+            <div id="dropdownMenu">
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-trigger sidenav-trigger' href='#' data-target='dropdown1'><i class="material-icons">menu</i></a>
+                <!-- Dropdown Structure -->
+                <ul id='dropdown1' class='dropdown-content'>
+                    <li><a class='mobileHome'href="#!">Home</a></li>
+                    <li><a class='mobileHighscore'href="#!">Highscore</a></li>
+                </ul>
+            </div>
+            
+            <h5 class="subtitle col s12">Play & Learn</h5>
+        </div>
+
         <div class="navbar row col s12">
             <div class="buttonContainer col s4">
                 <div class="home">Home</div>
                 <div class="highScore">Highscore</div>
             </div>
-            <form class="searchForm col s6">
+
+            <form class="searchForm col s9">
                 <div class="input-field searchBar ">
                   <i class="material-icons prefix">textsms</i>
                   <input type="text" id="autocomplete-input" class="autocomplete">
@@ -31,7 +44,7 @@
                 </div>
             </form>
             
-            <div class="scoreContainer col s2">
+            <div class="scoreContainer col s3">
                 <span class="current-score"></span>
                 <span class="current-round"></span>
             </div>
@@ -91,7 +104,7 @@
 
     <!-- high score section -->
     <div id="high-scores">
-      <h3 class="row col 12">⭐ High Scores ⭐</h2>
+      <h3 class="row col 12"id='high-scores-titile'>⭐ High Scores ⭐</h2>
       <span class="row col 12" id="score-message"></span>
       <ol id="high-scores-list" class="row col 12"></ol>
       <div>
