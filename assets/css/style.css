@@ -118,7 +118,8 @@ header span{
 
 #game-over {
     color:rgb(73, 82, 87);
-    width: 800px;
+    max-width: 800px;
+    min-width: 250px;
     margin-left: auto;
     margin-right: auto;
     font-weight: 500;
@@ -132,7 +133,8 @@ header span{
 #high-scores{
     display: none;
     color:rgb(73, 82, 87);
-    width: 800px;
+    max-width: 800px;
+    min-width: 250px;
     margin-left: auto;
     margin-right: auto;
     font-weight: normal;
@@ -386,6 +388,13 @@ header span{
     display: none;
 }
 
+#dropdown1{
+    border-radius: 5px;
+}
+
+.searchBar ul{
+    border-radius: 5px;
+}
 
 
 @media screen and (max-width: 768px) {
@@ -413,6 +422,11 @@ header span{
         position: absolute;
         left: 20px;
         background-color: none !important;
+    }
+
+    #dropdownMenu{
+        background-color: none;
+
     }
 
     .scoreContainer{
@@ -462,5 +476,20 @@ header span{
     .userChoice{
         width: 70px;
         height: 70px;
+    }
+
+    #dropdown1{
+        border-radius: 5px;
+    }
+
+    .searchBar ul{
+        border-radius: 5px;
+    }
+    .sidenav-trigger{
+        color:rgb(73, 82, 87);
+    }
+
+    #game-over{
+        
     }
 }

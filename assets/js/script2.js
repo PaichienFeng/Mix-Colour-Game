@@ -40,6 +40,9 @@ const highScoresList = document.getElementById("high-scores-list");
 const highScoreForm = document.getElementById("high-score-form");
 const searchlabelEl = document.getElementById('label');
 const highScoresTitle= document.getElementById('high-scores-titile');
+const hamburger = document.querySelector('.sidenav-trigger i');
+const mobileHome =document.querySelector('.mobileHome');
+const mobileHighscore = document.querySelector('.mobileHighscore');
 
 M.AutoInit();
 let searchInput= 'nature';
@@ -148,6 +151,7 @@ function createDominantColor(photoUrl, photo){
       highScoreEL.style.color=dominantRGB;
       searchForm.style.color=dominantRGB;
       submitBtn.style.color=dominantRGB;
+      hamburger.style.color=dominantRGB;
 
       
       gameOverDiv.style.color = dominantRGB;
@@ -612,7 +616,7 @@ function showGameOver(){
   gameOverDiv.style.display = 'block';
   scoreContainer.style.display = 'none';
   searchForm.style.display = 'none';
-  header.style.display='block';
+  header.style.display='flex';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
 };
@@ -620,6 +624,11 @@ function showGameOver(){
 homeEL.addEventListener('click', function(){
     location.reload();
     input.value="";
+})
+
+mobileHome.addEventListener('click', function(){
+  location.reload();
+  input.value="";
 })
 
 const input = document.getElementById('autocomplete-input');
@@ -703,6 +712,25 @@ startBtn.addEventListener('click', generatePhoto);
 clearScoresBtn.addEventListener("click", clearHighScores);
 
 highScoreBtn.addEventListener('click', function() {
+
+  showHighScores();
+
+  playAgainBtn.style.display = 'none';
+  const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+  
+  highScoresList.innerHTML = '';
+
+  highScores.forEach(function(highScore) {
+    const li = document.createElement('li');
+    li.textContent = highScore.initials + " - " + highScore.score;
+    highScoresList.appendChild(li);
+  });
+
+  highScoresDiv.style.display = 'block';
+  gameOverDiv.style.display = 'none';
+});
+
+mobileHighscore.addEventListener('click', function() {
 
   showHighScores();
 
