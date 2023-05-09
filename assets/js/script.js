@@ -41,7 +41,7 @@ const highScoresTitle= document.getElementById('high-scores-titile');
 const hamburger = document.querySelector('.sidenav-trigger i');
 const mobileHome =document.querySelector('.mobileHome');
 const mobileHighscore = document.querySelector('.mobileHighscore');
-
+const initialLabel = document.getElementById('initialLabel');
 M.AutoInit();
 let searchInput= 'nature';
 let score = 0;
@@ -150,6 +150,7 @@ function createDominantColor(photoUrl, photo){
       gameOverDiv.style.color = dominantRGB;
       clearScoresBtn.style.color = dominantRGB;
       playAgainBtn.style.color = dominantRGB;
+      initialLabel.style.color= dominantRGB;
 
       luminance = 0.2126 *(targetR/255) + 0.7152*(targetG/255) + 0.0722*(targetB/255);
       // console.log(luminance);
