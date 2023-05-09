@@ -434,7 +434,7 @@ function resetGame(e) {
 
 // change number of rounds
 
-  if (roundCounter===2){
+  if (roundCounter===11){
 
     showGameOver();
     setFinalScore(score);
