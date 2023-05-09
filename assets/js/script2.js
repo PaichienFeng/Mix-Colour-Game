@@ -39,8 +39,11 @@ const highScoresDiv = document.getElementById('high-scores');
 const highScoresList = document.getElementById("high-scores-list");
 const highScoreForm = document.getElementById("high-score-form");
 const searchlabelEl = document.getElementById('label');
+const highScoresTitle= document.getElementById('high-scores-titile');
+const hamburger = document.querySelector('.sidenav-trigger i');
+const mobileHome =document.querySelector('.mobileHome');
+const mobileHighscore = document.querySelector('.mobileHighscore');
 
-const randomPage = Math.floor(Math.random() * 100) + 1;
 M.AutoInit();
 let searchInput= 'nature';
 let score = 0;
@@ -146,21 +149,26 @@ function createDominantColor(photoUrl, photo){
       searchlabelEl.style.color=dominantRGB;
       homeEL.style.color=dominantRGB;
       highScoreEL.style.color=dominantRGB;
-
       searchForm.style.color=dominantRGB;
-
       submitBtn.style.color=dominantRGB;
+      hamburger.style.color=dominantRGB;
 
-      highScoresDiv.style.color = highScoreEL.style.color;
-      clearScoresBtn.style.color = highScoreEL.style.color;
-      gameOverDiv.style.color = highScoreEL.style.color;
-      playAgainBtn.style.color = highScoreEL.style.color;
+      
+      gameOverDiv.style.color = dominantRGB;
+      clearScoresBtn.style.color = dominantRGB;
+      playAgainBtn.style.color = dominantRGB;
 
       luminance = 0.2126 *(targetR/255) + 0.7152*(targetG/255) + 0.0722*(targetB/255);
       console.log(luminance);
       if (luminance>=0.65){
         header.style.background = 'linear-gradient(to right, rgb(61, 28, 81), rgb(70, 54, 189), rgb(164, 31, 198), rgb(118, 23, 88))';
         submitBtn.style.background = 'linear-gradient(to right, rgb(61, 28, 81), rgb(70, 54, 189), rgb(164, 31, 198), rgb(118, 23, 88))';
+        highScoresDiv.style.backgroundColor ='rgb(85, 85, 85)';
+        highScoresList.style.color = dominantRGB;
+        highScoresList.style.backgroundColor= 'rgb(85, 85, 85)';
+        highScoresTitle.style.color = dominantRGB;
+        scoreMessageSpan.style.color = dominantRGB;
+        gameOverDiv.style.backgroundColor = 'rgb(85, 85, 85)';
       }else{
         header.style.background = 'linear-gradient(to right, rgb(213, 195, 224), rgb(238, 238, 199), rgb(239, 255, 186), rgb(248, 215, 252))';
         submitBtn.style.background = 'linear-gradient(to right, rgb(213, 195, 224), rgb(238, 238, 199), rgb(239, 255, 186), rgb(248, 215, 252))';
@@ -426,7 +434,7 @@ function resetGame(e) {
 
 // change number of rounds
 
-  if (roundCounter===5){
+  if (roundCounter===2){
 
     showGameOver();
     setFinalScore(score);
@@ -608,14 +616,19 @@ function showGameOver(){
   gameOverDiv.style.display = 'block';
   scoreContainer.style.display = 'none';
   searchForm.style.display = 'none';
-  header.style.display='inline-block';
+  header.style.display='flex';
   section1El.style.display = 'none';
   section2El.style.display = 'none';
-}
+};
 
 homeEL.addEventListener('click', function(){
     location.reload();
     input.value="";
+})
+
+mobileHome.addEventListener('click', function(){
+  location.reload();
+  input.value="";
 })
 
 const input = document.getElementById('autocomplete-input');
@@ -699,6 +712,25 @@ startBtn.addEventListener('click', generatePhoto);
 clearScoresBtn.addEventListener("click", clearHighScores);
 
 highScoreBtn.addEventListener('click', function() {
+
+  showHighScores();
+
+  playAgainBtn.style.display = 'none';
+  const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+  
+  highScoresList.innerHTML = '';
+
+  highScores.forEach(function(highScore) {
+    const li = document.createElement('li');
+    li.textContent = highScore.initials + " - " + highScore.score;
+    highScoresList.appendChild(li);
+  });
+
+  highScoresDiv.style.display = 'block';
+  gameOverDiv.style.display = 'none';
+});
+
+mobileHighscore.addEventListener('click', function() {
 
   showHighScores();
 
