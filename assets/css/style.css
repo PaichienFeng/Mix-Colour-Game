@@ -13,7 +13,7 @@ body {
     margin-right: auto;
     margin-bottom: 5px;
     margin-top: 10px;
-    width: 800px;
+    max-width: 800px;
     min-width: 250px;
     height: 160px;
     background-image: linear-gradient(
@@ -27,7 +27,7 @@ body {
     border-radius: 10px;
     display: none;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     
 }
@@ -71,7 +71,7 @@ header span{
     border-radius: 5px;
     border-style: none;
     cursor: pointer;
-    font-weight: normal;
+    font-weight: 400;
     width: 80px;
     height: 28px;
     font-size: 17px;
@@ -95,7 +95,7 @@ header span{
     border-radius: 5px;
     border-style: none;
     cursor: pointer;
-    font-weight: normal;
+    font-weight: 400;
     width: 80px;
     height: 28px;
     font-size: 17px;
@@ -108,7 +108,7 @@ header span{
     border-radius: 5px;
     border-style: none;
     cursor: pointer;
-    font-weight: normal;
+    font-weight: 500;
     width: fit-content;
     height: 28px;
     font-size: 17px;
@@ -324,7 +324,7 @@ header span{
     font-size: 17px;
     font-weight: normal;
     color:rgb(73, 82, 87);
-    
+    display: block;
 }
 
 
@@ -332,6 +332,7 @@ header span{
     font-size: 17px;
     font-weight: normal;
     color:rgb(73, 82, 87);
+    display: block;
 }
 
 
@@ -381,26 +382,85 @@ header span{
     color: grey;
 }
 
+#dropdownMenu{
+    display: none;
+}
+
+
 
 @media screen and (max-width: 768px) {
-    .home{
-        font-size: small;
-    }
-    .highScore{
-        font-size: small;
-    }
-    .buttonContainer{
-        position: relative;
-        bottom: 10px;
-    }
-    .searchBar{
-        flex: 100%;
-    }
-    .current-round{
-        font-size: small;
-    }
-    .current-score{
-        font-size: small;
+
+    .header h3{
+        font-size: 30px;
     }
 
+    .header h5{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .play-learnContainer{
+        display: flex;
+    }
+
+    .buttonContainer{
+        display: none;
+    }
+
+    #dropdownMenu{
+        display: inline-block;
+        position: absolute;
+        left: 20px;
+        background-color: none !important;
+    }
+
+    .scoreContainer{
+        width: 30%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .current-score{
+        display: block;
+        font-size: small!important;
+        width: 100%;
+    }
+
+    .current-round{
+        font-size: small!important;
+        width: 100%;
+        display: block;
+    }
+
+    .searchForm{
+        width: 100%;
+        margin-left: 0%!important;
+    }
+    
+    .imgContainer img{
+        height: 250px;
+    }
+
+    .yourMix, .target{
+        height: 200px;
+    }
+
+    .target p{
+        font-size: 20px;
+    }
+
+    .yourMix p{
+        font-size: 20px;
+    }
+
+    .imgContainer a{
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .userChoice{
+        width: 70px;
+        height: 70px;
+    }
 }
