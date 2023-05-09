@@ -1,7 +1,6 @@
 const apiKeyGoogle = 'AIzaSyCJQFU6dWV2tmO-TLWfMaMllqWrovdakNI';
 const apiKeyPexels = 'eQmcoa0bs5xZRI97pNTcEXQPqckk3bqAMcYkgIHiULTWD7GeBJz1O15f';
 const imgContainer = document.querySelector('.imgContainer');
-// const creditLineEl = document.querySelector('.creditLine');
 const homeEL = document.querySelector('.home');
 const highScoreEL = document.querySelector('.highScore')
 const header = document.querySelector('.header');
@@ -27,7 +26,6 @@ const finalScoreSpan = document.querySelector('#final-score');
 const scoreMessageSpan = document.getElementById('score-message');
 const ratingMessageSpan = document.getElementById('rating-message');
 const searchForm= document.querySelector('.searchForm');
-const gameOver = document.getElementById('game-over');
 const highScores = document.getElementById('high-scores');
 const startBtn = document.querySelector('.startBtn');
 const highScoreBtn = document.querySelector('.highScore');
@@ -48,8 +46,6 @@ M.AutoInit();
 let searchInput= 'nature';
 let score = 0;
 let roundCounter = 1;
-
-
 
 function generatePhoto(){
     console.log(searchInput);
@@ -85,12 +81,10 @@ function generatePhoto(){
     imgContainer.append(imageEL);
     highScoresDiv.style.display='none';
   
-  
     createDominantColor(photoUrl, photo);})
   .catch(error => {
     console.error(error);
     const modal= document.getElementById('no-results-modal');
-    // modal.style.display='block';
     M.Modal.getInstance(modal).open();
   });
     };
@@ -102,7 +96,6 @@ let correctColor1;
 let correctColor2;
 let dominantRGB;
 let luminance;
-
 
 function createDominantColor(photoUrl, photo){
     const googleVisionAPIUrl = `https://vision.googleapis.com/v1/images:annotate?key=${apiKeyGoogle}`;
@@ -153,7 +146,6 @@ function createDominantColor(photoUrl, photo){
       searchForm.style.color=dominantRGB;
       submitBtn.style.color=dominantRGB;
       hamburger.style.color=dominantRGB;
-      
       scoreMessageSpan.style.color= dominantRGB;
       gameOverDiv.style.color = dominantRGB;
       clearScoresBtn.style.color = dominantRGB;
@@ -173,12 +165,14 @@ function createDominantColor(photoUrl, photo){
       }else{
         header.style.background = 'linear-gradient(to right, rgb(213, 195, 224), rgb(238, 238, 199), rgb(239, 255, 186), rgb(248, 215, 252))';
         submitBtn.style.background = 'linear-gradient(to right, rgb(213, 195, 224), rgb(238, 238, 199), rgb(239, 255, 186), rgb(248, 215, 252))';
+        highScoresDiv.style.backgroundColor='#f7f4f4';
+        gameOverDiv.style.backgroundColor='#f7f4f4';
+        highScoresList.style.color = dominantRGB;
+        highScoresList.style.backgroundColor = '#f7f4f4';
       }
-
       const labels = data.responses[0].labelAnnotations;
       labels.sort((a, b) => b.score - a.score);
       const bestLabel = labels[0].description;
-
 
       const pexelsLink = document.createElement('a');
       pexelsLink.classList.add('pexelsLink');
@@ -193,8 +187,6 @@ function createDominantColor(photoUrl, photo){
       generateRandomChoice(targetR, targetG, targetB);
 }).catch(error => console.error(error));
 };
-
-
 
 function generateRandomChoice(){
   let randomColors = [
@@ -255,12 +247,9 @@ function generateRandomChoice(){
  return;
 };
 
-
-
 let correctCount= 0;
 let prevTarget = null;
 let clickCount =0;
-
 
 function renderUserChoice(e){
   const gifnoUrl='https://yesno.wtf/api?force=no';
@@ -278,11 +267,8 @@ function renderUserChoice(e){
     
     const prevTargetColor=getComputedStyle(prevTarget).backgroundColor;
     mixdColor(eTargetColor, prevTargetColor);
-
-    // console.log(e.target.classList)
   };  
    
-  
   prevTarget = e.target;
 
   // when to clear pexel
@@ -304,10 +290,7 @@ function renderUserChoice(e){
     e.target.textContent='X';
     yourMixEl.style.backgroundColor=mixdColorRGB;
     imgContainer.children[0].style.display='none';
-    // imgContainer.children[1].style.display='none';
-    // if (imgContainer.children[2]) {
-    //   imgContainer.children[2].style.display='none';
-    // }
+
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -329,10 +312,7 @@ function renderUserChoice(e){
     // showRound(roundCounter);
     yourMixEl.style.backgroundColor=eTargetColor;
     imgContainer.children[0].style.display='none';
-    // imgContainer.children[1].style.display='none';
-    // if (imgContainer.children[2]) {
-    //   imgContainer.children[2].style.display='none';
-    // }
+
     userChoiceContainer.removeEventListener('click', renderUserChoice);
     fetch(gifnoUrl)
     .then(function(response){return response.json()})
@@ -362,10 +342,6 @@ function renderUserChoice(e){
       yourMixEl.style.display='none';
       targetColourEl.style.display='none';
       imgContainer.children[0].style.display='none';
-      // imgContainer.children[1].style.display='none';
-      // if (imgContainer.children[2]) {
-      //   imgContainer.children[2].style.display='none';
-      // }
       
       greatMix.style.display='flex';
       greatMix.style.justifyContent = 'center';
@@ -385,10 +361,7 @@ function renderUserChoice(e){
 
       return createNextBtn();
      };
-
- 
 }
-
 
 function createNextBtn(){
   const nextBtn= document.createElement('button');
@@ -442,8 +415,6 @@ function resetGame(e) {
     return
   }
   
-  highScoresDiv.style.backgroundColor='white';
-  gameOverDiv.style.backgroundColor='white';
   targetColourEl.style.display= 'flex';
   targetColourEl.style.backgroundColor = '';
   greatMix.style.display='none';
@@ -523,9 +494,6 @@ function setFinalScore() {
   finalScoreSpan.textContent = "Your final score is " + score; 
   ratingMessageSpan.textContent = ' Keep practising!';" You must feel so proud!"
 }
-
-
-
 }
 
 function showHighScore() {
@@ -539,8 +507,6 @@ highScoreForm.addEventListener("submit", function(event) {
   gameOverDiv.style.display = "none";
 
   showHighScore();
-  
-  
 
   const initialsInput = document.getElementById("initials");
   
@@ -581,8 +547,6 @@ function getHighScores() {
   return [];
   }
   }
-
-
 
 function printHighScores(highScores) {
   highScoresList.innerHTML = "";
@@ -677,11 +641,6 @@ function formsubmitHandler(e){
   if (searchInput===''){
     return;
   };
-  // imgContainer.children[0].style.display='none';  // prev photo
-  // imgContainer.children[1].style.display='none';  // current photo
-  // if (imgContainer.children[2]){
-  //   imgContainer.children[2].style.display='none';
-  // }
 
   generatePhoto();
 }
