@@ -149,11 +149,12 @@ function createDominantColor(photoUrl, photo){
       searchlabelEl.style.color=dominantRGB;
       homeEL.style.color=dominantRGB;
       highScoreEL.style.color=dominantRGB;
+      highScoresTitle.style.color=dominantRGB;
       searchForm.style.color=dominantRGB;
       submitBtn.style.color=dominantRGB;
       hamburger.style.color=dominantRGB;
-
       
+      scoreMessageSpan.style.color= dominantRGB;
       gameOverDiv.style.color = dominantRGB;
       clearScoresBtn.style.color = dominantRGB;
       playAgainBtn.style.color = dominantRGB;
@@ -432,17 +433,17 @@ function resetGame(e) {
     userChoiceEl[i].style.pointerEvents='auto';
   }
 
-// change number of rounds
+ // change number of rounds
 
-  if (roundCounter===11){
+  if (roundCounter===3){
 
     showGameOver();
     setFinalScore(score);
     return
-    }
+  }
   
-
-  console.log(roundCounter);
+  highScoresDiv.style.backgroundColor='white';
+  gameOverDiv.style.backgroundColor='white';
   targetColourEl.style.display= 'flex';
   targetColourEl.style.backgroundColor = '';
   greatMix.style.display='none';
