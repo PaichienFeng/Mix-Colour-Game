@@ -48,7 +48,7 @@ let score = 0;
 let roundCounter = 1;
 
 function generatePhoto(){
-    console.log(searchInput);
+    // console.log(searchInput);
     input.value="";
     
     setScore(score);
@@ -152,7 +152,7 @@ function createDominantColor(photoUrl, photo){
       playAgainBtn.style.color = dominantRGB;
 
       luminance = 0.2126 *(targetR/255) + 0.7152*(targetG/255) + 0.0722*(targetB/255);
-      console.log(luminance);
+      // console.log(luminance);
       if (luminance>=0.65){
         header.style.background = 'linear-gradient(to right, rgb(61, 28, 81), rgb(70, 54, 189), rgb(164, 31, 198), rgb(118, 23, 88))';
         submitBtn.style.background = 'linear-gradient(to right, rgb(61, 28, 81), rgb(70, 54, 189), rgb(164, 31, 198), rgb(118, 23, 88))';
@@ -242,7 +242,7 @@ function generateRandomChoice(){
   userChoiceEl[i].style.backgroundColor = randomColors[i];
  }
 
- console.log(correctColor1, correctColor2, targetR,targetG,targetB);
+//  console.log(correctColor1, correctColor2, targetR,targetG,targetB);
 
  return;
 };
@@ -282,7 +282,7 @@ function renderUserChoice(e){
     yourMixEl.style.backgroundColor=eTargetColor;
     correctCount++
   
-    console.log(correctCount)
+    // console.log(correctCount);
   }else if(clickCount===2 && correctCount===1){
     // this is first right, second wrong
     clearPexelsLink();
@@ -336,9 +336,9 @@ function renderUserChoice(e){
 
       score = score + 10;
 
-      console.log(roundCounter);
+      // console.log(roundCounter);
       setScore(score);
-      console.log ("this is your score ", score);
+      // console.log ("this is your score ", score);
       yourMixEl.style.display='none';
       targetColourEl.style.display='none';
       imgContainer.children[0].style.display='none';
@@ -408,7 +408,7 @@ function resetGame(e) {
 
  // change number of rounds
 
-  if (roundCounter===3){
+  if (roundCounter===11){
 
     showGameOver();
     setFinalScore(score);
@@ -455,7 +455,7 @@ function mixdColor(eTargetColor, prevTargetColor){
 
   mixdColorRGB = `rgb(${mixedR}, ${mixedG}, ${mixedB})`;
   
-  console.log(mixdColorRGB, r1,g1,b1, r2,g2,b2);
+  // console.log(mixdColorRGB, r1,g1,b1, r2,g2,b2);
 }
 
 
@@ -481,7 +481,7 @@ function setFinalScore() {
   ratingMessageSpan.textContent = 'Aww better luck next time champ!';
   highScoreForm.style.display = 'none';
 } else if (score >= 10 && score <= 30) {
-  console.log('the score is between 0 and 4');
+  // console.log('the score is between 0 and 4');
   finalScoreSpan.textContent = 'Your final score is ' + score; 
   ratingMessageSpan.textContent = 'Keep practising!';
 } else if (score >= 40 && score <= 60) {
@@ -525,7 +525,7 @@ function addHighScore(highScore) {
   let highScores = getHighScores();
   highScores.push(highScore);
   highScores.sort(function(a, b) {
-  console.log(highScores);
+  // console.log(highScores);
   return b.score - a.score;
   });
   highScores = highScores.slice(0, 5);
@@ -662,7 +662,7 @@ const autocompleteInput = document.getElementById('autocomplete-input');
 autocompleteInput.addEventListener('autocompleteselect', function(e){
   e.preventDefault();
   searchInput=e.detail;
-  console.log(e.detail);
+  // console.log(e.detail);
   searchForm.submit();
 });
 seaarchIcon.addEventListener('click', formsubmitHandler);
