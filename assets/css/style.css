@@ -112,6 +112,7 @@ header span{
     width: fit-content;
     height: 28px;
     font-size: 17px;
+    font-weight: 500;
     background-color: transparent;
 }
 
@@ -120,7 +121,7 @@ header span{
     width: 800px;
     margin-left: auto;
     margin-right: auto;
-    font-weight: normal;
+    font-weight: 500;
     background-color: #f9f9f9;
     border-radius: 10px;
     padding-top: 10px;
@@ -197,12 +198,14 @@ header span{
     border-style: hidden;
     border-radius: 10px;
     background-color: rgb(51, 123, 123);
+    /* color: rgb(85, 85, 85); */
 
 }
 
 .target p {
     font-size: 30px;
     font-weight: 300;
+    border-style: none;
 }
 
 .yourMix{
@@ -215,12 +218,12 @@ header span{
     border-radius: 10px;
     background-color: rgb(255, 123, 123);
     
+    
 }
 
 .yourMix p{
     font-size: 30px;
     font-weight: 300;
-
 }
 
 .userChoice{
@@ -350,6 +353,7 @@ header span{
     background-color: white;
     height: fit-content;
     width: 220px;
+    border-radius: 5px;
     display: inline-block;
 }
 
