@@ -43,6 +43,7 @@ const mobileHome =document.querySelector('.mobileHome');
 const mobileHighscore = document.querySelector('.mobileHighscore');
 const initialLabel = document.getElementById('initialLabel');
 const dropdownUL = document.getElementById('dropdown1');
+const initialsEl= document.getElementById('initials')
 
 M.AutoInit();
 let searchInput= 'nature';
@@ -54,7 +55,7 @@ function generatePhoto(){
     input.value="";
     
     setScore(score);
-    const randomPage = Math.floor(Math.random() * 200) + 1;
+    const randomPage = Math.floor(Math.random() * 500) + 1;
     const pexelsURL = `https://api.pexels.com/v1/search?query=${searchInput}&orientation=landscape&per_page=1&page=${randomPage}`;
     setScore(score);
     showRound(roundCounter);
@@ -156,6 +157,7 @@ function createDominantColor(photoUrl, photo){
       input.style.color= dominantRGB;
       mobileHome.style.color=dominantRGB;
       mobileHighscore.style.color=dominantRGB;
+      initialsEl.style.color=dominantRGB;
      
       luminance = 0.2126 *(targetR/255) + 0.7152*(targetG/255) + 0.0722*(targetB/255);
       // console.log(luminance);
@@ -169,7 +171,7 @@ function createDominantColor(photoUrl, photo){
         scoreMessageSpan.style.color = dominantRGB;
         gameOverDiv.style.backgroundColor = 'rgb(85, 85, 85)';
         dropdownUL.style.backgroundColor= 'rgb(85, 85, 85)';
-        
+        initialsEl.style.backgroundColor= 'rgb(85, 85, 85)';
       }else{
         header.style.background = 'linear-gradient(to right, rgb(213, 195, 224), rgb(238, 238, 199), rgb(239, 255, 186), rgb(248, 215, 252))';
         submitBtn.style.background = 'linear-gradient(to right, rgb(213, 195, 224), rgb(238, 238, 199), rgb(239, 255, 186), rgb(248, 215, 252))';
@@ -178,6 +180,8 @@ function createDominantColor(photoUrl, photo){
         dropdownUL.style.backgroundColor='#f7f4f4';
         highScoresList.style.color = dominantRGB;
         highScoresList.style.backgroundColor = '#f7f4f4';
+        initialsEl.style.backgroundColor= '#f7f4f4';
+
       }
       const labels = data.responses[0].labelAnnotations;
       labels.sort((a, b) => b.score - a.score);
